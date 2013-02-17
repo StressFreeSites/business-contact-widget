@@ -71,4 +71,5 @@
 .business-contact canvas.gsCanvas{
     left: 2px !important;
     top: 2px !important;
+    z-index: 20;
 }
