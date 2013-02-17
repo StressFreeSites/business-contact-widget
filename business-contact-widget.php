@@ -3,7 +3,7 @@
 Plugin Name: Business Contact Widget
 Plugin URI: http://stressfreesites.co.uk/plugins/business-contact-widget
 Description: This plugin creates a widget which easily displays, without becoming cluttered, all the business contact details of a company/organisation.
-Version: 1.0
+Version: 2.0
 Author: StressFree Sites
 Author URI: http://stressfreesites.co.uk
 License: GPL2
@@ -34,16 +34,105 @@ add_action('plugins_loaded', 'bcw_init');
 function bcw_enqueue_scripts() {       
     /* Load custom scripts */
     wp_enqueue_script('greyscale', plugins_url('business-contact-widget/js/greyscale.js'), array('jquery'),'1.0',true);
-    wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery','jquery-ui-core','jquery-ui-tabs','greyscale'),'1.0',true); 
+    
+        /* Select which scripts to load */
+    $loadScripts = get_option('bcw_load_scripts', array('jQuery' => 1, 
+                                                     'jQuery-ui-core' => 1,
+                                                     'jQuery-ui-tabs' => 1));
+
+    if(isset($loadScripts['jQuery'])){
+        if(isset($loadScripts['jQuery-ui-core'])){
+            if(isset($loadScripts['jQuery-ui-tabs'])){
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'jquery-ui-core', 'jquery-ui-tabs', 'greyscale'), '1.0', true);
+            }
+            else{
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'jquery-ui-core', 'greyscale'), '1.0', true); 
+            }
+        }
+        else{
+            if(isset($loadScripts['jQuery-ui-tabs'])){
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'jquery-ui-tabs', 'greyscale'), '1.0', true);     
+            }
+            else{
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'greyscale'), '1.0', true);
+            }
+        }
+    }
+    else{
+        if(isset($loadScripts['jQuery-ui-core'])){
+            if(isset($loadScripts['jQuery-ui-tabs'])){
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery-ui-core', 'jquery-ui-tabs', 'greyscale'), '1.0', true);
+            }
+            else{
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery-ui-core', 'greyscale'), '1.0', true);
+            }
+        }
+        else{
+            if(isset($loadScripts['jQuery-ui-tabs'])){
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery-ui-tabs', 'greyscale'), '1.0', true);
+            }
+            else{
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('greyscale'), '1.0', true);
+            }           
+        }     
+    } 
 }    
 add_action('wp_enqueue_scripts', 'bcw_enqueue_scripts');
 
 function bcw_enqueue_styles() { 
     /* Load custom styling */
-    wp_enqueue_style('jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui.css')); 
-    wp_enqueue_style('business-contact-widget-style', plugins_url('business-contact-widget/css/business-contact-widget-style.css'), array('jquery-ui-style')); 
+    
+    /* Load the selected custom style */
+    $loadJqueryUI = get_option('bcw_load_jquery_ui','true');
+    if($loadJqueryUI){
+        $style = get_option('bcw_style','Grey');
+        echo ('style' . $style);
+        switch($style){
+            case 'Grey':
+                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui.css')); 
+                break;
+            case 'Black':
+                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui-black.css'));
+                break;
+            case 'Blue':
+                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui-blue.css'));
+                break;
+            default:
+                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui.css')); 
+                break;
+        }
+        wp_enqueue_style('business-contact-widget-style', plugins_url('business-contact-widget/css/business-contact-widget-style.css'), array('business-contact-widget-jquery-ui-style')); 
+    }
+    else{
+        wp_enqueue_style('business-contact-widget-style', plugins_url('business-contact-widget/css/business-contact-widget-style.css'), array());
+    }
+    
+     
 } 
 add_action('wp_print_styles', 'bcw_enqueue_styles');
+
+/* Admin page functionality */
+function bcw_admin(){
+    include ('business-contact-widget-admin.php');
+}
+function bcw_admin_init(){   
+    wp_register_style('business-contact-widget-style-admin', plugins_url('business-contact-widget/css/business-contact-widget-style-admin.css'));
+}
+add_action('admin_init', 'bcw_admin_init');
+
+function bcw_admin_actions(){
+   /* Register our plugin page */
+   $page = add_options_page('Business Contact Widget','Business Contact Widget', 'manage_options', 'businesscontactwidget', 'bcw_admin');
+
+   /* Using registered $page handle to hook stylesheet loading */
+   add_action('admin_print_styles-' . $page, 'bcw_admin_styles');
+    
+}
+add_action('admin_menu','bcw_admin_actions');
+   
+function bcw_admin_styles() {
+   wp_enqueue_style('business-contact-widget-style-admin');
+}
 
 class Business_Contact_Widget extends WP_Widget {
     function Business_Contact_Widget() {
@@ -60,64 +149,74 @@ class Business_Contact_Widget extends WP_Widget {
     /* Displays widget on website */
     function widget($args, $instance) {
             extract($args);
-
+            
             /* User-selected settings. */
             $title = apply_filters('widget_title', $instance['title']);
-            $telephone = $instance['telephone'];
-            $fax = $instance['fax'];
-            $mobileName = $instance['mobileName'];
-            $mobileNo = $instance['mobileNo'];
-            $mobileName2 = $instance['mobileName2'];
-            $mobileNo2 = $instance['mobileNo2'];
-            $mobileName3 = $instance['mobileName3'];
-            $mobileNo3 = $instance['mobileNo3'];
-            $otherTelephoneName = $instance['otherTelephoneName'];
-            $otherTelephoneNo = $instance['otherTelephoneNo'];
-            $email = $instance['email'];
-            $personalEmailName = $instance['personalEmailName'];
-            $personalEmail = $instance['personalEmail'];
-            $personalEmailName2 = $instance['personalEmailName2'];
-            $personalEmail2 = $instance['personalEmail2'];
-            $personalEmailName3 = $instance['personalEmailName3'];
-            $personalEmail3 = $instance['personalEmail3'];
-            $otherEmailName = $instance['otherEmailName'];
-            $otherEmail = $instance['otherEmail'];            
-            $address = $instance['address'];
+            
+            $widget = get_option('widget_business-contact-widget','');
+
+            $telephone = $widget[2]['telephone'];
+            $fax = $widget[2]['fax'];
+            $mobileName = $widget[2]['mobileName'];
+            $mobileNo = $widget[2]['mobileNo'];
+            $mobileName2 = $widget[2]['mobileName2'];
+            $mobileNo2 = $widget[2]['mobileNo2'];
+            $mobileName3 = $widget[2]['mobileName3'];
+            $mobileNo3 = $widget[2]['mobileNo3'];
+            $otherTelephoneName = $widget[2]['otherTelephoneName'];
+            $otherTelephoneNo = $widget[2]['otherTelephoneNo'];
+            $email = $widget[2]['email'];
+            $personalEmailName = $widget[2]['personalEmailName'];
+            $personalEmail = $widget[2]['personalEmail'];
+            $personalEmailName2 = $widget[2]['personalEmailName2'];
+            $personalEmail2 = $widget[2]['personalEmail2'];
+            $personalEmailName3 = $widget[2]['personalEmailName3'];
+            $personalEmail3 = $widget[2]['personalEmail3'];
+            $otherEmailName = $widget[2]['otherEmailName'];
+            $otherEmail = $widget[2]['otherEmail'];            
+            $address = $widget[2]['address'];
+            $map = $widget[2]['map'];
+            $openingTimes = $widget[2]['openingTimes'];
+            
+            $showTelephone = isset($instance['showTelephone']) ? $instance['showTelephone'] : false;
+            $showEmail = isset($instance['showEmail']) ? $instance['showEmail'] : false;
+            $showAddress = isset($instance['showAddress']) ? $instance['showAddress'] : false;
             $showMap = isset($instance['showMap']) ? $instance['showMap'] : false;
-            $map = $instance['map'];
-            $openingTimes = $instance['openingTimes'];
-            $contact = $instance['contact'];
+            $showOpening = isset($instance['showOpening']) ? $instance['showOpening'] : false;
+            
+            $openTab = $instance['openTab'];
+            
             $createdBy = isset($instance['createdBy']) ? $instance['createdBy'] : false;
 
             /* Before widget (defined by themes). */
             echo $before_widget .'<div class="business-contact">';
-
+            
             /* Title of widget (before and after defined by themes). */
             if ($title)
                     echo $before_title . $title . $after_title;
+
+            /* Tab headers and hidden inputs */
+            echo ('<input type="hidden" id="bcw_openTab" value="' . $openTab . '"><div id="bcw-tabs"><ul>');
             
-            /* Tab headers */
-            echo ('<div id="bcw-tabs"><ul>');
-            
-            if ($telephone || $fax || $mobileNo || $mobileNo2 || $mobileNo3 || $otherTelephoneNo)
+            if ($showTelephone && ($telephone || $fax || $mobileNo || $mobileNo2 || $mobileNo3 || $otherTelephoneNo))
                     echo ('<li><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/telephone.png') . '" class="greyscale"/></a></li>');
 
-            if ($email || $personalEmail || $personalEmail2 || $personalEmail3 || $otherEmail)
+            if ($showEmail && ($email || $personalEmail || $personalEmail2 || $personalEmail3 || $otherEmail))
                     echo ('<li><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/email.png') . '" class="greyscale"/></a></li>');
             
-            if ($address || $showMap)
+            if ($showAddress && $address)
                     echo ('<li><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/address.png') . '" class="greyscale"/></a></li>');
+
+            if ($showMap && $map)
+                    echo ('<li><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/map.png') . '" class="greyscale"/></a></li>');
             
-            if ($openingTimes)
+            if ($showOpening && $openingTimes)
                     echo ('<li><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/clock.png') . '" class="greyscale"/></a></li>');
             
-            if ($contact)
-                    echo ('<li class="contact-tab"><a href="' . $contact . '" target="_blank">' . __('Contact', 'bcw-language') . ':</a></li>');
-
             echo ('</ul>');
             
             /* Tab body content */    
-            if ($telephone || $fax || $mobileNo || $mobileNo2 || $mobileNo3 || $otherTelephoneNo){
+            if ($showTelephone && ($telephone || $fax || $mobileNo || $mobileNo2 || $mobileNo3 || $otherTelephoneNo)){
                     echo ('<div id="bcw-telephone">');
                     
                     if ($telephone)
@@ -141,7 +240,7 @@ class Business_Contact_Widget extends WP_Widget {
                     echo ('</div>');
             }
             
-            if ($email || $personalEmail || $personalEmail2 || $personalEmail3 || $otherEmail){
+            if ($showEmail && ($email || $personalEmail || $personalEmail2 || $personalEmail3 || $otherEmail)){
                 echo ('<div id="bcw-email">');
                 
                 if ($email)
@@ -164,22 +263,20 @@ class Business_Contact_Widget extends WP_Widget {
                 echo ('</div>');
             }
             
-            if ($address || $showMap){
-                    echo ('<div id="bcw-address">');
-                    
-                    if ($address)
-                            echo ('<p><strong>' . __('Address', 'bcw-language') . ':</strong><br/>' . $address . '</a></p>');
-
-                    /* Show map */
-                    if ($showMap)
-                            echo ('<p><strong>' . __('Map', 'bcw-language') . ':</strong><br/>' . $map . '</p>');
-
-                    echo ('</div>');
+            if ($showAddress && $address){
+                    echo ('<div id="bcw-address"><p><strong>' . __('Address', 'bcw-language') . ':</strong><br/>' . $address . '</p></div>');
             }
             
-            if ($openingTimes)
+            
+            /* Show map */
+            if ($showMap && $map){
+                    echo ('<div id="bcw-map"><p><strong>' . __('Map', 'bcw-language') . ':</strong><br/>' . $map . '</p></div>');
+            }
+            
+            if ($showOpening && $openingTimes){
                     echo ('<div id="bcw-clock"><p><strong>' . __('Opening Times', 'bcw-language') . ':</strong><br/> ' . $openingTimes . '</a></p></div>');
-  
+            }
+            
             echo ('</div>');
             
             /* Copyright */
@@ -197,30 +294,15 @@ class Business_Contact_Widget extends WP_Widget {
 
             /* Strip tags (if needed) and update the widget settings. */
             $instance['title'] = strip_tags($new_instance['title']);
-            $instance['telephone'] = strip_tags($new_instance['telephone']);
-            $instance['fax'] = strip_tags($new_instance['fax']);
-            $instance['mobileName'] = strip_tags($new_instance['mobileName']);
-            $instance['mobileNo'] = strip_tags($new_instance['mobileNo']);
-            $instance['mobileName2'] = strip_tags($new_instance['mobileName2']);
-            $instance['mobileNo2'] = strip_tags($new_instance['mobileNo2']);
-            $instance['mobileName3'] = strip_tags($new_instance['mobileName3']);
-            $instance['mobileNo3'] = strip_tags($new_instance['mobileNo3']);
-            $instance['otherTelephoneName'] = strip_tags($new_instance['otherTelephoneName']);
-            $instance['otherTelephoneNo'] = strip_tags($new_instance['otherTelephoneNo']);
-            $instance['email'] = strip_tags($new_instance['email']);
-            $instance['personalEmailName'] = strip_tags($new_instance['personalEmailName']);
-            $instance['personalEmail'] = strip_tags($new_instance['personalEmail']);
-            $instance['personalEmailName2'] = strip_tags($new_instance['personalEmailName2']);            
-            $instance['personalEmail2'] = strip_tags($new_instance['personalEmail2']);
-            $instance['personalEmailName3'] = strip_tags($new_instance['personalEmailName3']);            
-            $instance['personalEmail3'] = strip_tags($new_instance['personalEmail3']); 
-            $instance['otherEmailName'] = strip_tags($new_instance['otherEmailName']);
-            $instance['otherEmail'] = strip_tags($new_instance['otherEmail']);
-            $instance['address'] = nl2br(strip_tags($new_instance['address']));
+            
+            $instance['showTelephone'] = $new_instance['showTelephone'];
+            $instance['showEmail'] = $new_instance['showEmail'];
+            $instance['showAddress'] = $new_instance['showAddress'];
             $instance['showMap'] = $new_instance['showMap'];
-            $instance['map'] = $new_instance['map'];
-            $instance['openingTimes'] = nl2br(strip_tags($new_instance['openingTimes']));
-            $instance['contact'] = strip_tags($new_instance['contact']);
+            $instance['showOpening'] = $new_instance['showOpening'];
+            
+            $instance['openTab'] = $new_instance['openTab'];
+            
             $instance['createdBy'] = $new_instance['createdBy'];        
             return $instance;
     }
@@ -228,101 +310,53 @@ class Business_Contact_Widget extends WP_Widget {
     /* Form for the Wordpress backend */
     function form($instance) {
             /* Set up some default widget settings. */
-            $defaults = array('title' => 'Contact', 
-                              'telephone' => '', 'fax' => '', 'mobileName' => '', 'mobileNo' => '', 'mobileName2' => '', 'mobileNo2' => '', 'mobileName3' => '', 'mobileNo3' => '', 'otherTelephoneName' => '', 'otherTelephoneNo' => '', 
-                              'email' => '', 'personalEmailName' => '', 'personalEmail' => '', 'personalEmailName2' => '', 'personalEmail2' => '', 'personalEmailName3' => '', 'personalEmail3' => '', 'otherEmailName' => '', 'otherEmail' => '',
-                              'address' => '', 'showMap' => 'on', 'map' => '<iframe width="220" height="220" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?client=safari&amp;oe=UTF-8&amp;q=London&amp;ie=UTF8&amp;hq=&amp;hnear=London,+United+Kingdom&amp;gl=uk&amp;t=m&amp;z=11&amp;ll=51.507335,-0.127683&amp;output=embed"></iframe>', 
-                              'openingTimes' => '', 
-                              'contact' => '', 'createdBy' => 'off');
+            $defaults = array('title' => 'Contact',                               
+                              'showTelephone' => 'on', 'showEmail' => 'on', 'showAddress' => 'on', 'showMap' => 'on', 'showOpening' => 'on', 
+                              'showTab' => '1', 'createdBy' => 'off');
             $instance = wp_parse_args((array) $instance, $defaults); ?>
-		<p>
+                <p>
+                    Please add all the contact details through the "<a href="options-general.php?page=businesscontactwidget">Business Contact Widget</a>" settings page.
+                </p>
+                <p>
+                    Select which contact details tabs you would like to bee displayed on this widget. NOTE: tabs will not be displayed if there is no information in them.
+                </p>
+                <p>
 			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', 'bcw-language'); ?>:</label>
 			<input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $instance['title']; ?>" style="width:100%;" />
 		</p>
                 <p>
-			<label for="<?php echo $this->get_field_id('telephone'); ?>"><?php _e('Telephone', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('telephone'); ?>" name="<?php echo $this->get_field_name('telephone'); ?>" value="<?php echo $instance['telephone']; ?>" style="width:100%;" />
+			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showTelephone'); ?>" name="<?php echo $this->get_field_name('showTelephone'); ?>" <?php checked($instance['showTelephone'], 'on'); ?>/>
+			<label for="<?php echo $this->get_field_id('showTelephone'); ?>"><?php _e('Display telephone numbers?', 'bcw-language'); ?></label>
 		</p>
                 <p>
-			<label for="/<?php echo $this->get_field_id('fax'); ?>"><?php _e('Fax', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('fax'); ?>" name="<?php echo $this->get_field_name('fax'); ?>" value="<?php echo $instance['fax']; ?>" style="width:100%;" />
+			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showEmail'); ?>" name="<?php echo $this->get_field_name('showEmail'); ?>" <?php checked($instance['showEmail'], 'on'); ?>/>
+			<label for="<?php echo $this->get_field_id('showEmail'); ?>"><?php _e('Display email addresses?', 'bcw-language'); ?></label>
 		</p>
                 <p>
-			<label for="<?php echo $this->get_field_id('mobileName'); ?>"><?php _e('Mobile Person\'s Name', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('mobileName'); ?>" name="<?php echo $this->get_field_name('mobileName'); ?>" value="<?php echo $instance['mobileName']; ?>" style="width:100%;" />
-			<label for="<?php echo $this->get_field_id('mobileNo'); ?>"><?php _e('Their Mobile Number', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('mobileNo'); ?>" name="<?php echo $this->get_field_name('mobileNo'); ?>" value="<?php echo $instance['mobileNo']; ?>" style="width:100%;" />
-
-                </p>
-                <p>
-			<label for="<?php echo $this->get_field_id('mobileName2'); ?>"><?php _e('2nd Mobile Person\'s Name', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('mobileName2'); ?>" name="<?php echo $this->get_field_name('mobileName2'); ?>" value="<?php echo $instance['mobileName2']; ?>" style="width:100%;" />
-			<label for="<?php echo $this->get_field_id('mobileNo2'); ?>"><?php _e('Their Mobile Number', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('mobileNo2'); ?>" name="<?php echo $this->get_field_name('mobileNo2'); ?>" value="<?php echo $instance['mobileNo2']; ?>" style="width:100%;" />
-
-                </p>
-                <p>
-			<label for="<?php echo $this->get_field_id('mobileName3'); ?>"><?php _e('3rd Mobile Person\'s Name', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('mobileName3'); ?>" name="<?php echo $this->get_field_name('mobileName3'); ?>" value="<?php echo $instance['mobileName3']; ?>" style="width:100%;" />
-			<label for="<?php echo $this->get_field_id('mobileNo3'); ?>"><?php _e('Their Mobile Number', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('mobileNo3'); ?>" name="<?php echo $this->get_field_name('mobileNo3'); ?>" value="<?php echo $instance['mobileNo3']; ?>" style="width:100%;" />
-
-                </p>
-                <p>
-			<label for="<?php echo $this->get_field_id('otherTelelphoneName'); ?>"><?php _e('Other Telephone Name', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('otherTelephoneName'); ?>" name="<?php echo $this->get_field_name('otherTelephoneName'); ?>" value="<?php echo $instance['otherTelephoneName']; ?>" style="width:100%;" />
-			<label for="<?php echo $this->get_field_id('otherTelephoneNo'); ?>"><?php _e('Other Telephone Number', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('otherTelephoneNo'); ?>" name="<?php echo $this->get_field_name('otherTelephoneNo'); ?>" value="<?php echo $instance['otherTelephoneNo']; ?>" style="width:100%;" />
-
-                </p>
-                <p>
-			<label for="<?php echo $this->get_field_id('email'); ?>"><?php _e('Email', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('email'); ?>" name="<?php echo $this->get_field_name('email'); ?>" value="<?php echo $instance['email']; ?>" style="width:100%;" />
-		</p>
-                <p>
-			<label for="<?php echo $this->get_field_id('personalEmailName'); ?>"><?php _e('Personal Email Name', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('personalEmailName'); ?>" name="<?php echo $this->get_field_name('personalEmailName'); ?>" value="<?php echo $instance['personalEmailName']; ?>" style="width:100%;" />
-			<label for="<?php echo $this->get_field_id('personalEmail'); ?>"><?php _e('Personal Email Address', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('personalEmail'); ?>" name="<?php echo $this->get_field_name('personalEmail'); ?>" value="<?php echo $instance['personalEmail']; ?>" style="width:100%;" />
-                </p>
-                <p>
-			<label for="<?php echo $this->get_field_id('personalEmailName2'); ?>"><?php _e('2nd Personal Email Name', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('personalEmailName2'); ?>" name="<?php echo $this->get_field_name('personalEmailName2'); ?>" value="<?php echo $instance['personalEmailName2']; ?>" style="width:100%;" />
-			<label for="<?php echo $this->get_field_id('personalEmail2'); ?>"><?php _e('2nd Personal Email Address', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('personalEmail2'); ?>" name="<?php echo $this->get_field_name('personalEmail2'); ?>" value="<?php echo $instance['personalEmail2']; ?>" style="width:100%;" />
-                </p>
-                <p>
-			<label for="<?php echo $this->get_field_id('personalEmailName3'); ?>"><?php _e('3rd Personal Email Name', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('personalEmailName3'); ?>" name="<?php echo $this->get_field_name('personalEmailName3'); ?>" value="<?php echo $instance['personalEmailName3']; ?>" style="width:100%;" />
-			<label for="<?php echo $this->get_field_id('personalEmail3'); ?>"><?php _e('3rd Personal Email Address', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('personalEmail3'); ?>" name="<?php echo $this->get_field_name('personalEmail3'); ?>" value="<?php echo $instance['personalEmail3']; ?>" style="width:100%;" />
-                </p>
-                <p>
-			<label for="<?php echo $this->get_field_id('otherEmailName'); ?>"><?php _e('Other Email Name', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('otherEmailName'); ?>" name="<?php echo $this->get_field_name('otherEmailName'); ?>" value="<?php echo $instance['otherEmailName']; ?>" style="width:100%;" />
-			<label for="<?php echo $this->get_field_id('otherEmail'); ?>"><?php _e('Other Email Address', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('otherEmail'); ?>" name="<?php echo $this->get_field_name('otherEmail'); ?>" value="<?php echo $instance['otherEmail']; ?>" style="width:100%;" />
-                </p>                 
-                <p>
-			<label for="<?php echo $this->get_field_id('address'); ?>"><?php _e('Address', 'bcw-language'); ?>:</label>
-			<textarea id="<?php echo $this->get_field_id('address'); ?>" name="<?php echo $this->get_field_name('address'); ?>" style="width:100%;"><?php echo $instance['address']; ?></textarea>	
-		</p>
+			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showAddress'); ?>" name="<?php echo $this->get_field_name('showAddress'); ?>" <?php checked($instance['showAddress'], 'on'); ?>/>
+			<label for="<?php echo $this->get_field_id('showAddress'); ?>"><?php _e('Display address?', 'bcw-language'); ?></label>
+		</p> 
                 <p>
 			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showMap'); ?>" name="<?php echo $this->get_field_name('showMap'); ?>" <?php checked($instance['showMap'], 'on'); ?>/>
-			<label for="<?php echo $this->get_field_id('showMap'); ?>"><?php _e('Display map of address?', 'bcw-language'); ?></label>
+			<label for="<?php echo $this->get_field_id('showMap'); ?>"><?php _e('Display map?', 'bcw-language'); ?></label>
+		</p> 
+                <p>
+			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showOpening'); ?>" name="<?php echo $this->get_field_name('showOpening'); ?>" <?php checked($instance['showOpening'], 'on'); ?>/>
+			<label for="<?php echo $this->get_field_id('showOpening'); ?>"><?php _e('Display opening times?', 'bcw-language'); ?></label>
 		</p>
                 <p>
-			<label for="<?php echo $this->get_field_id('map'); ?>"><?php _e('Google Maps (iframe code)', 'bcw-language'); ?>:</label>
-			<textarea id="<?php echo $this->get_field_id('map'); ?>" name="<?php echo $this->get_field_name('map'); ?>" style="width:100%;"><?php echo $instance['map']; ?></textarea>	
-		</p>
+                        <label for="<?php echo $this->get_field_id('openTab'); ?>"><?php _e('Load page open on tab','bcw-language'); ?></label>
+                        <select id="<?php echo $this->get_field_id('openTab'); ?>" name="<?php echo $this->get_field_name('openTab'); ?>"> 
+                            <option <?php if($instance['openTab'] == 1) echo ('SELECTED');?>>1</option>
+                            <option <?php if($instance['openTab'] == 2) echo ('SELECTED');?>>2</option>
+                            <option <?php if($instance['openTab'] == 3) echo ('SELECTED');?>>3</option>
+                            <option <?php if($instance['openTab'] == 4) echo ('SELECTED');?>>4</option>
+                            <option <?php if($instance['openTab'] == 5) echo ('SELECTED');?>>5</option>
+                        </select>                      
+                </p>
                 <p>
-			<label for="<?php echo $this->get_field_id('openingTimes'); ?>"><?php _e('Opening Times', 'bcw-language'); ?>:</label>
-			<textarea id="<?php echo $this->get_field_id('openingTimes'); ?>" name="<?php echo $this->get_field_name('openingTimes'); ?>" style="width:100%;"><?php echo $instance['openingTimes']; ?></textarea>	
-		</p>
-		<!--<p>
-			<label for="<?php echo $this->get_field_id('contact'); ?>"><?php _e('Contact Page(include http://)', 'bcw-language'); ?>:</label>
-			<input id="<?php echo $this->get_field_id('contact'); ?>" name="<?php echo $this->get_field_name('contact'); ?>" value="<?php echo $instance['contact']; ?>" style="width:100%;" />
-		</p>-->                 
+                    <?php _e('Opens on tab number - 1 for first tab, 2 for second tab etc.', 'bcw-language'); ?>
+                </p>
                 <p>
 			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('createdBy'); ?>" name="<?php echo $this->get_field_name('createdBy'); ?>" <?php checked($instance['createdBy'], 'on'); ?> />
 			<label for="<?php echo $this->get_field_id('createdBy'); ?>"><?php _e('Display created by? Please only remove this after making a ', 'bcw-language'); ?><a href="http://stressfreesites.co.uk/plugins/business-contact-widget" target="_blank"><?php _e('donation.', 'bcw-language'); ?></a><?php _e('so we can continue making plugins like these.', 'bcw-language'); ?></label>

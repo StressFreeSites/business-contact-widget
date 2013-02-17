@@ -1,0 +1,9 @@
+/* Admin pages */
+.bcw-admin-title{
+    display: inline;
+    margin-left: 10px;
+}
+
+.wrap div.updated, .wrap div.error, .media-upload-form div.error {
+    margin-right: 150px;
+}

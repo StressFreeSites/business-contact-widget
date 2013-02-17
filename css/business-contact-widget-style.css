@@ -22,6 +22,7 @@
 
 .business-contact .ui-tabs-nav li{
     display: inline;
+    background-image: none !important;
     margin: 0 !important;
     padding: 1px !important;
     height: 36px !important;
@@ -58,12 +59,16 @@
     width: 32px !important;
 } 
 
+.business-contact .ui-state-active canvas{
+    visibility: hidden !important;
+}
+
 .business-contact .ui-tabs-nav .greyscale {
     position: relative;
     left: 0px;
 }
 
-canvas.gsCanvas{
+.business-contact canvas.gsCanvas{
     left: 2px !important;
     top: 2px !important;
 }
