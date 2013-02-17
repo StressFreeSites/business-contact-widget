@@ -86,7 +86,6 @@ function bcw_enqueue_styles() {
     $loadJqueryUI = get_option('bcw_load_jquery_ui','true');
     if($loadJqueryUI){
         $style = get_option('bcw_style','Grey');
-        echo ('style' . $style);
         switch($style){
             case 'Grey':
                 wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui.css')); 
