@@ -257,7 +257,7 @@ class Business_Contact_Widget extends WP_Widget {
  
 
                 if ($otherEmail)
-                        echo ('<p><strong>' . $otherEmailName . __('Email', 'bcw-language') . ':</strong> <a href="mailto:'.$otherEmail.'">' . $otherEmail . '</a></p>');
+                        echo ('<p><strong>' . $otherEmailName . __(' Email', 'bcw-language') . ':</strong> <a href="mailto:'.$otherEmail.'">' . $otherEmail . '</a></p>');
  
                 echo ('</div>');
             }
