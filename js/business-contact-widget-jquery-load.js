@@ -5,17 +5,14 @@ jQuery('document').ready(function($) {
     $('#bcw-tabs').tabs({
                     active: active
                 });
-    // jQuery('.greyscale').grayscale();
-    
-    // fade in the grayscaled images to avoid visual jump        
-    $('.greyscale').hide().fadeIn(5);
-    
-});
 
-jQuery(window).load(function($) {
-    jQuery('.greyscale').greyScale({
-        // call the plugin with non-defult fadeTime (default: 400ms)
-        fadeTime: 50,
-        reverse: false
-    }); 
-});
+    $('#bcw-tabs .ui-tabs-nav li').hover(
+        function () {
+            $('img.grey', this).hide('slow');
+          },
+          function () {
+            $('img.grey', this).show('slow');
+          }
+      );
+   
+    });

@@ -3,7 +3,7 @@
 Plugin Name: Business Contact Widget
 Plugin URI: http://stressfreesites.co.uk/plugins/business-contact-widget
 Description: This plugin creates a widget which easily displays, without becoming cluttered, all the business contact details of a company/organisation.
-Version: 2.0
+Version: 2.1
 Author: StressFree Sites
 Author URI: http://stressfreesites.co.uk
 License: GPL2
@@ -12,7 +12,7 @@ License: GPL2
 /*  Copyright 2012 StressFree Sites  (info@stressfreesites.co.uk : alex@stressfreesites.co.uk)
 
     This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as 
+    it under the terms of the GNU General Public License, version 3, as 
     published by the Free Software Foundation.
 
     This program is distributed in the hope that it will be useful,
@@ -33,7 +33,7 @@ add_action('plugins_loaded', 'bcw_init');
 
 function bcw_enqueue_scripts() {       
     /* Load custom scripts */
-    wp_enqueue_script('greyscale', plugins_url('business-contact-widget/js/greyscale.js'), array('jquery'),'1.0',true);
+    //wp_enqueue_script('greyScale', plugins_url('business-contact-widget/js/greyScale.min.js'), array('jquery'),'1.0',true);
     
         /* Select which scripts to load */
     $loadScripts = get_option('bcw_load_scripts', array('jQuery' => 1, 
@@ -43,36 +43,36 @@ function bcw_enqueue_scripts() {
     if(isset($loadScripts['jQuery'])){
         if(isset($loadScripts['jQuery-ui-core'])){
             if(isset($loadScripts['jQuery-ui-tabs'])){
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'jquery-ui-core', 'jquery-ui-tabs', 'greyscale'), '1.0', true);
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'jquery-ui-core', 'jquery-ui-tabs'), '1.0', true);
             }
             else{
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'jquery-ui-core', 'greyscale'), '1.0', true); 
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'jquery-ui-core'), '1.0', true); 
             }
         }
         else{
             if(isset($loadScripts['jQuery-ui-tabs'])){
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'jquery-ui-tabs', 'greyscale'), '1.0', true);     
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'jquery-ui-tabs'), '1.0', true);     
             }
             else{
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'greyscale'), '1.0', true);
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery'), '1.0', true);
             }
         }
     }
     else{
         if(isset($loadScripts['jQuery-ui-core'])){
             if(isset($loadScripts['jQuery-ui-tabs'])){
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery-ui-core', 'jquery-ui-tabs', 'greyscale'), '1.0', true);
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery-ui-core', 'jquery-ui-tabs'), '1.0', true);
             }
             else{
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery-ui-core', 'greyscale'), '1.0', true);
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery-ui-core'), '1.0', true);
             }
         }
         else{
             if(isset($loadScripts['jQuery-ui-tabs'])){
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery-ui-tabs', 'greyscale'), '1.0', true);
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery-ui-tabs'), '1.0', true);
             }
             else{
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('greyscale'), '1.0', true);
+                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array(), '1.0', true);
             }           
         }     
     } 
@@ -195,22 +195,22 @@ class Business_Contact_Widget extends WP_Widget {
                     echo $before_title . $title . $after_title;
 
             /* Tab headers and hidden inputs */
-            echo ('<input type="hidden" id="bcw_openTab" value="' . $openTab . '"><div id="bcw-tabs"><ul>');
+            echo ('<input type="hidden" id="bcw_openTab" value="' . $openTab . '" /><div id="bcw-tabs"><ul>');
             
             if ($showTelephone && ($telephone || $fax || $mobileNo || $mobileNo2 || $mobileNo3 || $otherTelephoneNo))
-                    echo ('<li><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/telephone.png') . '" class="greyscale"/></a></li>');
+                    echo ('<li><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/telephone.png') . '" class="colour"/><img src="' . plugins_url('business-contact-widget/images/telephone_grey.png') . '" class="grey"/></a></li>');
 
             if ($showEmail && ($email || $personalEmail || $personalEmail2 || $personalEmail3 || $otherEmail))
-                    echo ('<li><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/email.png') . '" class="greyscale"/></a></li>');
+                    echo ('<li><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/email.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/email_grey.png') . '" class="grey"/></a></li>');
             
             if ($showAddress && $address)
-                    echo ('<li><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/address.png') . '" class="greyscale"/></a></li>');
+                    echo ('<li><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/address.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/address_grey.png') . '" class="grey"/></a></li>');
 
             if ($showMap && $map)
-                    echo ('<li><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/map.png') . '" class="greyscale"/></a></li>');
+                    echo ('<li><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/map.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/map_grey.png') . '" class="grey"/></a></li>');
             
             if ($showOpening && $openingTimes)
-                    echo ('<li><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/clock.png') . '" class="greyscale"/></a></li>');
+                    echo ('<li><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/clock.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/clock_grey.png') . '" class="grey"/></a></li>');
             
             echo ('</ul>');
             
@@ -246,14 +246,14 @@ class Business_Contact_Widget extends WP_Widget {
                         echo ('<p><strong>' . __('Email', 'bcw-language') . ':</strong> <a href="mailto:'.$email.'">' . $email . '</a></p>');
  
                 if ($personalEmail)
-                        echo ('<p><strong>' . $personalEmailName . '\'s ' . __('Email', 'bcw-language') . ':</strong> <a href="mailto:' . $personalEmail . '">' . $personalEmail . '</a></p>');
+                        echo ('<p><strong>' . $personalEmailName . '\'s ' . __(' Email', 'bcw-language') . ':</strong> <a href="mailto:' . $personalEmail . '">' . $personalEmail . '</a></p>');
 
                 if ($personalEmail2)
-                        echo ('<p><strong>' . $personalEmailName2 . '\'s ' . __('Email', 'bcw-language') . ':</strong> <a href="mailto:' . $personalEmail2 . '">' . $personalEmail2 . '</a></p>');
+                        echo ('<p><strong>' . $personalEmailName2 . '\'s ' . __(' Email', 'bcw-language') . ':</strong> <a href="mailto:' . $personalEmail2 . '">' . $personalEmail2 . '</a></p>');
  
 
                 if ($personalEmail3)
-                        echo ('<p><strong>' . $personalEmailName3 . '\'s ' . __('Email', 'bcw-language') . ':</strong> <a href="mailto:' . $personalEmail3 . '">' . $personalEmail3 . '</a></p>');
+                        echo ('<p><strong>' . $personalEmailName3 . '\'s ' . __(' Email', 'bcw-language') . ':</strong> <a href="mailto:' . $personalEmail3 . '">' . $personalEmail3 . '</a></p>');
  
 
                 if ($otherEmail)
@@ -273,7 +273,7 @@ class Business_Contact_Widget extends WP_Widget {
             }
             
             if ($showOpening && $openingTimes){
-                    echo ('<div id="bcw-clock"><p><strong>' . __('Opening Times', 'bcw-language') . ':</strong><br/> ' . $openingTimes . '</a></p></div>');
+                    echo ('<div id="bcw-clock"><p><strong>' . __('Opening Times', 'bcw-language') . ':</strong><br/> ' . $openingTimes . '</p></div>');
             }
             
             echo ('</div>');

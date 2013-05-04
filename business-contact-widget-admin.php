@@ -2,7 +2,7 @@
 /*  Copyright 2012 StressFree Sites  (info@stressfreesites.co.uk : alex@stressfreesites.co.uk)
 
     This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as 
+    it under the terms of the GNU General Public License, version 3, as 
     published by the Free Software Foundation.
 
     This program is distributed in the hope that it will be useful,
@@ -90,7 +90,7 @@ if($widget != ''){
         <form name="bcw_form" method="post" action="<?php echo str_replace('%7E', '~', $_SERVER['REQUEST_URI']); ?>">
             <?php echo '<h3>' . __('Contact Settings', 'bcw-language') . '</h3>'; ?>
 
-            <?php echo '<img src="' . plugins_url('/business-contact-widget/images/telephone.png') . '" /><h4 class="bcw-admin-title">' . __('Telephone Settings', 'bcw-language') . '</h4>'; ?>
+            <?php echo '<img src="' . plugins_url('/business-contact-widget/images/telephone.png') . '" alt="Telephone"/><h4 class="bcw-admin-title">' . __('Telephone Settings', 'bcw-language') . '</h4>'; ?>
             <table class="form-table">
               <tbody>
                 <tr valign="top">
@@ -176,7 +176,7 @@ if($widget != ''){
                </tbody>
             </table><br />
 
-            <?php echo '<img src="' . plugins_url('/business-contact-widget/images/email.png') . '" /><h4 class="bcw-admin-title">' . __('Email Settings', 'bcw-language') . '</h4>'; ?>
+            <?php echo '<img src="' . plugins_url('/business-contact-widget/images/email.png') . '" alt="Email"/><h4 class="bcw-admin-title">' . __('Email Settings', 'bcw-language') . '</h4>'; ?>
             <table class="form-table">
               <tbody>
                 <tr valign="top">
@@ -254,7 +254,7 @@ if($widget != ''){
               </tbody>
             </table><br />
 
-            <?php echo '<img src="' . plugins_url('/business-contact-widget/images/address.png') . '" /><h4 class="bcw-admin-title">' . __('Address Settings', 'bcw-language') . '</h4>'; ?>
+            <?php echo '<img src="' . plugins_url('/business-contact-widget/images/address.png') . '" alt="Address" /><h4 class="bcw-admin-title">' . __('Address Settings', 'bcw-language') . '</h4>'; ?>
             <table class="form-table">
               <tbody>
                 <tr valign="top">
@@ -268,7 +268,7 @@ if($widget != ''){
               </tbody>
             </table><br />
 
-            <?php echo '<img src="' . plugins_url('/business-contact-widget/images/map.png') . '" /><h4 class="bcw-admin-title">' . __('Location Settings', 'bcw-language') . '</h4>'; ?>
+            <?php echo '<img src="' . plugins_url('/business-contact-widget/images/map.png') . '" alt="Map"/><h4 class="bcw-admin-title">' . __('Location Settings', 'bcw-language') . '</h4>'; ?>
             <table class="form-table">
               <tbody>
                 <tr valign="top">
@@ -283,7 +283,7 @@ if($widget != ''){
               </tbody>
             </table><br />
 
-            <?php echo '<img src="' . plugins_url('/business-contact-widget/images/clock.png') . '" /><h4 class="bcw-admin-title">' . __('Opening Times Settings', 'bcw-language') . '</h4>'; ?>
+            <?php echo '<img src="' . plugins_url('/business-contact-widget/images/clock.png') . '" alt="Openings" /><h4 class="bcw-admin-title">' . __('Opening Times Settings', 'bcw-language') . '</h4>'; ?>
             <table class="form-table">
               <tbody>
                 <tr valign="top">
