@@ -4,7 +4,7 @@ Donate link: http://stressfreesites.co.uk/plugins
 Tags: contact, details, widget, telephone, email, address, opening times
 Requires at least: 3.0.0
 Tested up to: 3.4
-Stable tag: 2.0
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,10 @@ Yes, just do not enter any information in that section and that tab will not sho
 
 == Changelog ==
 
+= 2.1 =
+* Retina display images created
+* Optimised grey scaling of images
+
 = 2.0 =
 * Admin page created
 * Alternative styling
@@ -57,5 +61,5 @@ Yes, just do not enter any information in that section and that tab will not sho
 
 == Upgrade Notice ==
 
-= 2.0 =
-Load page on tab and alternative styling.
+= 2.1 =
+Optimised grey scaling of images and retina display images created.
