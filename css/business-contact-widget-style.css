@@ -53,12 +53,34 @@
 }
 
 .business-contact .ui-tabs-nav img{
-    padding: 2px;
+    position: absolute;
+    padding: 0px !important;
     margin: 0px;
     height: 32px !important;
     width: 32px !important;
+    left: 0px !important;
+    top: 0px !important; 
+    z-index: 10;  
+    box-shadow: none;
 } 
 
+.business-contact #bcw-tabs ul li a{
+    position: relative;    
+}
+
+.business-contact #bcw-tabs ul li img{
+  
+}
+
+.business-contact #bcw-tabs ul img.grey{
+    z-index: 20;
+}
+
+.business-contact #bcw-tabs ul .ui-tabs-active img.colour{
+    z-index: 30;
+}
+
+/*
 .business-contact .ui-state-active canvas{
     visibility: hidden !important;
 }
@@ -73,3 +95,4 @@
     top: 2px !important;
     z-index: 20;
 }
+*/

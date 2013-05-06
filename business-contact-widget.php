@@ -3,7 +3,7 @@
 Plugin Name: Business Contact Widget
 Plugin URI: http://stressfreesites.co.uk/plugins/business-contact-widget
 Description: This plugin creates a widget which easily displays, without becoming cluttered, all the business contact details of a company/organisation.
-Version: 2.1
+Version: 2.2
 Author: StressFree Sites
 Author URI: http://stressfreesites.co.uk
 License: GPL2
