@@ -3,7 +3,7 @@
 Plugin Name: Business Contact Widget
 Plugin URI: http://stressfreesites.co.uk/plugins/business-contact-widget
 Description: This plugin creates a widget which easily displays, without becoming cluttered, all the business contact details of a company/organisation.
-Version: 2.2
+Version: 2.3
 Author: StressFree Sites
 Author URI: http://stressfreesites.co.uk
 License: GPL2
@@ -133,6 +133,29 @@ function bcw_admin_styles() {
    wp_enqueue_style('business-contact-widget-style-admin');
 }
 
+/* Message box */
+function bcw_theme_admin_notice() {
+	global $current_user ;
+        $user_id = $current_user->ID;
+        /* Check that the user hasn't already clicked to ignore the message */
+	if ( ! get_user_meta($user_id, 'bcw_theme_ignore_notice') ) {
+            echo '<div class="updated"><p>'; 
+            printf(__('<p>Thank you for downloading Business Contact Widget. We hope you enjoy using the plugin, maybe some of our <a href="http://stressfreesites.co.uk/development" target="_blank">other plugins</a> would be of interest to you.</p><p>We have just launched a new Wordpress theme which might be of interest - <a href="http://greatestwordpresstheme.com" target="_blank">take a look</a>.</p><a href="%1$s">Hide This Notice</a>'), '?bcw_theme_nag_ignore=0');
+            echo "</p></div>";
+	}
+}
+add_action('admin_notices', 'bcw_theme_admin_notice');
+
+function bcw_theme_nag_ignore() {
+	global $current_user;
+        $user_id = $current_user->ID;
+        /* If user clicks to ignore the notice, add that to their user meta */
+        if ( isset($_GET['bcw_theme_nag_ignore']) && '0' == $_GET['bcw_theme_nag_ignore'] ) {
+             add_user_meta($user_id, 'bcw_theme_ignore_notice', 'true', true);
+	}
+}
+add_action('admin_init', 'bcw_theme_nag_ignore');
+
 class Business_Contact_Widget extends WP_Widget {
     function Business_Contact_Widget() {
             /* Widget settings. */
@@ -173,13 +196,18 @@ class Business_Contact_Widget extends WP_Widget {
             $personalEmail3 = $widget[2]['personalEmail3'];
             $otherEmailName = $widget[2]['otherEmailName'];
             $otherEmail = $widget[2]['otherEmail'];            
-            $address = $widget[2]['address'];
+            $mainAddressName = $widget[2]['mainAddressName'];
+            $mainAddress = $widget[2]['mainAddress'];
+            $secondaryAddressName = $widget[2]['secondaryAddressName'];
+            $secondaryAddress = $widget[2]['secondaryAddress'];
+            $message = $widget[2]['message'];
             $map = $widget[2]['map'];
             $openingTimes = $widget[2]['openingTimes'];
             
             $showTelephone = isset($instance['showTelephone']) ? $instance['showTelephone'] : false;
             $showEmail = isset($instance['showEmail']) ? $instance['showEmail'] : false;
             $showAddress = isset($instance['showAddress']) ? $instance['showAddress'] : false;
+            $showMessage = isset($instance['showMessage']) ? $instance['showMessage'] : false;
             $showMap = isset($instance['showMap']) ? $instance['showMap'] : false;
             $showOpening = isset($instance['showOpening']) ? $instance['showOpening'] : false;
             
@@ -203,9 +231,12 @@ class Business_Contact_Widget extends WP_Widget {
             if ($showEmail && ($email || $personalEmail || $personalEmail2 || $personalEmail3 || $otherEmail))
                     echo ('<li><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/email.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/email_grey.png') . '" class="grey"/></a></li>');
             
-            if ($showAddress && $address)
+            if ($showAddress && ($mainAddress || $secondaryAddress))
                     echo ('<li><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/address.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/address_grey.png') . '" class="grey"/></a></li>');
 
+            if ($showMessage && $message)
+                    echo ('<li><a href="#bcw-message"><img src="' . plugins_url('business-contact-widget/images/write.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/write_grey.png') . '" class="grey"/></a></li>');            
+            
             if ($showMap && $map)
                     echo ('<li><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/map.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/map_grey.png') . '" class="grey"/></a></li>');
             
@@ -219,22 +250,22 @@ class Business_Contact_Widget extends WP_Widget {
                     echo ('<div id="bcw-telephone">');
                     
                     if ($telephone)
-                        echo ('<p><strong>' . __('Telephone', 'bcw-language') . ':</strong> ' . $telephone . '</p>');
+                        echo ('<h4>' . __('Telephone', 'bcw-language') . '</h4><p>' . $telephone . '</p>');
                     
                     if ($fax)
-                        echo ('<p><strong>' . __('Fax', 'bcw-language') . ':</strong> ' . $fax . '</p>');
+                        echo ('<h4>' . __('Fax', 'bcw-language') . '</h4><p>' . $fax . '</p>');
                     
                     if ($mobileNo)
-                        echo ('<p><strong>' . $mobileName . '\'s ' . __('Mobile', 'bcw-language') . ':</strong> ' . $mobileNo . '</p>');
+                        echo ('<h4>' . $mobileName . '\'s ' . __('Mobile', 'bcw-language') . '</h4><p>' . $mobileNo . '</p>');
 
                     if ($mobileNo2)
-                        echo ('<p><strong>' . $mobileName2 . '\'s ' . __('Mobile', 'bcw-language') . ':</strong> ' . $mobileNo2 . '</p>');
+                        echo ('<h4>' . $mobileName2 . '\'s ' . __('Mobile', 'bcw-language') . '</h4><p>' . $mobileNo2 . '</p>');
                     
                     if ($mobileNo3)
-                        echo ('<p><strong>' . $mobileName3 . '\'s ' . __('Mobile', 'bcw-language') . ':</strong> ' . $mobileNo3 . '</p>');
+                        echo ('<h4>' . $mobileName3 . '\'s ' . __('Mobile', 'bcw-language') . '</h4><p>' . $mobileNo3 . '</p>');
                     
                     if ($otherTelephoneNo)
-                        echo ('<p><strong>' . $otherTelephoneName . ':</strong> ' . $otherTelephoneNo . '</p>');
+                        echo ('<h4>' . $otherTelephoneName . '</h4><p>' . $otherTelephoneNo . '</p>');
                     
                     echo ('</div>');
             }
@@ -243,44 +274,48 @@ class Business_Contact_Widget extends WP_Widget {
                 echo ('<div id="bcw-email">');
                 
                 if ($email)
-                        echo ('<p><strong>' . __('Email', 'bcw-language') . ':</strong> <a href="mailto:'.$email.'">' . $email . '</a></p>');
+                        echo ('<h4>' . __('Email', 'bcw-language') . '</h4><p><a href="mailto:'.$email.'">' . $email . '</a></p>');
  
                 if ($personalEmail)
-                        echo ('<p><strong>' . $personalEmailName . '\'s ' . __(' Email', 'bcw-language') . ':</strong> <a href="mailto:' . $personalEmail . '">' . $personalEmail . '</a></p>');
+                        echo ('<h4>' . $personalEmailName . '\'s ' . __(' Email', 'bcw-language') . '</h4><p><a href="mailto:' . $personalEmail . '">' . $personalEmail . '</a></p>');
 
                 if ($personalEmail2)
-                        echo ('<p><strong>' . $personalEmailName2 . '\'s ' . __(' Email', 'bcw-language') . ':</strong> <a href="mailto:' . $personalEmail2 . '">' . $personalEmail2 . '</a></p>');
+                        echo ('<h4>' . $personalEmailName2 . '\'s ' . __(' Email', 'bcw-language') . '</h4><p><a href="mailto:' . $personalEmail2 . '">' . $personalEmail2 . '</a></p>');
  
 
                 if ($personalEmail3)
-                        echo ('<p><strong>' . $personalEmailName3 . '\'s ' . __(' Email', 'bcw-language') . ':</strong> <a href="mailto:' . $personalEmail3 . '">' . $personalEmail3 . '</a></p>');
+                        echo ('<h4>' . $personalEmailName3 . '\'s ' . __(' Email', 'bcw-language') . '</h4><p><a href="mailto:' . $personalEmail3 . '">' . $personalEmail3 . '</a></p>');
  
 
                 if ($otherEmail)
-                        echo ('<p><strong>' . $otherEmailName . __(' Email', 'bcw-language') . ':</strong> <a href="mailto:'.$otherEmail.'">' . $otherEmail . '</a></p>');
+                        echo ('<h4>' . $otherEmailName . __(' Email', 'bcw-language') . '</h4><p><a href="mailto:'.$otherEmail.'">' . $otherEmail . '</a></p>');
  
                 echo ('</div>');
             }
             
-            if ($showAddress && $address){
-                    echo ('<div id="bcw-address"><p><strong>' . __('Address', 'bcw-language') . ':</strong><br/>' . $address . '</p></div>');
+            if ($showAddress && ($mainAddress || $secondaryAddress)){
+                    echo ('<div id="bcw-address"><h4>' . $mainAddressName . '</h4><p>' . nl2br($mainAddress) . '</p><h4>' . $secondaryAddressName . '</h4><p>' . nl2br($secondaryAddress) . '</p></div>');
             }
             
+            /* Show message */
+            if ($showMessage && $message){
+                    echo ('<div id="bcw-message"><h4>' . __('Message', 'bcw-language') . '</h4><p>' . do_shortcode(stripslashes($message)) . '</p></div>');
+            } 
             
             /* Show map */
             if ($showMap && $map){
-                    echo ('<div id="bcw-map"><p><strong>' . __('Map', 'bcw-language') . ':</strong><br/>' . $map . '</p></div>');
+                    echo ('<div id="bcw-map"><p><h4>' . __('Map', 'bcw-language') . '</h4><br />' . stripslashes($map) . '</div>');
             }
             
             if ($showOpening && $openingTimes){
-                    echo ('<div id="bcw-clock"><p><strong>' . __('Opening Times', 'bcw-language') . ':</strong><br/> ' . $openingTimes . '</p></div>');
+                    echo ('<div id="bcw-clock"><h4>' . __('Opening Times', 'bcw-language') . '</h4><p> ' . nl2br($openingTimes) . '</p></div>');
             }
             
             echo ('</div>');
             
             /* Copyright */
             if ($createdBy){
-                    echo ('<div class="small"><p>' . __('Plugin created by', 'bcw-language') . '<a href="http://stressfreesites.co.uk/plugins/business-contact-widget" target="_blank">StressFree Sites</a></p></div>');
+                    echo ('<div class="small"><p>' . __('Plugin created by ', 'bcw-language') . '<a href="http://stressfreesites.co.uk/plugins/business-contact-widget" target="_blank">StressFree Sites</a></p></div>');
             }    
             
             /* After widget (defined by themes). */
@@ -297,6 +332,7 @@ class Business_Contact_Widget extends WP_Widget {
             $instance['showTelephone'] = $new_instance['showTelephone'];
             $instance['showEmail'] = $new_instance['showEmail'];
             $instance['showAddress'] = $new_instance['showAddress'];
+            $instance['showMessage'] = $new_instance['showMessage'];
             $instance['showMap'] = $new_instance['showMap'];
             $instance['showOpening'] = $new_instance['showOpening'];
             
@@ -310,7 +346,7 @@ class Business_Contact_Widget extends WP_Widget {
     function form($instance) {
             /* Set up some default widget settings. */
             $defaults = array('title' => 'Contact',                               
-                              'showTelephone' => 'on', 'showEmail' => 'on', 'showAddress' => 'on', 'showMap' => 'on', 'showOpening' => 'on', 
+                              'showTelephone' => 'on', 'showEmail' => 'on', 'showAddress' => 'on', 'showMessage' => 'on', 'showMap' => 'on', 'showOpening' => 'on', 
                               'showTab' => '1', 'createdBy' => 'off');
             $instance = wp_parse_args((array) $instance, $defaults); ?>
                 <p>
@@ -320,7 +356,7 @@ class Business_Contact_Widget extends WP_Widget {
                     Select which contact details tabs you would like to bee displayed on this widget. NOTE: tabs will not be displayed if there is no information in them.
                 </p>
                 <p>
-			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', 'bcw-language'); ?>:</label>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', 'bcw-language'); ?></label>
 			<input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $instance['title']; ?>" style="width:100%;" />
 		</p>
                 <p>
@@ -335,6 +371,10 @@ class Business_Contact_Widget extends WP_Widget {
 			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showAddress'); ?>" name="<?php echo $this->get_field_name('showAddress'); ?>" <?php checked($instance['showAddress'], 'on'); ?>/>
 			<label for="<?php echo $this->get_field_id('showAddress'); ?>"><?php _e('Display address?', 'bcw-language'); ?></label>
 		</p> 
+                 <p>
+			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showMessage'); ?>" name="<?php echo $this->get_field_name('showMessage'); ?>" <?php checked($instance['showMessage'], 'on'); ?>/>
+			<label for="<?php echo $this->get_field_id('showMessage'); ?>"><?php _e('Display message form?', 'bcw-language'); ?></label>
+		</p>                
                 <p>
 			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showMap'); ?>" name="<?php echo $this->get_field_name('showMap'); ?>" <?php checked($instance['showMap'], 'on'); ?>/>
 			<label for="<?php echo $this->get_field_id('showMap'); ?>"><?php _e('Display map?', 'bcw-language'); ?></label>

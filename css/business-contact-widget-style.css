@@ -11,11 +11,7 @@
     font-weight: lighter;
 }
 
-.business-contact #bcw-email a{
-    font-size: 10px;
-}
-
-/* Main Styling */
+/* Navigation Styling */
 .business-contact .ui-tabs-nav{
     padding: 0 !important;
 }
@@ -58,18 +54,14 @@
     margin: 0px;
     height: 32px !important;
     width: 32px !important;
-    left: 0px !important;
-    top: 0px !important; 
+    left: 2px !important;
+    top: 2px !important; 
     z-index: 10;  
     box-shadow: none;
 } 
 
 .business-contact #bcw-tabs ul li a{
     position: relative;    
-}
-
-.business-contact #bcw-tabs ul li img{
-  
 }
 
 .business-contact #bcw-tabs ul img.grey{
@@ -80,19 +72,27 @@
     z-index: 30;
 }
 
-/*
-.business-contact .ui-state-active canvas{
-    visibility: hidden !important;
+/* Content Styling */
+.business-contact #bcw-email a{
+    font-size: 0.9em;
 }
 
-.business-contact .ui-tabs-nav .greyscale {
-    position: relative;
-    left: 0px;
+.business-contact form input,
+.business-contact form textarea{
+    width: 90%;
 }
 
-.business-contact canvas.gsCanvas{
-    left: 2px !important;
-    top: 2px !important;
-    z-index: 20;
+.business-contact #bcw-tabs p{
+    text-align: right;
+    margin-bottom: 0.5em;
 }
-*/
+
+.business-contact strong{
+    text-align: left;
+    display: block;
+    width: 100%;
+}
+
+.business-contact #bcw-tabs form p{
+    text-align: left;
+}

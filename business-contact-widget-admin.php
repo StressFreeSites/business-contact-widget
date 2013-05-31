@@ -22,27 +22,31 @@ if(isset($_POST['submit'])){
     //get all widget details as some details are not changed
     $widget = get_option('widget_business-contact-widget','');
     
-    $widget[2]['telephone'] = $_POST['bcw_telephone'];
-    $widget[2]['fax'] = $_POST['bcw_fax'];
-    $widget[2]['mobileName'] = $_POST['bcw_mobileName'];
-    $widget[2]['mobileNo'] = $_POST['bcw_mobileNo'];
-    $widget[2]['mobileName2'] = $_POST['bcw_mobileName2'];
-    $widget[2]['mobileNo2'] = $_POST['bcw_mobileNo2'];
-    $widget[2]['mobileName3'] = $_POST['bcw_mobileName3'];
-    $widget[2]['mobileNo3'] = $_POST['bcw_mobileNo3'];
-    $widget[2]['otherTelephoneName'] = $_POST['bcw_otherTelephoneName'];
-    $widget[2]['otherTelephoneNo'] = $_POST['bcw_otherTelephoneNo'];
-    $widget[2]['email'] = $_POST['bcw_email'];
-    $widget[2]['personalEmailName'] = $_POST['bcw_personalEmailName'];
-    $widget[2]['personalEmail'] = $_POST['bcw_personalEmail'];
-    $widget[2]['personalEmailName2'] = $_POST['bcw_personalEmailName2'];
-    $widget[2]['personalEmail2'] = $_POST['bcw_personalEmail2'];
-    $widget[2]['personalEmailName3'] = $_POST['bcw_personalEmailName3'];
-    $widget[2]['personalEmail3'] = $_POST['bcw_personalEmail3'];
-    $widget[2]['otherEmailName'] = $_POST['bcw_otherEmailName'];
-    $widget[2]['otherEmail'] = $_POST['bcw_otherEmail'];            
-    $widget[2]['address'] = $_POST['bcw_address'];
-    $widget[2]['map'] = stripslashes($_POST['bcw_map']);
+    $widget[2]['telephone'] = sanitize_text_field($_POST['bcw_telephone']);
+    $widget[2]['fax'] = sanitize_text_field($_POST['bcw_fax']);
+    $widget[2]['mobileName'] = sanitize_text_field($_POST['bcw_mobileName']);
+    $widget[2]['mobileNo'] = sanitize_text_field($_POST['bcw_mobileNo']);
+    $widget[2]['mobileName2'] = sanitize_text_field($_POST['bcw_mobileName2']);
+    $widget[2]['mobileNo2'] = sanitize_text_field($_POST['bcw_mobileNo2']);
+    $widget[2]['mobileName3'] = sanitize_text_field($_POST['bcw_mobileName3']);
+    $widget[2]['mobileNo3'] = sanitize_text_field($_POST['bcw_mobileNo3']);
+    $widget[2]['otherTelephoneName'] = sanitize_text_field($_POST['bcw_otherTelephoneName']);
+    $widget[2]['otherTelephoneNo'] = sanitize_text_field($_POST['bcw_otherTelephoneNo']);
+    $widget[2]['email'] = sanitize_text_field($_POST['bcw_email']);
+    $widget[2]['personalEmailName'] = sanitize_text_field($_POST['bcw_personalEmailName']);
+    $widget[2]['personalEmail'] = sanitize_text_field($_POST['bcw_personalEmail']);
+    $widget[2]['personalEmailName2'] = sanitize_text_field($_POST['bcw_personalEmailName2']);
+    $widget[2]['personalEmail2'] = sanitize_text_field($_POST['bcw_personalEmail2']);
+    $widget[2]['personalEmailName3'] = sanitize_text_field($_POST['bcw_personalEmailName3']);
+    $widget[2]['personalEmail3'] = sanitize_text_field($_POST['bcw_personalEmail3']);
+    $widget[2]['otherEmailName'] = sanitize_text_field($_POST['bcw_otherEmailName']);
+    $widget[2]['otherEmail'] = sanitize_text_field($_POST['bcw_otherEmail']);  
+    $widget[2]['mainAddressName'] = $_POST['bcw_mainAddressName'];
+    $widget[2]['mainAddress'] = $_POST['bcw_mainAddress'];
+    $widget[2]['secondaryAddressName'] = $_POST['bcw_secondaryAddressName'];
+    $widget[2]['secondaryAddress'] = $_POST['bcw_secondaryAddress'];
+    $widget[2]['message'] = $_POST['bcw_message'];
+    $widget[2]['map'] = $_POST['bcw_map'];
     $widget[2]['openingTimes'] = $_POST['bcw_openingTimes'];
 
     update_option('widget_business-contact-widget', $widget); 
@@ -69,6 +73,8 @@ if($widget != ''){
         $defaults = array('telephone' => '', 'fax' => '', 'mobileName' => '', 'mobileNo' => '', 'mobileName2' => '', 'mobileNo2' => '', 'mobileName3' => '', 'mobileNo3' => '', 'otherTelephoneName' => '', 'otherTelephoneNo' => '', 
                           'email' => '', 'personalEmailName' => '', 'personalEmail' => '', 'personalEmailName2' => '', 'personalEmail2' => '', 'personalEmailName3' => '', 'personalEmail3' => '', 'otherEmailName' => '', 'otherEmail' => '',
                           'address' => '', 
+                          'secondaryAddress' => '', 
+                          'message' => '',
                           'map' => '<iframe width="220" height="220" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?client=safari&amp;oe=UTF-8&amp;q=London&amp;ie=UTF8&amp;hq=&amp;hnear=London,+United+Kingdom&amp;gl=uk&amp;t=m&amp;z=11&amp;ll=51.507335,-0.127683&amp;output=embed"></iframe>', 
                           'openingTimes' => '');
 
@@ -84,8 +90,11 @@ if($widget != ''){
     ?>
     <div class="wrap">
         <?php 
-        echo '<div style="float:right;padding:10px;text-align:right;">' . __('Plugin created by', 'bcw-language') . '<br/><a href="http://stressfreesites.co.uk" target="_blank"><img src="' . plugins_url('business-contact-widget/images/stressfreesites.png') . '" /></a></div>';
+        echo '<div class="created-by">' . __('Plugin created by', 'bcw-language') . '<br/><a href="http://stressfreesites.co.uk" target="_blank"><img src="' . plugins_url('business-contact-widget/images/stressfreesites.png') . '" /></a></div>';
+        
         echo '<div id="icon-options-general" class="icon32"><br /></div><h2>' . __('Business Contact Widget', 'bcw-language') . '</h2>'; 
+        
+        echo '<div class="links"><a href="http://stressfreesites.co.uk/development" target="_blank"><img src="' . plugins_url('business-contact-widget/images/home_small.jpg') . '" /><a href="http://facebook.com/stressfreesites" target="_blank"><img src="' . plugins_url('business-contact-widget/images/facebook_small.jpg') . '" /><a href="http://twitter.com/stressfreesites" target="_blank"><img src="' . plugins_url('business-contact-widget/images/twitter_small.jpg') . '" /><a href="http://stressfreesites.co.uk/forums" target="_blank"><img src="' . plugins_url('business-contact-widget/images/support_small.jpg') . '" /></a></div>';        
         ?>
         <form name="bcw_form" method="post" action="<?php echo str_replace('%7E', '~', $_SERVER['REQUEST_URI']); ?>">
             <?php echo '<h3>' . __('Contact Settings', 'bcw-language') . '</h3>'; ?>
@@ -259,10 +268,49 @@ if($widget != ''){
               <tbody>
                 <tr valign="top">
                   <th scope="row">
-                      <label for="bcw_address"><?php _e('Address','bcw-language'); ?></label>
+                      <label for="bcw_mainAddressName"><?php _e('Main Address Name','bcw-language'); ?></label>
                   </th>
                   <td>
-                      <textarea id="bcw_address" name="bcw_address"><?php echo $widget[2]['address']; ?></textarea>	
+                      <input id="bcw_mainAddressName" name="bcw_mainAddressName" value="<?php echo $widget[2]['mainAddressName']; ?>" />		
+                  </td>
+                </tr>  
+                <tr valign="top">
+                  <th scope="row">
+                      <label for="bcw_mainAddress"><?php _e('Main Address','bcw-language'); ?></label>
+                  </th>
+                  <td>
+                      <textarea id="bcw_mainAddress" name="bcw_mainAddress"><?php echo $widget[2]['mainAddress']; ?></textarea>	
+                  </td>
+                </tr>
+                <tr valign="top">
+                  <th scope="row">
+                      <label for="bcw_mainAddressName"><?php _e('Main Address Name','bcw-language'); ?></label>
+                  </th>
+                  <td>
+                      <input id="bcw_secondaryAddressName" name="bcw_secondaryAddressName" value="<?php echo $widget[2]['secondaryAddressName']; ?>" />		
+                  </td>
+                </tr>  
+                <tr valign="top">
+                  <th scope="row">
+                      <label for="bcw_secondaryAddress"><?php _e('Secondary Address','bcw-language'); ?></label>
+                  </th>
+                  <td>
+                      <textarea id="bcw_secondaryAddress" name="bcw_secondaryAddress"><?php echo $widget[2]['secondaryAddress']; ?></textarea>	
+                  </td>
+                </tr>                
+              </tbody>
+            </table><br />
+            
+            <?php echo '<img src="' . plugins_url('/business-contact-widget/images/write.png') . '" alt="Write" /><h4 class="bcw-admin-title">' . __('Message Settings', 'bcw-language') . '</h4>'; ?>
+            <table class="form-table">
+              <tbody>
+                <tr valign="top">
+                  <th scope="row">
+                      <label for="bcw_message"><?php _e('Message Now','bcw-language'); ?></label>
+                  </th>
+                  <td>
+                      <input id="bcw_message" name="bcw_message" value="<?php echo esc_html(stripslashes($widget[2]['message'])); ?>" />
+                      <p class="description">Enter the shortcode for a contact form to allow instant messages.</p>
                   </td>
                 </tr>
               </tbody>
@@ -276,7 +324,7 @@ if($widget != ''){
                       <label for="bcw_map"><?php _e('Map (iframe)','bcw-language'); ?></label>
                   </th>
                   <td>
-                      <textarea id="bcw_map" name="bcw_map"><?php echo $widget[2]['map']; ?></textarea>
+                      <textarea id="bcw_map" name="bcw_map"><?php echo esc_html(stripslashes($widget[2]['map'])); ?></textarea>
                       <p class="description"><?php _e('Insert the iframe code generated from online tools like Google maps', 'bcw-language'); ?></p>
                   </td>
                 </tr>

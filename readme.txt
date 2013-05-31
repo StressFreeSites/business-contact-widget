@@ -3,8 +3,8 @@ Contributors: StressFree Sites
 Donate link: http://stressfreesites.co.uk/plugins
 Tags: contact, details, widget, telephone, email, address, opening times
 Requires at least: 3.0.0
-Tested up to: 3.4
-Stable tag: 2.2
+Tested up to: 3.5.1
+Stable tag: 2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,13 @@ Yes, just do not enter any information in that section and that tab will not sho
 
 == Changelog ==
 
+= 2.3 = 
+* Contact Form Functionality 
+* General Styling Improvements
+
+= 2.2 =
+* Fixed CSS bug
+
 = 2.1 =
 * Retina display images created
 * Optimised grey scaling of images
@@ -61,5 +68,5 @@ Yes, just do not enter any information in that section and that tab will not sho
 
 == Upgrade Notice ==
 
-= 2.1 =
-Optimised grey scaling of images and retina display images created.
+= 2.3 =
+Can now add contact forms and improved general styling.
