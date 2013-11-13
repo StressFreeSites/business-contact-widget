@@ -3,7 +3,7 @@
 Plugin Name: Business Contact Widget
 Plugin URI: http://stressfreesites.co.uk/plugins/business-contact-widget
 Description: This plugin creates a widget which easily displays, without becoming cluttered, all the business contact details of a company/organisation.
-Version: 2.3
+Version: 2.5
 Author: StressFree Sites
 Author URI: http://stressfreesites.co.uk
 License: GPL2
@@ -140,7 +140,7 @@ function bcw_theme_admin_notice() {
         /* Check that the user hasn't already clicked to ignore the message */
 	if ( ! get_user_meta($user_id, 'bcw_theme_ignore_notice') ) {
             echo '<div class="updated"><p>'; 
-            printf(__('<p>Thank you for downloading Business Contact Widget. We hope you enjoy using the plugin, maybe some of our <a href="http://stressfreesites.co.uk/development" target="_blank">other plugins</a> would be of interest to you.</p><p>We have just launched a new Wordpress theme which might be of interest - <a href="http://greatestwordpresstheme.com" target="_blank">take a look</a>.</p><a href="%1$s">Hide This Notice</a>'), '?bcw_theme_nag_ignore=0');
+            printf(__('<p>Thank you for downloading Business Contact Widget. We hope you enjoy using the plugin, maybe some of our <a href="http://stressfreesites.co.uk/development" target="_blank">other plugins</a> would be of interest to you.</p><p>We have just launched a new Wordpress theme which might be of interest - <a href="http://www.mojo-themes.com/item/simple-setup/demo/" target="_blank">take a look</a>.</p><a href="%1$s">Hide This Notice</a>'), '?bcw_theme_nag_ignore=0');
             echo "</p></div>";
 	}
 }
@@ -223,7 +223,7 @@ class Business_Contact_Widget extends WP_Widget {
                     echo $before_title . $title . $after_title;
 
             /* Tab headers and hidden inputs */
-            echo ('<input type="hidden" id="bcw_openTab" value="' . $openTab . '" /><div id="bcw-tabs"><ul>');
+            echo ('<input type="hidden" id="bcw_openTab" value="' . $openTab . '" /><div class="bcw-tabs"><ul>');
             
             if ($showTelephone && ($telephone || $fax || $mobileNo || $mobileNo2 || $mobileNo3 || $otherTelephoneNo))
                     echo ('<li><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/telephone.png') . '" class="colour"/><img src="' . plugins_url('business-contact-widget/images/telephone_grey.png') . '" class="grey"/></a></li>');
@@ -319,7 +319,7 @@ class Business_Contact_Widget extends WP_Widget {
             }    
             
             /* After widget (defined by themes). */
-            echo '</div>'.$after_widget;
+            echo '</div><!-- .business-contact -->'.$after_widget;
     }
 
     /* Updating the Wordpress backend */
@@ -347,7 +347,7 @@ class Business_Contact_Widget extends WP_Widget {
             /* Set up some default widget settings. */
             $defaults = array('title' => 'Contact',                               
                               'showTelephone' => 'on', 'showEmail' => 'on', 'showAddress' => 'on', 'showMessage' => 'on', 'showMap' => 'on', 'showOpening' => 'on', 
-                              'showTab' => '1', 'createdBy' => 'off');
+                              'openTab' => '1', 'createdBy' => 'off');
             $instance = wp_parse_args((array) $instance, $defaults); ?>
                 <p>
                     Please add all the contact details through the "<a href="options-general.php?page=businesscontactwidget">Business Contact Widget</a>" settings page.
@@ -398,7 +398,7 @@ class Business_Contact_Widget extends WP_Widget {
                 </p>
                 <p>
 			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('createdBy'); ?>" name="<?php echo $this->get_field_name('createdBy'); ?>" <?php checked($instance['createdBy'], 'on'); ?> />
-			<label for="<?php echo $this->get_field_id('createdBy'); ?>"><?php _e('Display created by? Please only remove this after making a ', 'bcw-language'); ?><a href="http://stressfreesites.co.uk/plugins/business-contact-widget" target="_blank"><?php _e('donation.', 'bcw-language'); ?></a><?php _e('so we can continue making plugins like these.', 'bcw-language'); ?></label>
+			<label for="<?php echo $this->get_field_id('createdBy'); ?>"><?php _e('Display created by? Please only remove this after making a ', 'bcw-language'); ?><a href="http://stressfreesites.co.uk/plugins/business-contact-widget" target="_blank"><?php _e('donation', 'bcw-language'); ?></a>, <?php _e('so we can continue making plugins like these.', 'bcw-language'); ?></label>
 		</p>
                 <?php
     }

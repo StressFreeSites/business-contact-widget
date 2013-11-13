@@ -284,7 +284,7 @@ if($widget != ''){
                 </tr>
                 <tr valign="top">
                   <th scope="row">
-                      <label for="bcw_mainAddressName"><?php _e('Main Address Name','bcw-language'); ?></label>
+                      <label for="bcw_secondaryAddressName"><?php _e('Secondary Address Name','bcw-language'); ?></label>
                   </th>
                   <td>
                       <input id="bcw_secondaryAddressName" name="bcw_secondaryAddressName" value="<?php echo $widget[2]['secondaryAddressName']; ?>" />		

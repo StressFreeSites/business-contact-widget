@@ -1,98 +1,129 @@
 /* Created By */
-.business-contact .small{
+.business-contact .small {
     font-size: 8px;
     color: darkgray;
     font-weight: lighter;
     text-align: right; 
 }
 
-.business-contact .small a{
+.business-contact .small a {
     color: gray;
     font-weight: lighter;
 }
 
 /* Navigation Styling */
-.business-contact .ui-tabs-nav{
+.business-contact .bcw-tabs .ui-tabs-nav {
     padding: 0 !important;
 }
 
-.business-contact .ui-tabs-nav li{
+.business-contact .bcw-tabs .ui-tabs-nav {
+    background: none;
+    border: 0px;
+}
+
+.business-contact .bcw-tabs .ui-tabs-nav li {
     display: inline;
-    background-image: none !important;
-    margin: 0 !important;
-    padding: 1px !important;
-    height: 36px !important;
-    width: 36px !important;
-    z-index: 10 !important;
+    background-image: none;
+    margin: 0px;
+    padding: 0px;
+    border-bottom-width: 1px;
+    height: 38px;
+    width: 38px;
+    z-index: 10;
+    /* Combability with 2013 theme */
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 
-.business-contact .ui-tabs-nav li.contact-tab{
-    width: 70px !important;
-}
 
-.business-contact .ui-tabs-nav li a{
-    height: 36px !important;
-    width: 36px !important;   
+
+.business-contact .bcw-tabs .ui-tabs-nav li a {
+    position: relative;    
+    height: 38px !important;
+    width: 38px !important;   
     margin: 0 !important;
     padding: 0 !important;
+    outline:0;
 }
 
-.business-contact .ui-tabs-nav .contact-tab a{
-    padding: 10px 5px 12px 2px !important;
-    font-size: 15px !important;
-    font-weight: bold !important;
-}
-
-.business-contact .ui-tabs-nav .contact-tab a:hover{
-    text-decoration: none !important;
-    color: #42C0FB;
-}
-
-.business-contact .ui-tabs-nav img{
+.business-contact .bcw-tabs .ui-tabs-nav li a img {
     position: absolute;
-    padding: 0px !important;
+    padding: 3px !important;
     margin: 0px;
     height: 32px !important;
     width: 32px !important;
-    left: 2px !important;
-    top: 2px !important; 
+    left: 0px !important;
+    top: 0px !important; 
     z-index: 10;  
     box-shadow: none;
+    /* Combability with 2013 theme */
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 } 
 
-.business-contact #bcw-tabs ul li a{
-    position: relative;    
-}
-
-.business-contact #bcw-tabs ul img.grey{
-    z-index: 20;
-}
-
-.business-contact #bcw-tabs ul .ui-tabs-active img.colour{
+.business-contact .bcw-tabs .ui-tabs-nav li a img.grey {
     z-index: 30;
 }
 
+.business-contact .bcw-tabs .ui-tabs-nav li a img.colour {
+    z-index: 20;
+}
+
+.business-contact .bcw-tabs .ui-tabs-nav li.ui-tabs-active a img.grey {
+    display: none;
+}
+
+.business-contact .ui-corner-all,
+.business-contact .ui-corner-top,
+.business-contact .ui-corner-right,
+.business-contact .ui-corner-tr {
+    border-top-right-radius: 0px;
+}
+
+.business-contact .ui-corner-all,
+.business-contact .ui-corner-top,
+.business-contact .ui-corner-left,
+.business-contact .ui-corner-tr {
+    border-top-left-radius: 0px;
+}
+
+.business-contact .ui-corner-all,
+.business-contact .ui-corner-bottom,
+.business-contact .ui-corner-right,
+.business-contact .ui-corner-tr {
+    border-bottom-right-radius: 0px;
+}
+
+.business-contact .ui-corner-all,
+.business-contact .ui-corner-bottom,
+.business-contact .ui-corner-left,
+.business-contact .ui-corner-tr {
+    border-bottom-left-radius: 0px;
+}
+
 /* Content Styling */
-.business-contact #bcw-email a{
+.business-contact .bcw-tabs #bcw-email a {
     font-size: 0.9em;
 }
 
-.business-contact form input,
-.business-contact form textarea{
+.business-contact .bcw-tabs form input,
+.business-contact .bcw-tabs form textarea {
     width: 90%;
 }
 
-.business-contact #bcw-tabs p{
+.business-contact .bcw-tabs p {
     text-align: right;
     margin-bottom: 0.5em;
 }
 
-.business-contact strong{
+.business-contact .bcw-tabs strong {
     text-align: left;
     display: block;
     width: 100%;
 }
 
-.business-contact #bcw-tabs form p{
+.business-contact .bcw-tabs form p {
     text-align: left;
 }

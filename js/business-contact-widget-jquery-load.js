@@ -1,12 +1,12 @@
 jQuery('document').ready(function($) {
-    var openTab = $('#bcw_openTab').val();
+    var openTab = $('.business-contact .bcw-tabs_openTab').val();
     var active = openTab - 1;
     
-    $('#bcw-tabs').tabs({
+    $('.business-contact .bcw-tabs').tabs({
                     active: active
                 });
 
-    $('#bcw-tabs .ui-tabs-nav li').hover(
+    $('.business-contact .bcw-tabs .ui-tabs-nav li').hover(
         function () {
             $('img.grey', this).hide('slow');
           },

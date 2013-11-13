@@ -4,7 +4,7 @@ Donate link: http://stressfreesites.co.uk/plugins
 Tags: contact, details, widget, telephone, email, address, opening times
 Requires at least: 3.0.0
 Tested up to: 3.5.1
-Stable tag: 2.3
+Stable tag: 2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,13 @@ Yes, just do not enter any information in that section and that tab will not sho
 6. Widget backend - Easily add the contact details of the company in the widget.
 
 == Changelog ==
+
+= 2.5 = 
+* Multiple contact widget on one page
+* Compatability with 2013 theme
+
+= 2.4 = 
+* Minor changes
 
 = 2.3 = 
 * Contact Form Functionality 
