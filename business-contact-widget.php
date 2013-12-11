@@ -3,7 +3,7 @@
 Plugin Name: Business Contact Widget
 Plugin URI: http://stressfreesites.co.uk/plugins/business-contact-widget
 Description: This plugin creates a widget which easily displays, without becoming cluttered, all the business contact details of a company/organisation.
-Version: 2.5
+Version: 2.6.0
 Author: StressFree Sites
 Author URI: http://stressfreesites.co.uk
 License: GPL2
@@ -211,6 +211,7 @@ class Business_Contact_Widget extends WP_Widget {
             $showMap = isset($instance['showMap']) ? $instance['showMap'] : false;
             $showOpening = isset($instance['showOpening']) ? $instance['showOpening'] : false;
             
+            $icons = $instance['icons'];
             $openTab = $instance['openTab'];
             
             $createdBy = isset($instance['createdBy']) ? $instance['createdBy'] : false;
@@ -223,26 +224,62 @@ class Business_Contact_Widget extends WP_Widget {
                     echo $before_title . $title . $after_title;
 
             /* Tab headers and hidden inputs */
-            echo ('<input type="hidden" id="bcw_openTab" value="' . $openTab . '" /><div class="bcw-tabs"><ul>');
+            echo ('<input type="hidden" id="bcw_openTab" value="' . $openTab . '" /><div class="preloader"></div><div class="bcw-tabs"><ul>');
             
-            if ($showTelephone && ($telephone || $fax || $mobileNo || $mobileNo2 || $mobileNo3 || $otherTelephoneNo))
-                    echo ('<li><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/telephone.png') . '" class="colour"/><img src="' . plugins_url('business-contact-widget/images/telephone_grey.png') . '" class="grey"/></a></li>');
+            if ($showTelephone && ($telephone || $fax || $mobileNo || $mobileNo2 || $mobileNo3 || $otherTelephoneNo)){
+                if($icons == 'Modern'){
+                    echo ('<li><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/modern_telephone.png') . '" class="colour"/><img src="' . plugins_url('business-contact-widget/images/modern_telephone_grey.png') . '" class="grey"/></a></li>');                    
+                }
+                else{
+                    echo ('<li><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/telephone.png') . '" class="colour"/><img src="' . plugins_url('business-contact-widget/images/telephone_grey.png') . '" class="grey"/></a></li>');                    
+                }
+            }
 
-            if ($showEmail && ($email || $personalEmail || $personalEmail2 || $personalEmail3 || $otherEmail))
-                    echo ('<li><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/email.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/email_grey.png') . '" class="grey"/></a></li>');
+            if ($showEmail && ($email || $personalEmail || $personalEmail2 || $personalEmail3 || $otherEmail)){
+                if($icons == 'Modern'){
+                     echo ('<li><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/modern_email.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_email_grey.png') . '" class="grey"/></a></li>');                   
+                }
+                else{
+                    echo ('<li><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/email.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/email_grey.png') . '" class="grey"/></a></li>');                    
+                }
+            }
             
-            if ($showAddress && ($mainAddress || $secondaryAddress))
-                    echo ('<li><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/address.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/address_grey.png') . '" class="grey"/></a></li>');
+            if ($showAddress && ($mainAddress || $secondaryAddress)){
+                if($icons == 'Modern'){
+                    echo ('<li><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/modern_address.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_address_grey.png') . '" class="grey"/></a></li>');                    
+                }
+                else{
+                    echo ('<li><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/address.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/address_grey.png') . '" class="grey"/></a></li>');                    
+                }
+            }
 
-            if ($showMessage && $message)
-                    echo ('<li><a href="#bcw-message"><img src="' . plugins_url('business-contact-widget/images/write.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/write_grey.png') . '" class="grey"/></a></li>');            
+            if ($showMessage && $message){
+                if($icons == 'Modern'){
+                    echo ('<li><a href="#bcw-message"><img src="' . plugins_url('business-contact-widget/images/modern_write.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_write_grey.png') . '" class="grey"/></a></li>');                                
+                }
+                else{
+                    echo ('<li><a href="#bcw-message"><img src="' . plugins_url('business-contact-widget/images/write.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/write_grey.png') . '" class="grey"/></a></li>');                                
+                }
+            }
             
-            if ($showMap && $map)
-                    echo ('<li><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/map.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/map_grey.png') . '" class="grey"/></a></li>');
+            if ($showMap && $map){
+                if($icons == 'Modern'){
+                    echo ('<li><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/modern_map.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_map_grey.png') . '" class="grey"/></a></li>');                    
+                }
+                else{
+                    echo ('<li><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/map.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/map_grey.png') . '" class="grey"/></a></li>');                    
+                }
+            }
             
-            if ($showOpening && $openingTimes)
-                    echo ('<li><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/clock.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/clock_grey.png') . '" class="grey"/></a></li>');
-            
+            if ($showOpening && $openingTimes){
+                if($icons == 'Modern'){
+                    echo ('<li><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/modern_clock.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_clock_grey.png') . '" class="grey"/></a></li>');                    
+                }
+                else{
+                    echo ('<li><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/clock.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/clock_grey.png') . '" class="grey"/></a></li>');                     
+                }
+            }
+           
             echo ('</ul>');
             
             /* Tab body content */    
@@ -304,7 +341,7 @@ class Business_Contact_Widget extends WP_Widget {
             
             /* Show map */
             if ($showMap && $map){
-                    echo ('<div id="bcw-map"><p><h4>' . __('Map', 'bcw-language') . '</h4><br />' . stripslashes($map) . '</div>');
+                    echo ('<div id="bcw-map">' . stripslashes($map) . '</div>');
             }
             
             if ($showOpening && $openingTimes){
@@ -327,7 +364,7 @@ class Business_Contact_Widget extends WP_Widget {
             $instance = $old_instance;
 
             /* Strip tags (if needed) and update the widget settings. */
-            $instance['title'] = strip_tags($new_instance['title']);
+            $instance['title'] = strip_tags($new_instance['title']);           
             
             $instance['showTelephone'] = $new_instance['showTelephone'];
             $instance['showEmail'] = $new_instance['showEmail'];
@@ -336,6 +373,7 @@ class Business_Contact_Widget extends WP_Widget {
             $instance['showMap'] = $new_instance['showMap'];
             $instance['showOpening'] = $new_instance['showOpening'];
             
+            $instance['icons'] = $new_instance['icons'];
             $instance['openTab'] = $new_instance['openTab'];
             
             $instance['createdBy'] = $new_instance['createdBy'];        
@@ -347,18 +385,20 @@ class Business_Contact_Widget extends WP_Widget {
             /* Set up some default widget settings. */
             $defaults = array('title' => 'Contact',                               
                               'showTelephone' => 'on', 'showEmail' => 'on', 'showAddress' => 'on', 'showMessage' => 'on', 'showMap' => 'on', 'showOpening' => 'on', 
-                              'openTab' => '1', 'createdBy' => 'off');
+                              'icons' => 'Normal', 'openTab' => '1', 'createdBy' => 'off');
             $instance = wp_parse_args((array) $instance, $defaults); ?>
+                <h3>General Display</h3>
                 <p>
                     Please add all the contact details through the "<a href="options-general.php?page=businesscontactwidget">Business Contact Widget</a>" settings page.
-                </p>
-                <p>
-                    Select which contact details tabs you would like to bee displayed on this widget. NOTE: tabs will not be displayed if there is no information in them.
-                </p>
+                </p>               
                 <p>
 			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', 'bcw-language'); ?></label>
 			<input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $instance['title']; ?>" style="width:100%;" />
 		</p>
+                <h3>Display Contact Sections</h3>
+                <p>
+                    Select which contact details tabs you would like to be displayed on this widget. NOTE: tabs will not be displayed if there is no information in them.
+                </p>
                 <p>
 			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showTelephone'); ?>" name="<?php echo $this->get_field_name('showTelephone'); ?>" <?php checked($instance['showTelephone'], 'on'); ?>/>
 			<label for="<?php echo $this->get_field_id('showTelephone'); ?>"><?php _e('Display telephone numbers?', 'bcw-language'); ?></label>
@@ -383,6 +423,14 @@ class Business_Contact_Widget extends WP_Widget {
 			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showOpening'); ?>" name="<?php echo $this->get_field_name('showOpening'); ?>" <?php checked($instance['showOpening'], 'on'); ?>/>
 			<label for="<?php echo $this->get_field_id('showOpening'); ?>"><?php _e('Display opening times?', 'bcw-language'); ?></label>
 		</p>
+                <h3>Display Settings</h3>
+                <p>
+                        <label for="<?php echo $this->get_field_id('icons'); ?>"><?php _e('Which icon set to use?','bcw-language'); ?></label>
+                        <select id="<?php echo $this->get_field_id('icons'); ?>" name="<?php echo $this->get_field_name('icons'); ?>"> 
+                            <option <?php if($instance['icons'] == 'Normal') echo ('SELECTED');?>>Normal</option>
+                            <option <?php if($instance['icons'] == 'Modern') echo ('SELECTED');?>>Modern</option>
+                        </select>                      
+                </p>
                 <p>
                         <label for="<?php echo $this->get_field_id('openTab'); ?>"><?php _e('Load page open on tab','bcw-language'); ?></label>
                         <select id="<?php echo $this->get_field_id('openTab'); ?>" name="<?php echo $this->get_field_name('openTab'); ?>"> 

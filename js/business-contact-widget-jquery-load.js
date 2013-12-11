@@ -13,6 +13,9 @@ jQuery('document').ready(function($) {
           function () {
             $('img.grey', this).show('slow');
           }
-      );
-   
-    });
+    );
+    
+    // only show business contact when all loaded
+    $('.business-contact .preloader').css('display', 'none');
+    $('.business-contact .bcw-tabs').css('display', 'block');  
+});
