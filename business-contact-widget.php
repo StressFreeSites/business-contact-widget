@@ -3,9 +3,10 @@
 Plugin Name: Business Contact Widget
 Plugin URI: http://stressfreesites.co.uk/plugins/business-contact-widget
 Description: This plugin creates a widget which easily displays, without becoming cluttered, all the business contact details of a company/organisation.
-Version: 2.6.0
+Version: 2.6.1
 Author: StressFree Sites
 Author URI: http://stressfreesites.co.uk
+Text Domain: bcw
 License: GPL2
 */
 
@@ -25,113 +26,140 @@ License: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+if ( is_admin() ) {
+    require_once('business-contact-widget-admin.php');
+}
+
 /* Localisation of text */
 function bcw_init() {
-  load_plugin_textdomain( 'bcw-language', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+  load_plugin_textdomain( 'bcw', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 add_action('plugins_loaded', 'bcw_init');
 
 function bcw_enqueue_scripts() {       
-    /* Load custom scripts */
-    //wp_enqueue_script('greyScale', plugins_url('business-contact-widget/js/greyScale.min.js'), array('jquery'),'1.0',true);
-    
-        /* Select which scripts to load */
-    $loadScripts = get_option('bcw_load_scripts', array('jQuery' => 1, 
-                                                     'jQuery-ui-core' => 1,
-                                                     'jQuery-ui-tabs' => 1));
-
-    if(isset($loadScripts['jQuery'])){
-        if(isset($loadScripts['jQuery-ui-core'])){
-            if(isset($loadScripts['jQuery-ui-tabs'])){
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'jquery-ui-core', 'jquery-ui-tabs'), '1.0', true);
+    /* Select which scripts to load */
+    $settings = get_option('bcw_settings','');
+    if($settings['loadScripts']['jQuery'] === 'true'){
+        if($settings['loadScripts']['jQuery-ui-core'] === 'true'){
+            if($settings['loadScripts']['jQuery-ui-tabs'] === 'true'){
+                wp_enqueue_script('jquery-business-contact-widget', plugins_url('business-contact-widget/js/business-contact-widget.min.js'), array('jquery', 'jquery-ui-core', 'jquery-ui-tabs'), '1.0', true);
             }
             else{
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'jquery-ui-core'), '1.0', true); 
+                wp_enqueue_script('jquery-business-contact-widget', plugins_url('business-contact-widget/js/business-contact-widget.min.js'), array('jquery', 'jquery-ui-core'), '1.0', true); 
             }
         }
         else{
-            if(isset($loadScripts['jQuery-ui-tabs'])){
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery', 'jquery-ui-tabs'), '1.0', true);     
+            if($settings['loadScripts']['jQuery-ui-tabs'] === 'true'){
+                wp_enqueue_script('jquery-business-contact-widget', plugins_url('business-contact-widget/js/business-contact-widget.min.js'), array('jquery', 'jquery-ui-tabs'), '1.0', true);     
             }
             else{
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery'), '1.0', true);
+                wp_enqueue_script('jquery-business-contact-widget', plugins_url('business-contact-widget/js/business-contact-widget.min.js'), array('jquery'), '1.0', true);
             }
         }
     }
     else{
-        if(isset($loadScripts['jQuery-ui-core'])){
-            if(isset($loadScripts['jQuery-ui-tabs'])){
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery-ui-core', 'jquery-ui-tabs'), '1.0', true);
+        if($settings['loadScripts']['jQuery-ui-core'] === 'true'){
+            if($settings['loadScripts']['jQuery-ui-tabs'] === 'true'){
+                wp_enqueue_script('jquery-business-contact-widget', plugins_url('business-contact-widget/js/business-contact-widget.min.js'), array('jquery-ui-core', 'jquery-ui-tabs'), '1.0', true);
             }
             else{
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery-ui-core'), '1.0', true);
+                wp_enqueue_script('jquery-business-contact-widget', plugins_url('business-contact-widget/js/business-contact-widget.min.js'), array('jquery-ui-core'), '1.0', true);
             }
         }
         else{
-            if(isset($loadScripts['jQuery-ui-tabs'])){
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array('jquery-ui-tabs'), '1.0', true);
+            if($settings['loadScripts']['jQuery-ui-tabs'] === 'true'){
+                wp_enqueue_script('jquery-business-contact-widget', plugins_url('business-contact-widget/js/business-contact-widget.min.js'), array('jquery-ui-tabs'), '1.0', true);
             }
             else{
-                wp_enqueue_script('jquery-business-contact-widget-load', plugins_url('business-contact-widget/js/business-contact-widget-jquery-load.js'), array(), '1.0', true);
+                wp_enqueue_script('jquery-business-contact-widget', plugins_url('business-contact-widget/js/business-contact-widget.min.js'), array(), '1.0', true);
             }           
         }     
     } 
 }    
 add_action('wp_enqueue_scripts', 'bcw_enqueue_scripts');
 
-function bcw_enqueue_styles() { 
-    /* Load custom styling */
-    
-    /* Load the selected custom style */
-    $loadJqueryUI = get_option('bcw_load_jquery_ui','true');
-    if($loadJqueryUI){
-        $style = get_option('bcw_style','Grey');
-        switch($style){
+function bcw_enqueue_styles() {   
+    $settings = get_option('bcw_settings','');
+    if($settings['loadJqueryUI'] === 'true'){   
+        switch($settings['style']){
             case 'Grey':
-                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui.css')); 
+                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui-grey.min.css')); 
                 break;
             case 'Black':
-                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui-black.css'));
+                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui-black.min.css'));
                 break;
             case 'Blue':
-                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui-blue.css'));
+                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui-blue.min.css'));
+                break;
+            case 'Red':
+                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui-red.min.css'));
+                break;
+            case 'Green':
+                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui-green.min.css'));
+                break;
+            case 'Skeleton':
+                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui-skeleton.min.css'));
+                wp_enqueue_style('business-contact-widget-skeleton-style', plugins_url('business-contact-widget/css/business-contact-widget-skeleton.min.css'));
                 break;
             default:
-                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui.css')); 
+                wp_enqueue_style('business-contact-widget-jquery-ui-style', plugins_url('business-contact-widget/css/jquery-ui-skeleton.min.css'));
+                wp_enqueue_style('business-contact-widget-skeleton-style', plugins_url('business-contact-widget/css/business-contact-widget-skeleton.min.css'));
                 break;
         }
-        wp_enqueue_style('business-contact-widget-style', plugins_url('business-contact-widget/css/business-contact-widget-style.css'), array('business-contact-widget-jquery-ui-style')); 
+        wp_enqueue_style('business-contact-widget-style', plugins_url('business-contact-widget/css/business-contact-widget.min.css'), array('business-contact-widget-jquery-ui-style')); 
     }
     else{
-        wp_enqueue_style('business-contact-widget-style', plugins_url('business-contact-widget/css/business-contact-widget-style.css'), array());
+        wp_enqueue_style('business-contact-widget-style', plugins_url('business-contact-widget/css/business-contact-widget.min.css'), array());
     }
     
      
 } 
 add_action('wp_print_styles', 'bcw_enqueue_styles');
 
-/* Admin page functionality */
-function bcw_admin(){
-    include ('business-contact-widget-admin.php');
-}
-function bcw_admin_init(){   
-    wp_register_style('business-contact-widget-style-admin', plugins_url('business-contact-widget/css/business-contact-widget-style-admin.css'));
-}
-add_action('admin_init', 'bcw_admin_init');
+// Activation code to update plugins
+function bcw_activate() {
+  // Get old widget information, and save in new formate in database
+  
+  // Retrieve old widget informaiton  
+  $widget = get_option('widget_business-contact-widget','');
+  
+  // Retrieve new settings information(if any)
+  $settings = get_option('bcw_settings');
+  
+  $settings['telephone'] = $widget[2]['telephone'];
+  $settings['fax'] = $widget[2]['fax'];
+  $settings['mobileName'] = $widget[2]['mobileName'];
+  $settings['mobileNo'] = $widget[2]['mobileNo'];
+  $settings['mobileName2'] = $widget[2]['mobileName2'];
+  $settings['mobileNo2'] = $widget[2]['mobileNo2'];
+  $settings['mobileName3'] = $widget[2]['mobileName3'];
+  $settings['mobileNo3'] = $widget[2]['mobileNo3'];
+  $settings['otherTelephoneName'] = $widget[2]['otherTelephoneName'];
+  $settings['otherTelephoneNo'] = $widget[2]['otherTelephoneNo'];
+  $settings['email'] = $widget[2]['email'];
+  $settings['personalEmailName'] = $widget[2]['personalEmailName'];
+  $settings['personalEmail'] = $widget[2]['personalEmail'];
+  $settings['personalEmailName2'] = $widget[2]['personalEmailName2'];
+  $settings['personalEmail2'] = $widget[2]['personalEmail2'];
+  $settings['personalEmailName3'] = $widget[2]['personalEmailName3'];
+  $settings['personalEmail3'] = $widget[2]['personalEmail3'];
+  $settings['otherEmailName'] = $widget[2]['otherEmailName'];
+  $settings['otherEmail'] = $widget[2]['otherEmail'];
+  $settings['mainAddressName'] = $widget[2]['mainAddressName'];
+  $settings['mainAddress'] = $widget[2]['mainAddress'];
+  $settings['secondaryAddressName'] = $widget[2]['secondaryAddressName'];
+  $settings['secondaryAddress'] = $widget[2]['secondaryAddress'];
+  $settings['message'] = $widget[2]['message'];
+  $settings['map'] = $widget[2]['map'];
+  $settings['openingTimes'] = $widget[2]['openingTimes'];
 
-function bcw_admin_actions(){
-   /* Register our plugin page */
-   $page = add_options_page('Business Contact Widget','Business Contact Widget', 'manage_options', 'businesscontactwidget', 'bcw_admin');
-
-   /* Using registered $page handle to hook stylesheet loading */
-   add_action('admin_print_styles-' . $page, 'bcw_admin_styles');
-    
+  $settings['icons'] = $widget[2]['icons'];
+  $settings['createdBy'] = $widget[2]['createdBy'];
+  
+  // Save settings in new format
+  update_option('bcw_settings',$settings);
 }
-add_action('admin_menu','bcw_admin_actions');
-   
-function bcw_admin_styles() {
-   wp_enqueue_style('business-contact-widget-style-admin');
-}
+register_activation_hook( __FILE__, 'bcw_activate' );
 
 /* Message box */
 function bcw_theme_admin_notice() {
@@ -140,7 +168,7 @@ function bcw_theme_admin_notice() {
         /* Check that the user hasn't already clicked to ignore the message */
 	if ( ! get_user_meta($user_id, 'bcw_theme_ignore_notice') ) {
             echo '<div class="updated"><p>'; 
-            printf(__('<p>Thank you for downloading Business Contact Widget. We hope you enjoy using the plugin, maybe some of our <a href="http://stressfreesites.co.uk/development" target="_blank">other plugins</a> would be of interest to you.</p><p>We have just launched a new Wordpress theme which might be of interest - <a href="http://www.mojo-themes.com/item/simple-setup/demo/" target="_blank">take a look</a>.</p><a href="%1$s">Hide This Notice</a>'), '?bcw_theme_nag_ignore=0');
+            printf(__('<p>Thank you for downloading Business Contact Widget. We hope you enjoy using the plugin, maybe some of our <a href="http://stressfreesites.co.uk/development/?utm_source=frontend&utm_medium=plugin&utm_campaign=wordpress" target="_blank">other plugins</a> would be of interest to you.</p><p>We have just launched a new Wordpress theme which might be of interest - <a href="http://www.mojo-themes.com/item/simple-setup/demo/" target="_blank">take a look</a>.</p><a href="%1$s">Hide This Notice</a>'), '?bcw_theme_nag_ignore=0');
             echo "</p></div>";
 	}
 }
@@ -175,34 +203,39 @@ class Business_Contact_Widget extends WP_Widget {
             /* User-selected settings. */
             $title = apply_filters('widget_title', $instance['title']);
             
-            $widget = get_option('widget_business-contact-widget','');
+            $settings = get_option('bcw_settings');
 
-            $telephone = $widget[2]['telephone'];
-            $fax = $widget[2]['fax'];
-            $mobileName = $widget[2]['mobileName'];
-            $mobileNo = $widget[2]['mobileNo'];
-            $mobileName2 = $widget[2]['mobileName2'];
-            $mobileNo2 = $widget[2]['mobileNo2'];
-            $mobileName3 = $widget[2]['mobileName3'];
-            $mobileNo3 = $widget[2]['mobileNo3'];
-            $otherTelephoneName = $widget[2]['otherTelephoneName'];
-            $otherTelephoneNo = $widget[2]['otherTelephoneNo'];
-            $email = $widget[2]['email'];
-            $personalEmailName = $widget[2]['personalEmailName'];
-            $personalEmail = $widget[2]['personalEmail'];
-            $personalEmailName2 = $widget[2]['personalEmailName2'];
-            $personalEmail2 = $widget[2]['personalEmail2'];
-            $personalEmailName3 = $widget[2]['personalEmailName3'];
-            $personalEmail3 = $widget[2]['personalEmail3'];
-            $otherEmailName = $widget[2]['otherEmailName'];
-            $otherEmail = $widget[2]['otherEmail'];            
-            $mainAddressName = $widget[2]['mainAddressName'];
-            $mainAddress = $widget[2]['mainAddress'];
-            $secondaryAddressName = $widget[2]['secondaryAddressName'];
-            $secondaryAddress = $widget[2]['secondaryAddress'];
-            $message = $widget[2]['message'];
-            $map = $widget[2]['map'];
-            $openingTimes = $widget[2]['openingTimes'];
+            $telephone = $settings['telephone'];
+            $fax = $settings['fax'];
+            $mobileName = $settings['mobileName'];
+            $mobileNo = $settings['mobileNo'];
+            $mobileName2 = $settings['mobileName2'];
+            $mobileNo2 = $settings['mobileNo2'];
+            $mobileName3 = $settings['mobileName3'];
+            $mobileNo3 = $settings['mobileNo3'];
+            $otherTelephoneName = $settings['otherTelephoneName'];
+            $otherTelephoneNo = $settings['otherTelephoneNo'];
+            $email = $settings['email'];
+            $personalEmailName = $settings['personalEmailName'];
+            $personalEmail = $settings['personalEmail'];
+            $personalEmailName2 = $settings['personalEmailName2'];
+            $personalEmail2 = $settings['personalEmail2'];
+            $personalEmailName3 = $settings['personalEmailName3'];
+            $personalEmail3 = $settings['personalEmail3'];
+            $otherEmailName = $settings['otherEmailName'];
+            $otherEmail = $settings['otherEmail'];            
+            $mainAddressName = $settings['mainAddressName'];
+            $mainAddress = $settings['mainAddress'];
+            $secondaryAddressName = $settings['secondaryAddressName'];
+            $secondaryAddress = $settings['secondaryAddress'];
+            $message = $settings['message'];
+            $map = $settings['map'];
+            $openingTimes = $settings['openingTimes'];
+            
+            $icons = $settings['icons'];
+            $iconSize = strtolower($settings['iconSize']);
+            $tabDirection = $settings['tabDirection']; 
+            $createdBy = $settings['createdBy'];
             
             $showTelephone = isset($instance['showTelephone']) ? $instance['showTelephone'] : false;
             $showEmail = isset($instance['showEmail']) ? $instance['showEmail'] : false;
@@ -210,11 +243,8 @@ class Business_Contact_Widget extends WP_Widget {
             $showMessage = isset($instance['showMessage']) ? $instance['showMessage'] : false;
             $showMap = isset($instance['showMap']) ? $instance['showMap'] : false;
             $showOpening = isset($instance['showOpening']) ? $instance['showOpening'] : false;
-            
-            $icons = $instance['icons'];
-            $openTab = $instance['openTab'];
-            
-            $createdBy = isset($instance['createdBy']) ? $instance['createdBy'] : false;
+                
+            $openTab = $instance['openTab']; 
 
             /* Before widget (defined by themes). */
             echo $before_widget .'<div class="business-contact">';
@@ -224,59 +254,59 @@ class Business_Contact_Widget extends WP_Widget {
                     echo $before_title . $title . $after_title;
 
             /* Tab headers and hidden inputs */
-            echo ('<input type="hidden" id="bcw_openTab" value="' . $openTab . '" /><div class="preloader"></div><div class="bcw-tabs"><ul>');
+            echo ('<input type="hidden" class="bcw-open-tab" value="' . $openTab . '" /><input type="hidden" class="bcw-tab-direction" value="' . $tabDirection . '" /><div class="preloader"></div><div class="bcw-tabs"><ul>');
             
             if ($showTelephone && ($telephone || $fax || $mobileNo || $mobileNo2 || $mobileNo3 || $otherTelephoneNo)){
                 if($icons == 'Modern'){
-                    echo ('<li><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/modern_telephone.png') . '" class="colour"/><img src="' . plugins_url('business-contact-widget/images/modern_telephone_grey.png') . '" class="grey"/></a></li>');                    
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/modern_telephone.png') . '" class="colour"/><img src="' . plugins_url('business-contact-widget/images/modern_telephone_grey.png') . '" class="grey"/></a></li>');                    
                 }
                 else{
-                    echo ('<li><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/telephone.png') . '" class="colour"/><img src="' . plugins_url('business-contact-widget/images/telephone_grey.png') . '" class="grey"/></a></li>');                    
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/telephone.png') . '" class="colour"/><img src="' . plugins_url('business-contact-widget/images/telephone_grey.png') . '" class="grey"/></a></li>');                    
                 }
             }
 
             if ($showEmail && ($email || $personalEmail || $personalEmail2 || $personalEmail3 || $otherEmail)){
                 if($icons == 'Modern'){
-                     echo ('<li><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/modern_email.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_email_grey.png') . '" class="grey"/></a></li>');                   
+                     echo ('<li class="' . $iconSize . '"><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/modern_email.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_email_grey.png') . '" class="grey"/></a></li>');                   
                 }
                 else{
-                    echo ('<li><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/email.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/email_grey.png') . '" class="grey"/></a></li>');                    
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/email.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/email_grey.png') . '" class="grey"/></a></li>');                    
                 }
             }
             
             if ($showAddress && ($mainAddress || $secondaryAddress)){
                 if($icons == 'Modern'){
-                    echo ('<li><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/modern_address.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_address_grey.png') . '" class="grey"/></a></li>');                    
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/modern_address.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_address_grey.png') . '" class="grey"/></a></li>');                    
                 }
                 else{
-                    echo ('<li><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/address.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/address_grey.png') . '" class="grey"/></a></li>');                    
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/address.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/address_grey.png') . '" class="grey"/></a></li>');                    
                 }
             }
 
             if ($showMessage && $message){
                 if($icons == 'Modern'){
-                    echo ('<li><a href="#bcw-message"><img src="' . plugins_url('business-contact-widget/images/modern_write.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_write_grey.png') . '" class="grey"/></a></li>');                                
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-message"><img src="' . plugins_url('business-contact-widget/images/modern_write.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_write_grey.png') . '" class="grey"/></a></li>');                                
                 }
                 else{
-                    echo ('<li><a href="#bcw-message"><img src="' . plugins_url('business-contact-widget/images/write.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/write_grey.png') . '" class="grey"/></a></li>');                                
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-message"><img src="' . plugins_url('business-contact-widget/images/write.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/write_grey.png') . '" class="grey"/></a></li>');                                
                 }
             }
             
             if ($showMap && $map){
                 if($icons == 'Modern'){
-                    echo ('<li><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/modern_map.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_map_grey.png') . '" class="grey"/></a></li>');                    
+                    echo ('<li class="' . $iconSize . ' tab-map"><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/modern_map.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_map_grey.png') . '" class="grey" /></a></li>');                    
                 }
                 else{
-                    echo ('<li><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/map.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/map_grey.png') . '" class="grey"/></a></li>');                    
+                    echo ('<li class="' . $iconSize . ' tab-map"><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/map.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/map_grey.png') . '" class="grey" /></a></li>');                    
                 }
             }
             
             if ($showOpening && $openingTimes){
                 if($icons == 'Modern'){
-                    echo ('<li><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/modern_clock.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_clock_grey.png') . '" class="grey"/></a></li>');                    
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/modern_clock.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_clock_grey.png') . '" class="grey" /></a></li>');                    
                 }
                 else{
-                    echo ('<li><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/clock.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/clock_grey.png') . '" class="grey"/></a></li>');                     
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/clock.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/clock_grey.png') . '" class="grey" /></a></li>');                     
                 }
             }
            
@@ -287,19 +317,19 @@ class Business_Contact_Widget extends WP_Widget {
                     echo ('<div id="bcw-telephone">');
                     
                     if ($telephone)
-                        echo ('<h4>' . __('Telephone', 'bcw-language') . '</h4><p>' . $telephone . '</p>');
+                        echo ('<h4>' . __('Telephone', 'bcw') . '</h4><p>' . $telephone . '</p>');
                     
                     if ($fax)
-                        echo ('<h4>' . __('Fax', 'bcw-language') . '</h4><p>' . $fax . '</p>');
+                        echo ('<h4>' . __('Fax', 'bcw') . '</h4><p>' . $fax . '</p>');
                     
                     if ($mobileNo)
-                        echo ('<h4>' . $mobileName . '\'s ' . __('Mobile', 'bcw-language') . '</h4><p>' . $mobileNo . '</p>');
+                        echo ('<h4>' . $mobileName . '\'s ' . __('Mobile', 'bcw') . '</h4><p>' . $mobileNo . '</p>');
 
                     if ($mobileNo2)
-                        echo ('<h4>' . $mobileName2 . '\'s ' . __('Mobile', 'bcw-language') . '</h4><p>' . $mobileNo2 . '</p>');
+                        echo ('<h4>' . $mobileName2 . '\'s ' . __('Mobile', 'bcw') . '</h4><p>' . $mobileNo2 . '</p>');
                     
                     if ($mobileNo3)
-                        echo ('<h4>' . $mobileName3 . '\'s ' . __('Mobile', 'bcw-language') . '</h4><p>' . $mobileNo3 . '</p>');
+                        echo ('<h4>' . $mobileName3 . '\'s ' . __('Mobile', 'bcw') . '</h4><p>' . $mobileNo3 . '</p>');
                     
                     if ($otherTelephoneNo)
                         echo ('<h4>' . $otherTelephoneName . '</h4><p>' . $otherTelephoneNo . '</p>');
@@ -311,21 +341,21 @@ class Business_Contact_Widget extends WP_Widget {
                 echo ('<div id="bcw-email">');
                 
                 if ($email)
-                        echo ('<h4>' . __('Email', 'bcw-language') . '</h4><p><a href="mailto:'.$email.'">' . $email . '</a></p>');
+                        echo ('<h4>' . __('Email', 'bcw') . '</h4><p><a href="mailto:'.$email.'">' . $email . '</a></p>');
  
                 if ($personalEmail)
-                        echo ('<h4>' . $personalEmailName . '\'s ' . __(' Email', 'bcw-language') . '</h4><p><a href="mailto:' . $personalEmail . '">' . $personalEmail . '</a></p>');
+                        echo ('<h4>' . $personalEmailName . '\'s ' . __(' Email', 'bcw') . '</h4><p><a href="mailto:' . $personalEmail . '">' . $personalEmail . '</a></p>');
 
                 if ($personalEmail2)
-                        echo ('<h4>' . $personalEmailName2 . '\'s ' . __(' Email', 'bcw-language') . '</h4><p><a href="mailto:' . $personalEmail2 . '">' . $personalEmail2 . '</a></p>');
+                        echo ('<h4>' . $personalEmailName2 . '\'s ' . __(' Email', 'bcw') . '</h4><p><a href="mailto:' . $personalEmail2 . '">' . $personalEmail2 . '</a></p>');
  
 
                 if ($personalEmail3)
-                        echo ('<h4>' . $personalEmailName3 . '\'s ' . __(' Email', 'bcw-language') . '</h4><p><a href="mailto:' . $personalEmail3 . '">' . $personalEmail3 . '</a></p>');
+                        echo ('<h4>' . $personalEmailName3 . '\'s ' . __(' Email', 'bcw') . '</h4><p><a href="mailto:' . $personalEmail3 . '">' . $personalEmail3 . '</a></p>');
  
 
                 if ($otherEmail)
-                        echo ('<h4>' . $otherEmailName . __(' Email', 'bcw-language') . '</h4><p><a href="mailto:'.$otherEmail.'">' . $otherEmail . '</a></p>');
+                        echo ('<h4>' . $otherEmailName . __(' Email', 'bcw') . '</h4><p><a href="mailto:'.$otherEmail.'">' . $otherEmail . '</a></p>');
  
                 echo ('</div>');
             }
@@ -336,7 +366,7 @@ class Business_Contact_Widget extends WP_Widget {
             
             /* Show message */
             if ($showMessage && $message){
-                    echo ('<div id="bcw-message"><h4>' . __('Message', 'bcw-language') . '</h4><p>' . do_shortcode(stripslashes($message)) . '</p></div>');
+                    echo ('<div id="bcw-message"><p>' . do_shortcode(stripslashes($message)) . '</p></div>');
             } 
             
             /* Show map */
@@ -345,14 +375,14 @@ class Business_Contact_Widget extends WP_Widget {
             }
             
             if ($showOpening && $openingTimes){
-                    echo ('<div id="bcw-clock"><h4>' . __('Opening Times', 'bcw-language') . '</h4><p> ' . nl2br($openingTimes) . '</p></div>');
+                    echo ('<div id="bcw-clock"><h4>' . __('Opening Times', 'bcw') . '</h4><p> ' . nl2br($openingTimes) . '</p></div>');
             }
             
             echo ('</div>');
             
             /* Copyright */
-            if ($createdBy){
-                    echo ('<div class="small"><p>' . __('Plugin created by ', 'bcw-language') . '<a href="http://stressfreesites.co.uk/plugins/business-contact-widget" target="_blank">StressFree Sites</a></p></div>');
+            if ($createdBy === 'true'){
+                    echo ('<div class="small"><p>' . __('Plugin created by ', 'bcw') . '<a href="http://stressfreesites.co.uk/business-contact-widget/?utm_source=frontend&utm_medium=plugin&utm_campaign=wordpress" target="_blank">StressFree Sites</a></p></div>');
             }    
             
             /* After widget (defined by themes). */
@@ -373,10 +403,7 @@ class Business_Contact_Widget extends WP_Widget {
             $instance['showMap'] = $new_instance['showMap'];
             $instance['showOpening'] = $new_instance['showOpening'];
             
-            $instance['icons'] = $new_instance['icons'];
-            $instance['openTab'] = $new_instance['openTab'];
-            
-            $instance['createdBy'] = $new_instance['createdBy'];        
+            $instance['openTab'] = $new_instance['openTab'];      
             return $instance;
     }
     
@@ -384,70 +411,62 @@ class Business_Contact_Widget extends WP_Widget {
     function form($instance) {
             /* Set up some default widget settings. */
             $defaults = array('title' => 'Contact',                               
-                              'showTelephone' => 'on', 'showEmail' => 'on', 'showAddress' => 'on', 'showMessage' => 'on', 'showMap' => 'on', 'showOpening' => 'on', 
-                              'icons' => 'Normal', 'openTab' => '1', 'createdBy' => 'off');
+                              'showTelephone' => 'true', 'showEmail' => 'true', 'showAddress' => 'true', 'showMessage' => 'true', 'showMap' => 'true', 'showOpening' => 'true', 
+                              'openTab' => '1');
             $instance = wp_parse_args((array) $instance, $defaults); ?>
-                <h3>General Display</h3>
+                <h3>General Options</h3>
                 <p>
                     Please add all the contact details through the "<a href="options-general.php?page=businesscontactwidget">Business Contact Widget</a>" settings page.
                 </p>               
                 <p>
-			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', 'bcw-language'); ?></label>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', 'bcw'); ?></label>
 			<input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $instance['title']; ?>" style="width:100%;" />
 		</p>
-                <h3>Display Contact Sections</h3>
                 <p>
-                    Select which contact details tabs you would like to be displayed on this widget. NOTE: tabs will not be displayed if there is no information in them.
-                </p>
-                <p>
-			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showTelephone'); ?>" name="<?php echo $this->get_field_name('showTelephone'); ?>" <?php checked($instance['showTelephone'], 'on'); ?>/>
-			<label for="<?php echo $this->get_field_id('showTelephone'); ?>"><?php _e('Display telephone numbers?', 'bcw-language'); ?></label>
-		</p>
-                <p>
-			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showEmail'); ?>" name="<?php echo $this->get_field_name('showEmail'); ?>" <?php checked($instance['showEmail'], 'on'); ?>/>
-			<label for="<?php echo $this->get_field_id('showEmail'); ?>"><?php _e('Display email addresses?', 'bcw-language'); ?></label>
-		</p>
-                <p>
-			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showAddress'); ?>" name="<?php echo $this->get_field_name('showAddress'); ?>" <?php checked($instance['showAddress'], 'on'); ?>/>
-			<label for="<?php echo $this->get_field_id('showAddress'); ?>"><?php _e('Display address?', 'bcw-language'); ?></label>
-		</p> 
-                 <p>
-			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showMessage'); ?>" name="<?php echo $this->get_field_name('showMessage'); ?>" <?php checked($instance['showMessage'], 'on'); ?>/>
-			<label for="<?php echo $this->get_field_id('showMessage'); ?>"><?php _e('Display message form?', 'bcw-language'); ?></label>
-		</p>                
-                <p>
-			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showMap'); ?>" name="<?php echo $this->get_field_name('showMap'); ?>" <?php checked($instance['showMap'], 'on'); ?>/>
-			<label for="<?php echo $this->get_field_id('showMap'); ?>"><?php _e('Display map?', 'bcw-language'); ?></label>
-		</p> 
-                <p>
-			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showOpening'); ?>" name="<?php echo $this->get_field_name('showOpening'); ?>" <?php checked($instance['showOpening'], 'on'); ?>/>
-			<label for="<?php echo $this->get_field_id('showOpening'); ?>"><?php _e('Display opening times?', 'bcw-language'); ?></label>
-		</p>
-                <h3>Display Settings</h3>
-                <p>
-                        <label for="<?php echo $this->get_field_id('icons'); ?>"><?php _e('Which icon set to use?','bcw-language'); ?></label>
-                        <select id="<?php echo $this->get_field_id('icons'); ?>" name="<?php echo $this->get_field_name('icons'); ?>"> 
-                            <option <?php if($instance['icons'] == 'Normal') echo ('SELECTED');?>>Normal</option>
-                            <option <?php if($instance['icons'] == 'Modern') echo ('SELECTED');?>>Modern</option>
-                        </select>                      
-                </p>
-                <p>
-                        <label for="<?php echo $this->get_field_id('openTab'); ?>"><?php _e('Load page open on tab','bcw-language'); ?></label>
+                        <label for="<?php echo $this->get_field_id('openTab'); ?>"><?php _e('Load page open on tab','bcw'); ?></label>
                         <select id="<?php echo $this->get_field_id('openTab'); ?>" name="<?php echo $this->get_field_name('openTab'); ?>"> 
                             <option <?php if($instance['openTab'] == 1) echo ('SELECTED');?>>1</option>
                             <option <?php if($instance['openTab'] == 2) echo ('SELECTED');?>>2</option>
                             <option <?php if($instance['openTab'] == 3) echo ('SELECTED');?>>3</option>
                             <option <?php if($instance['openTab'] == 4) echo ('SELECTED');?>>4</option>
                             <option <?php if($instance['openTab'] == 5) echo ('SELECTED');?>>5</option>
+                            <option <?php if($instance['openTab'] == 6) echo ('SELECTED');?>>6</option>
                         </select>                      
                 </p>
+                <p class="description">
+                    <?php _e('Opens on tab number - 1 for first tab, 2 for second tab etc.', 'bcw'); ?>
+                </p>
+                <h3>Section Display Options</h3>
                 <p>
-                    <?php _e('Opens on tab number - 1 for first tab, 2 for second tab etc.', 'bcw-language'); ?>
+                    Select which contact details tabs you would like to be displayed on this widget. 
                 </p>
                 <p>
-			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('createdBy'); ?>" name="<?php echo $this->get_field_name('createdBy'); ?>" <?php checked($instance['createdBy'], 'on'); ?> />
-			<label for="<?php echo $this->get_field_id('createdBy'); ?>"><?php _e('Display created by? Please only remove this after making a ', 'bcw-language'); ?><a href="http://stressfreesites.co.uk/plugins/business-contact-widget" target="_blank"><?php _e('donation', 'bcw-language'); ?></a>, <?php _e('so we can continue making plugins like these.', 'bcw-language'); ?></label>
+			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showTelephone'); ?>" name="<?php echo $this->get_field_name('showTelephone'); ?>" value="true" <?php checked($instance['showTelephone'], 'true'); ?>/>
+			<label for="<?php echo $this->get_field_id('showTelephone'); ?>"><?php _e('Display telephone numbers', 'bcw'); ?></label>
 		</p>
+                <p>
+			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showEmail'); ?>" name="<?php echo $this->get_field_name('showEmail'); ?>" value="true" <?php checked($instance['showEmail'], 'true'); ?>/>
+			<label for="<?php echo $this->get_field_id('showEmail'); ?>"><?php _e('Display email addresses', 'bcw'); ?></label>
+		</p>
+                <p>
+			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showAddress'); ?>" name="<?php echo $this->get_field_name('showAddress'); ?>" value="true" <?php checked($instance['showAddress'], 'true'); ?>/>
+			<label for="<?php echo $this->get_field_id('showAddress'); ?>"><?php _e('Display address', 'bcw'); ?></label>
+		</p> 
+                 <p>
+			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showMessage'); ?>" name="<?php echo $this->get_field_name('showMessage'); ?>" value="true" <?php checked($instance['showMessage'], 'true'); ?>/>
+			<label for="<?php echo $this->get_field_id('showMessage'); ?>"><?php _e('Display message form', 'bcw'); ?></label>
+		</p>                
+                <p>
+			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showMap'); ?>" name="<?php echo $this->get_field_name('showMap'); ?>" value="true" <?php checked($instance['showMap'], 'true'); ?>/>
+			<label for="<?php echo $this->get_field_id('showMap'); ?>"><?php _e('Display map', 'bcw'); ?></label>
+		</p> 
+                <p>
+			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showOpening'); ?>" name="<?php echo $this->get_field_name('showOpening'); ?>" value="true" <?php checked($instance['showOpening'], 'true'); ?>/>
+			<label for="<?php echo $this->get_field_id('showOpening'); ?>"><?php _e('Display opening times', 'bcw'); ?></label>
+		</p>
+                <p class="description">
+                   NOTE: tabs will not be displayed if there is no information saved in them!
+                </p>
                 <?php
     }
     

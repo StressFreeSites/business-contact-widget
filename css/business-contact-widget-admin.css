@@ -1,0 +1,89 @@
+/*  Copyright 2012 StressFree Sites  (info@stressfreesites.co.uk : alex@stressfreesites.co.uk)
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License, version 3, as 
+    published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/* Admin pages */
+.bcw-admin-title {
+    display: inline;
+    margin-left: 10px;
+}
+
+.created-by {
+    float: right;
+    padding: 10px;
+    text-align: center;
+    background-color: #f0f0f0;
+    border: 1px solid #CCCCCC;
+}
+
+.donate {
+    float: right;
+    padding: 10px;
+    text-align: center;
+    background-color: #f0f0f0;
+    border: 1px solid #CCCCCC;
+}
+
+#accordion label {
+    float: left;
+    display: block;
+    margin: 20px 0px;
+    font-weight: bold;
+    width: 200px;
+}
+
+#accordion .ui-accordion-content h3 {
+    font-size: 16px;
+    text-decoration: underline;
+    padding-left: 0px;
+}
+
+#accordion input {
+    margin: 15px 1px;
+}
+
+#accordion input,
+#accordion textarea {
+    float: left;
+}
+
+.clear {
+    clear: both;    
+}
+
+.wrap div.updated, .wrap div.error, .wrap div.error {
+    margin-right: 150px;
+}
+
+.links {
+    padding-top: 17px;
+}
+
+img.icon {
+    vertical-align: middle;
+    margin-right: 15px;
+}
+
+span {
+    font-weight: bold;
+}
+
+span.description {
+    font-weight: normal;
+}
+
+span.ui-accordion-header-icon {
+    visibility: hidden;
+}

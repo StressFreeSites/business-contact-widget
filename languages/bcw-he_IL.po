@@ -1,0 +1,328 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Business Contact Widget\n"
+"POT-Creation-Date: 2013-06-27 21:29-0000\n"
+"PO-Revision-Date: 2014-02-12 16:15+0200\n"
+"Last-Translator: \n"
+"Language-Team: Wweb <Ilan@shalevit.xom>\n"
+"Language: he_IL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: D:\\Site\\WP Plugins\\business-contact-widget\n"
+
+#: business-contact-widget-admin.php:18
+msgid "You do not have sufficient permissions to access this page."
+msgstr "אין לך הרשאות מספיקות כדי לגשת לדף זה."
+
+#: business-contact-widget-admin.php:63
+msgid "Options saved."
+msgstr "tparuhu, banru/"
+
+#: business-contact-widget-admin.php:93 business-contact-widget-admin.php:417
+msgid "Plugin created by"
+msgstr "התוסף נוצר ע\"י"
+
+#: business-contact-widget-admin.php:95
+msgid "Business Contact Widget"
+msgstr "ווידג'ט שמירה על קשר (עיסקי)"
+
+#: business-contact-widget-admin.php:100
+msgid "Contact Settings"
+msgstr "הגדרות התקשרות"
+
+#: business-contact-widget-admin.php:102
+msgid "Telephone Settings"
+msgstr "הגדרות טלפונים"
+
+#: business-contact-widget-admin.php:107 business-contact-widget.php:253
+msgid "Telephone"
+msgstr "טלפון"
+
+#: business-contact-widget-admin.php:115 business-contact-widget.php:256
+msgid "Fax"
+msgstr "פקס"
+
+#: business-contact-widget-admin.php:123
+msgid "Mobile Person's Name"
+msgstr "שם איש קשר ראשי"
+
+#: business-contact-widget-admin.php:131 business-contact-widget-admin.php:147
+#: business-contact-widget-admin.php:163
+msgid "Their Mobile Number"
+msgstr "מספר הסלולרי שלו"
+
+#: business-contact-widget-admin.php:139
+msgid "2nd Mobile Person's Name"
+msgstr "שם איש קשר שני"
+
+#: business-contact-widget-admin.php:155
+msgid "3rd Mobile Person's Name"
+msgstr "שם איש קשר שלישי"
+
+#: business-contact-widget-admin.php:171
+msgid "Other Telephone Name"
+msgstr "שם איש קשר נוסף"
+
+#: business-contact-widget-admin.php:179
+msgid "Other Telephone Number"
+msgstr "מספר טלפון נוסף"
+
+#: business-contact-widget-admin.php:188
+msgid "Email Settings"
+msgstr "הגדרות דואר אלקטרוני"
+
+#: business-contact-widget-admin.php:193 business-contact-widget.php:277
+msgid "Email"
+msgstr "דואר אלקטרוני"
+
+#: business-contact-widget-admin.php:201
+msgid "Personal Email Name"
+msgstr "שם איש קשר ראשי"
+
+#: business-contact-widget-admin.php:209
+msgid "Personal Email Address"
+msgstr "כתובת דוא\"ל"
+
+#: business-contact-widget-admin.php:217
+msgid "2nd Personal Email Name"
+msgstr "שם איש קשר שני"
+
+#: business-contact-widget-admin.php:225
+msgid "2nd Personal Email Address"
+msgstr "כתובת דוא\"ל"
+
+#: business-contact-widget-admin.php:233
+msgid "3rd Personal Email Name"
+msgstr "שם איש קשר שלישי"
+
+#: business-contact-widget-admin.php:241
+msgid "3rd Personal Email Address"
+msgstr "כתובת דוא\"ל "
+
+#: business-contact-widget-admin.php:249
+msgid "Other Email Name"
+msgstr "שם איש קשר נוסף"
+
+#: business-contact-widget-admin.php:257
+msgid "Other Email Address"
+msgstr "כתובת דוא\"ל נוספת"
+
+#: business-contact-widget-admin.php:266
+msgid "Address Settings"
+msgstr "הגדרות כתובת"
+
+#: business-contact-widget-admin.php:271
+msgid "Main Address Name"
+msgstr "שם כתובת ראשית"
+
+#: business-contact-widget-admin.php:279
+msgid "Main Address"
+msgstr "כתובת ראשית"
+
+#: business-contact-widget-admin.php:287
+msgid "Secondary Address Name"
+msgstr "שם כתובת משנית"
+
+#: business-contact-widget-admin.php:295
+msgid "Secondary Address"
+msgstr "כתובת משנית"
+
+#: business-contact-widget-admin.php:304
+msgid "Message Settings"
+msgstr "הגדרות הודעה"
+
+#: business-contact-widget-admin.php:309
+msgid "Message Now"
+msgstr "הודעה כעת"
+
+#: business-contact-widget-admin.php:319
+msgid "Location Settings"
+msgstr "הגדרות מיקום"
+
+#: business-contact-widget-admin.php:324
+msgid "Map (iframe)"
+msgstr "מפה (iframe)"
+
+#: business-contact-widget-admin.php:328
+msgid "Insert the iframe code generated from online tools like Google maps"
+msgstr "הכנס את קוד iframe שנוצר מכלים מקוונים כמו גוגל מפות"
+
+#: business-contact-widget-admin.php:334
+msgid "Opening Times Settings"
+msgstr "הגדרות שעות פעילות"
+
+#: business-contact-widget-admin.php:339 business-contact-widget.php:311
+msgid "Opening Times"
+msgstr "שעות פעילות"
+
+#: business-contact-widget-admin.php:349
+msgid "Style Settings"
+msgstr "הגדרות עיצוב"
+
+#: business-contact-widget-admin.php:355
+msgid "Load jQuery UI styling"
+msgstr "טען עיצוב ממשק משתמש jQuery "
+
+#: business-contact-widget-admin.php:359
+msgid ""
+"If another plugin or your theme already has jQuery UI loaded (incorrectly) "
+"then untick this to stop the plugin's styling overriding and interferaring. "
+"NOTE: this will make the selection below redundant"
+msgstr ""
+"אם תוסף אחר, או ערכת הנושא שלך כבר טענו jQuery, אז הורד סימון זה כדי להפסיק "
+"את הפרעת טעינת jQuery של תוסף זה. הערה: הסרה זו תהפוך את הבחירה בהמשך למיותרת"
+
+#: business-contact-widget-admin.php:364
+msgid "Widget Style"
+msgstr "עיצוב הווידג'ט"
+
+#: business-contact-widget-admin.php:371
+msgid "Change the widget style to match your website"
+msgstr "שנה את עיצוב הווידג'ט כדי שיתאים לעיצוב ערכת הנושא שלך"
+
+#: business-contact-widget-admin.php:378
+msgid "System Settings"
+msgstr "הגדרות מערכת"
+
+#: business-contact-widget-admin.php:383
+msgid "Load jQuery and jQuery UI scripts"
+msgstr "טען jQuery וממשק jQuery."
+
+#: business-contact-widget-admin.php:392
+msgid ""
+"If another plugin or your theme already has jQuery, jQuery UI or jQuery UI "
+"Tabs loaded (incorrectly) then untick the corresponding script to stop the "
+"plugin's loading it twice causing it not to work."
+msgstr ""
+"אם תוסף אחר, או ערכת הנושא שלך כבר טענו jQuery, אז הורד סימון זה כדי למנוע "
+"טעינת jQuery של תוסף זה, אחרת jQuery לא יעבוד כלל"
+
+#: business-contact-widget-admin.php:401
+msgid "Update Options"
+msgstr "אפשרויות עדכון"
+
+#: business-contact-widget-admin.php:405
+msgid "Troubleshooting"
+msgstr "פתרון בעיות"
+
+#: business-contact-widget-admin.php:406
+msgid "If the widget does not display correctly"
+msgstr "האם הווידג'ט לא מוצג כהלכה?"
+
+#: business-contact-widget-admin.php:407
+msgid ""
+"If this happen it means that you have a theme or plugin which loads jQuery "
+"or jQuery UI incorrectly. To resolve this untick the options jQuery, jQuery "
+"UI and jQuery UI Tabs. See if that makes the widget display correctly. If it "
+"doesn't try ticking jQuery UI Tabs, then checking, then ticking jQuery UI "
+"and so on."
+msgstr ""
+"אם זה קורה, משמע שערכת הנושא שלך, או אחד התוספים האחרים טען jQuery, בכדי "
+"לפתור בעיה זו הסר הסימון מ-jQuery ובדוק האם התוסף מוצג כהלכה."
+
+#: business-contact-widget-admin.php:408
+msgid ""
+"If the widget interferes with the styling of other areas of your website"
+msgstr "האם הווידג'ט מפריע לעיצוב הקיים?"
+
+#: business-contact-widget-admin.php:409
+msgid ""
+"If this happens you do not need the default styling of the widet. To resolve "
+"this untick the styling option load jQuery UI styling."
+msgstr ""
+"אם זה קורה, אין לך צורך בעיצוב ברירת המחדל. יש להוריד את הסימון ליד טעינת "
+"jQuery ."
+
+#: business-contact-widget-admin.php:418
+msgid ""
+"Please add the Business Contact Widget to one of your <a href=\"widgets.php"
+"\">sidebars</a> then come back to this page to edit the settings."
+msgstr ""
+"יש להוסיף את הווידג'ט שמירה על קשר לאחד מאיזורי הווידג'טים <a href=\"widgets."
+"php\">ווידג'טים </a> לאחר מכן יש לחזור לדף ולערוך את ההגדרות בהתאם."
+
+#: business-contact-widget.php:143
+#, php-format
+msgid ""
+"<p>Thank you for downloading Business Contact Widget. We hope you enjoy "
+"using the plugin, maybe some of our <a href=\"http://stressfreesites.co.uk/"
+"development\" target=\"_blank\">other plugins</a> would be of interest to "
+"you.</p><p>We have just launched a new Wordpress theme which might be of "
+"interest - <a href=\"http://www.mojo-themes.com/item/simple-setup/demo/\" "
+"target=\"_blank\">take a look</a>.</p><a href=\"%1$s\">Hide This Notice</a>"
+msgstr ""
+
+#: business-contact-widget.php:259 business-contact-widget.php:262
+#: business-contact-widget.php:265
+msgid "Mobile"
+msgstr "סלולרי"
+
+#: business-contact-widget.php:280 business-contact-widget.php:283
+#: business-contact-widget.php:287 business-contact-widget.php:291
+msgid " Email"
+msgstr "דואל אלקטרוני"
+
+#: business-contact-widget.php:302
+msgid "Message"
+msgstr "הודעה"
+
+#: business-contact-widget.php:307
+msgid "Map"
+msgstr "מפה"
+
+#: business-contact-widget.php:318
+msgid "Plugin created by "
+msgstr "תוסף זה נוצר ע\"H"
+
+#: business-contact-widget.php:359
+msgid "Title"
+msgstr "כותרת"
+
+#: business-contact-widget.php:364
+msgid "Display telephone numbers?"
+msgstr "להציג מספר טלפון?"
+
+#: business-contact-widget.php:368
+msgid "Display email addresses?"
+msgstr "להציג דואר אלקטרוני?"
+
+#: business-contact-widget.php:372
+msgid "Display address?"
+msgstr "להציג כתובת?"
+
+#: business-contact-widget.php:376
+msgid "Display message form?"
+msgstr "להתיג הודעות?"
+
+#: business-contact-widget.php:380
+msgid "Display map?"
+msgstr "להציג מפה?"
+
+#: business-contact-widget.php:384
+msgid "Display opening times?"
+msgstr "להציג שעות פעילות?"
+
+#: business-contact-widget.php:387
+msgid "Load page open on tab"
+msgstr "איזה טאב להציג בפתיחה"
+
+#: business-contact-widget.php:397
+msgid "Opens on tab number - 1 for first tab, 2 for second tab etc."
+msgstr "הצגת טאב בפתיחה - 1 לראשון, 2 לשני וכן הלאה."
+
+#: business-contact-widget.php:401
+msgid "Display created by? Please only remove this after making a "
+msgstr "האם להציג 'נוצר ע\"י'?"
+
+#: business-contact-widget.php:401
+msgid "donation"
+msgstr "תרומות"
+
+#: business-contact-widget.php:401
+msgid "so we can continue making plugins like these."
+msgstr "כדי שנוכל להמשיך ליצור תוספים יפים כאלה."

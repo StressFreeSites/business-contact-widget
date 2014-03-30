@@ -1,0 +1,346 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Business Contact Widget\n"
+"POT-Creation-Date: 2013-06-27 21:29-0000\n"
+"PO-Revision-Date: 2013-12-18 15:55+0100\n"
+"Last-Translator: jelena kovacevic <jecajeca260@gmail.com>\n"
+"Language-Team: StressFree Sites <info@stressfreesites.co.uk>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: business-contact-widget-admin.php:18
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Usted no tiene los permisos necesarios para acceder a esta página."
+
+#: business-contact-widget-admin.php:63
+msgid "Options saved."
+msgstr "Opciones guardadas."
+
+#: business-contact-widget-admin.php:93 business-contact-widget-admin.php:417
+msgid "Plugin created by"
+msgstr "Plugin creado por"
+
+#: business-contact-widget-admin.php:95
+msgid "Business Contact Widget"
+msgstr "Business Contact Widget"
+
+#: business-contact-widget-admin.php:100
+msgid "Contact Settings"
+msgstr "Configuración Contacto"
+
+#: business-contact-widget-admin.php:102
+msgid "Telephone Settings"
+msgstr "Configuración Teléfono"
+
+#: business-contact-widget-admin.php:107 business-contact-widget.php:253
+msgid "Telephone"
+msgstr "Teléfono"
+
+#: business-contact-widget-admin.php:115 business-contact-widget.php:256
+msgid "Fax"
+msgstr "Fax"
+
+#: business-contact-widget-admin.php:123
+msgid "Mobile Person's Name"
+msgstr "Nombre de la Persona del Móvil"
+
+#: business-contact-widget-admin.php:131 business-contact-widget-admin.php:147
+#: business-contact-widget-admin.php:163
+msgid "Their Mobile Number"
+msgstr "Su número de teléfono móvil"
+
+#: business-contact-widget-admin.php:139
+msgid "2nd Mobile Person's Name"
+msgstr "Nombre de la persona del segundo móvil"
+
+#: business-contact-widget-admin.php:155
+msgid "3rd Mobile Person's Name"
+msgstr "Nombre de la persona del tercer móvil"
+
+#: business-contact-widget-admin.php:171
+msgid "Other Telephone Name"
+msgstr "Otro Nombre Teléfono"
+
+#: business-contact-widget-admin.php:179
+msgid "Other Telephone Number"
+msgstr "Otro número de teléfono"
+
+#: business-contact-widget-admin.php:188
+msgid "Email Settings"
+msgstr "Configuración del correo electrónico"
+
+#: business-contact-widget-admin.php:193 business-contact-widget.php:277
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: business-contact-widget-admin.php:201
+msgid "Personal Email Name"
+msgstr "Nombre personal Correo electrónico"
+
+#: business-contact-widget-admin.php:209
+msgid "Personal Email Address"
+msgstr "Dirección de correo electrónico personal"
+
+#: business-contact-widget-admin.php:217
+msgid "2nd Personal Email Name"
+msgstr "Segundo Nombre de Email Personal"
+
+#: business-contact-widget-admin.php:225
+msgid "2nd Personal Email Address"
+msgstr "Segunda dirección de E-mail Personal"
+
+#: business-contact-widget-admin.php:233
+msgid "3rd Personal Email Name"
+msgstr "Tercer Nombre de Email Personal"
+
+#: business-contact-widget-admin.php:241
+msgid "3rd Personal Email Address"
+msgstr "Tercera Dirección de correo electrónico Personal"
+
+#: business-contact-widget-admin.php:249
+msgid "Other Email Name"
+msgstr "Otro nombre Correo electrónico"
+
+#: business-contact-widget-admin.php:257
+msgid "Other Email Address"
+msgstr "Otras Direcciones de Correo electrónico"
+
+#: business-contact-widget-admin.php:266
+msgid "Address Settings"
+msgstr "Configuración Dirección"
+
+#: business-contact-widget-admin.php:271
+msgid "Main Address Name"
+msgstr "Nombre  Dirección Principal"
+
+#: business-contact-widget-admin.php:279
+msgid "Main Address"
+msgstr "Dirección Principal"
+
+#: business-contact-widget-admin.php:287
+msgid "Secondary Address Name"
+msgstr "Nombre Dirección Secundaria"
+
+#: business-contact-widget-admin.php:295
+msgid "Secondary Address"
+msgstr "Dirección Secundaria"
+
+#: business-contact-widget-admin.php:304
+msgid "Message Settings"
+msgstr "Configuración Mensaje"
+
+#: business-contact-widget-admin.php:309
+msgid "Message Now"
+msgstr "Mensajear Ahora"
+
+#: business-contact-widget-admin.php:319
+msgid "Location Settings"
+msgstr "Configuración de ubicación"
+
+#: business-contact-widget-admin.php:324
+msgid "Map (iframe)"
+msgstr "Mapa (iframe)"
+
+#: business-contact-widget-admin.php:328
+msgid "Insert the iframe code generated from online tools like Google maps"
+msgstr ""
+"Insertar el código iframe generado a partir de herramientas en línea, como "
+"los mapas de Google"
+
+#: business-contact-widget-admin.php:334
+msgid "Opening Times Settings"
+msgstr "Configuración de horarios de apertura"
+
+#: business-contact-widget-admin.php:339 business-contact-widget.php:311
+msgid "Opening Times"
+msgstr "Horas de apertura"
+
+#: business-contact-widget-admin.php:349
+msgid "Style Settings"
+msgstr "Configuración Estilo"
+
+#: business-contact-widget-admin.php:355
+msgid "Load jQuery UI styling"
+msgstr "Cargar estilo jQuery UI"
+
+#: business-contact-widget-admin.php:359
+msgid ""
+"If another plugin or your theme already has jQuery UI loaded (incorrectly) "
+"then untick this to stop the plugin's styling overriding and interferaring. "
+"NOTE: this will make the selection below redundant"
+msgstr ""
+"Si otro plugin o su tema ya cuentan con UI jQuery cargado (incorrectamente) "
+"a continuación, desmarque esto para detener estilo del plugin y "
+"interferaring. NOTA: esto hará que la lista de abajo sea redundante"
+
+#: business-contact-widget-admin.php:364
+msgid "Widget Style"
+msgstr "Estilo Widget"
+
+#: business-contact-widget-admin.php:371
+msgid "Change the widget style to match your website"
+msgstr "Cambiar el estilo del widget para que coincida con su sitio web"
+
+#: business-contact-widget-admin.php:378
+msgid "System Settings"
+msgstr "Configuración del sistema"
+
+#: business-contact-widget-admin.php:383
+msgid "Load jQuery and jQuery UI scripts"
+msgstr "Cargar jQuery y guiones jQuery UI"
+
+#: business-contact-widget-admin.php:392
+msgid ""
+"If another plugin or your theme already has jQuery, jQuery UI or jQuery UI "
+"Tabs loaded (incorrectly) then untick the corresponding script to stop the "
+"plugin's loading it twice causing it not to work."
+msgstr ""
+"Si otro plugin o su tema ya cuentan con jQuery, jQuery UI o Tabs jQuery UI "
+"cargados (incorrectamente) a continuación, desmarque el script "
+"correspondiente para detener la carga del plugin dos veces haciendo que no "
+"funcione."
+
+#: business-contact-widget-admin.php:401
+msgid "Update Options"
+msgstr "Opciones Actualización"
+
+#: business-contact-widget-admin.php:405
+msgid "Troubleshooting"
+msgstr "Solución de problemas"
+
+#: business-contact-widget-admin.php:406
+msgid "If the widget does not display correctly"
+msgstr "Si el widget no se muestra correctamente"
+
+#: business-contact-widget-admin.php:407
+msgid ""
+"If this happen it means that you have a theme or plugin which loads jQuery "
+"or jQuery UI incorrectly. To resolve this untick the options jQuery, jQuery "
+"UI and jQuery UI Tabs. See if that makes the widget display correctly. If it "
+"doesn't try ticking jQuery UI Tabs, then checking, then ticking jQuery UI "
+"and so on."
+msgstr ""
+"Si esto sucede, significa que usted tiene un tema o plugin que carga jQuery "
+"o jQuery UI incorrectamente. Para resolver esto desmarque las opciones de "
+"jQuery, jQuery UI y jQuery UI Tabs. A ver si eso hace que el widget se "
+"muestre correctamente. Si no, intente marcando jQuery UI aquí, a "
+"continuación, comprobar, a continuación, marcando jQuery UI y así "
+"sucesivamente."
+
+#: business-contact-widget-admin.php:408
+msgid ""
+"If the widget interferes with the styling of other areas of your website"
+msgstr "Si el widget interfiere con el estilo de otras áreas de su sitio web"
+
+#: business-contact-widget-admin.php:409
+msgid ""
+"If this happens you do not need the default styling of the widet. To resolve "
+"this untick the styling option load jQuery UI styling."
+msgstr ""
+"Si esto sucede, usted no necesita el estilo predeterminado del widget. Para "
+"resolver esto desmarque la opción de carga de estilo de jQuery UI."
+
+#: business-contact-widget-admin.php:418
+msgid ""
+"Please add the Business Contact Widget to one of your <a href=\"widgets.php"
+"\">sidebars</a> then come back to this page to edit the settings."
+msgstr ""
+"Por favor agregue el Business Contact Widget a una de las barras laterales "
+"<a href=\"widgets.php\">barras laterales</a> a continuación, volver a esta "
+"página para editar la configuración."
+
+#: business-contact-widget.php:143
+#, php-format
+msgid ""
+"<p>Thank you for downloading Business Contact Widget. We hope you enjoy "
+"using the plugin, maybe some of our <a href=\"http://stressfreesites.co.uk/"
+"development\" target=\"_blank\">other plugins</a> would be of interest to "
+"you.</p><p>We have just launched a new Wordpress theme which might be of "
+"interest - <a href=\"http://www.mojo-themes.com/item/simple-setup/demo/\" "
+"target=\"_blank\">take a look</a>.</p><a href=\"%1$s\">Hide This Notice</a>"
+msgstr ""
+"<p> Gracias por descargar Business Contact Widget. Esperamos que disfrute "
+"utilizando el plugin, tal vez algunos de nuestros <a href=\"http://"
+"stressfreesites.co.uk/development\" target=\"_blank\"> otros plugins </a> "
+"pueden ser de interés para usted. </p><p>Acabamos de lanzar un nuevo tema "
+"para Wordpress que puede ser de interés - <a  <a href =\"http://www.mojo-"
+"themes.com/item/simple-setup/demo/ \"target =\" _blank \"> echar un vistazo "
+"</a>.</p> <a href=\"%1$s\"> Ocultar Este Aviso </a>"
+
+#: business-contact-widget.php:259 business-contact-widget.php:262
+#: business-contact-widget.php:265
+msgid "Mobile"
+msgstr "Móvil"
+
+#: business-contact-widget.php:280 business-contact-widget.php:283
+#: business-contact-widget.php:287 business-contact-widget.php:291
+msgid " Email"
+msgstr "Email"
+
+#: business-contact-widget.php:302
+msgid "Message"
+msgstr "Mensaje"
+
+#: business-contact-widget.php:307
+msgid "Map"
+msgstr "Mapa"
+
+#: business-contact-widget.php:318
+msgid "Plugin created by "
+msgstr "Plugin creado por"
+
+#: business-contact-widget.php:359
+msgid "Title"
+msgstr "Título"
+
+#: business-contact-widget.php:364
+msgid "Display telephone numbers?"
+msgstr "¿Mostrar  los números de teléfono?"
+
+#: business-contact-widget.php:368
+msgid "Display email addresses?"
+msgstr "¿Mostrar direcciones de correo electrónico?"
+
+#: business-contact-widget.php:372
+msgid "Display address?"
+msgstr "¿Mostrar dirección?"
+
+#: business-contact-widget.php:376
+msgid "Display message form?"
+msgstr "¿Mostrar formulario de mensajes?"
+
+#: business-contact-widget.php:380
+msgid "Display map?"
+msgstr "¿Mostrar el mapa?"
+
+#: business-contact-widget.php:384
+msgid "Display opening times?"
+msgstr "¿Mostrar horas de apertura?"
+
+#: business-contact-widget.php:387
+msgid "Load page open on tab"
+msgstr "Cargar página abierta en la pestaña"
+
+#: business-contact-widget.php:397
+msgid "Opens on tab number - 1 for first tab, 2 for second tab etc."
+msgstr ""
+"Abre en la pestaña número - 1 para la primera pestaña, 2 para la segunda, "
+"etc."
+
+#: business-contact-widget.php:401
+msgid "Display created by? Please only remove this after making a "
+msgstr "¿Mostrar creado por? Sólo eliminar favor esto después de hacer una"
+
+#: business-contact-widget.php:401
+msgid "donation"
+msgstr "donación"
+
+#: business-contact-widget.php:401
+msgid "so we can continue making plugins like these."
+msgstr "para que podamos seguir haciendo plugins como estos."

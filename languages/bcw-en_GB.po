@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Business Contact Widget\n"
-"POT-Creation-Date: 2013-06-27 21:29-0000\n"
-"PO-Revision-Date: 2013-06-27 21:30-0000\n"
+"POT-Creation-Date: 2014-03-15 17:49-0000\n"
+"PO-Revision-Date: 2014-03-15 17:49-0000\n"
 "Last-Translator: Alex Robinson <alex.robinson66@gmail.com>\n"
 "Language-Team: StressFree Sites <info@stressfreesites.co.uk>\n"
 "Language: English\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
-"X-Poedit-Basepath: .\n"
+"X-Poedit-Basepath: ../\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: business-contact-widget-admin.php:18
@@ -38,11 +38,11 @@ msgstr ""
 msgid "Telephone Settings"
 msgstr ""
 
-#: business-contact-widget-admin.php:107 business-contact-widget.php:253
+#: business-contact-widget-admin.php:107 business-contact-widget.php:291
 msgid "Telephone"
 msgstr ""
 
-#: business-contact-widget-admin.php:115 business-contact-widget.php:256
+#: business-contact-widget-admin.php:115 business-contact-widget.php:294
 msgid "Fax"
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Email Settings"
 msgstr ""
 
-#: business-contact-widget-admin.php:193 business-contact-widget.php:277
+#: business-contact-widget-admin.php:193 business-contact-widget.php:315
 msgid "Email"
 msgstr ""
 
@@ -155,7 +155,7 @@ msgstr ""
 msgid "Opening Times Settings"
 msgstr ""
 
-#: business-contact-widget-admin.php:339 business-contact-widget.php:311
+#: business-contact-widget-admin.php:339 business-contact-widget.php:349
 msgid "Opening Times"
 msgstr ""
 
@@ -235,7 +235,7 @@ msgid ""
 "\">sidebars</a> then come back to this page to edit the settings."
 msgstr ""
 
-#: business-contact-widget.php:143
+#: business-contact-widget.php:144
 #, php-format
 msgid ""
 "<p>Thank you for downloading Business Contact Widget. We hope you enjoy "
@@ -246,72 +246,68 @@ msgid ""
 "target=\"_blank\">take a look</a>.</p><a href=\"%1$s\">Hide This Notice</a>"
 msgstr ""
 
-#: business-contact-widget.php:259 business-contact-widget.php:262
-#: business-contact-widget.php:265
+#: business-contact-widget.php:297 business-contact-widget.php:300
+#: business-contact-widget.php:303
 msgid "Mobile"
 msgstr ""
 
-#: business-contact-widget.php:280 business-contact-widget.php:283
-#: business-contact-widget.php:287 business-contact-widget.php:291
+#: business-contact-widget.php:318 business-contact-widget.php:321
+#: business-contact-widget.php:325 business-contact-widget.php:329
 msgid " Email"
 msgstr ""
 
-#: business-contact-widget.php:302
-msgid "Message"
-msgstr ""
-
-#: business-contact-widget.php:307
-msgid "Map"
-msgstr ""
-
-#: business-contact-widget.php:318
+#: business-contact-widget.php:356
 msgid "Plugin created by "
 msgstr ""
 
-#: business-contact-widget.php:359
+#: business-contact-widget.php:396
 msgid "Title"
 msgstr ""
 
-#: business-contact-widget.php:364
+#: business-contact-widget.php:405
 msgid "Display telephone numbers?"
 msgstr ""
 
-#: business-contact-widget.php:368
+#: business-contact-widget.php:409
 msgid "Display email addresses?"
 msgstr ""
 
-#: business-contact-widget.php:372
+#: business-contact-widget.php:413
 msgid "Display address?"
 msgstr ""
 
-#: business-contact-widget.php:376
+#: business-contact-widget.php:417
 msgid "Display message form?"
 msgstr ""
 
-#: business-contact-widget.php:380
+#: business-contact-widget.php:421
 msgid "Display map?"
 msgstr ""
 
-#: business-contact-widget.php:384
+#: business-contact-widget.php:425
 msgid "Display opening times?"
 msgstr ""
 
-#: business-contact-widget.php:387
+#: business-contact-widget.php:429
+msgid "Which icon set to use?"
+msgstr ""
+
+#: business-contact-widget.php:436
 msgid "Load page open on tab"
 msgstr ""
 
-#: business-contact-widget.php:397
+#: business-contact-widget.php:446
 msgid "Opens on tab number - 1 for first tab, 2 for second tab etc."
 msgstr ""
 
-#: business-contact-widget.php:401
+#: business-contact-widget.php:450
 msgid "Display created by? Please only remove this after making a "
 msgstr ""
 
-#: business-contact-widget.php:401
+#: business-contact-widget.php:450
 msgid "donation"
 msgstr ""
 
-#: business-contact-widget.php:401
+#: business-contact-widget.php:450
 msgid "so we can continue making plugins like these."
 msgstr ""
