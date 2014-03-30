@@ -18,28 +18,32 @@ It displays the contact information in tabs, so only one contact section is open
 
 The plugin includes a plugin admin page where it is possible to customise everything from the contact details to the visual styling of the tabs. 
 
-Plugin features include:
-* Widget content displays in jQuery tabs.
-* Display main telephone number along with fax and 3 personal telephone numbers.
-* Display main email address along with 3 personal email address.
-* Display up to two addresses.
-* Display one button submit contact forms.
-* Display a Google maps of a location.
-* Display opening times of company/business.
-* Change the colour of the tabs, gray, blue, red, green and black.
-* Two different icons sets, standard and modern.
-* Ability to change the size of the icons.
-* Vertical tabs as well as horizontal. 
-* Choose which tab section to display on each widget.
-* Skeleton styling to enable easy custom styling.
-* Ability to manually load jQuery to increase compatability.
-* Troubleshooting section to ensure any problems are resolved quickly.
-* Support requests answered in less and 24 hours on average.
+<h3>Plugin features</h3> 
+<ul>
+<li>Widget content displays in jQuery tabs.</li>
+<li>Display main telephone number along with fax and 3 personal telephone numbers.</li>
+<li>Display main email address along with 3 personal email address.</li>
+<li>Display up to two addresses.</li>
+<li>Display one button submit contact forms.</li>
+<li>Display a Google maps of a location.</li>
+<li>Display opening times of company/business.</li>
+<li>Change the colour of the tabs, gray, blue, red, green and black.</li>
+<li>Two different icons sets, standard and modern.</li>
+<li>Ability to change the size of the icons.</li>
+<li>Vertical tabs as well as horizontal. </li>
+<li>Choose which tab section to display on each widget.</li>
+<li>Skeleton styling to enable easy custom styling.</li>
+<li>Ability to manually load jQuery to increase compatability.</li>
+<li>Troubleshooting section to ensure any problems are resolved quickly.</li>
+<li>Support requests answered in less and 24 hours on average.</li>
+</ul>
 
-If you like this plugin, please have a look at our other plugin <a href="http://wordpress.org/plugins/social-media-badge-widget/" target="_blank">Social Media Badge Widget</a> which displays all your social media channels in a clear and elegant way.
+<h3>Like this plugin?</h3> 
+Please have a look at our other plugin <a href="http://wordpress.org/plugins/social-media-badge-widget/" target="_blank">Social Media Badge Widget</a> which displays all your social media channels in a clear and elegant way.
 
-Language Translations Thanks 
-Ilan Shalev from Shalevsoft (www.shalevsoft.co.il) for the Arabic translation file.
+<h3>Language Translations</h3> 
+Thanks to the following.<br/> 
+Ilan Shalev from Shalevsoft (http://www.shalevsoft.co.il) for the Arabic translation file.<br/>
 Andrew Kurtis from WebHostingHub (http://www.webhostinghub.com) for the Spanish translation file
 
 == Installation ==
