@@ -1,4 +1,4 @@
-/*  Copyright 2012 StressFree Sites  (info@stressfreesites.co.uk : alex@stressfreesites.co.uk)
+/*  Copyright 2014 StressFree Sites  (info@stressfreesites.co.uk : alex@stressfreesites.co.uk)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 3, as 
@@ -50,13 +50,25 @@
     padding-left: 0px;
 }
 
-#accordion input {
+#accordion input,
+#accordion select {
     margin: 15px 1px;
+}
+
+#accordion input[type='checkbox']{
+    margin-top: 20px;
 }
 
 #accordion input,
 #accordion textarea {
     float: left;
+}
+
+#accordion .label {
+    margin: 0px 1px;
+    padding: 20px 0px;
+    font-size: 13px;
+    font-style: italic;
 }
 
 .clear {

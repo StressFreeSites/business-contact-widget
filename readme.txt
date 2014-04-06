@@ -4,7 +4,7 @@ Donate link: http://stressfreesites.co.uk/plugins
 Tags: contact, details, widget, telephone, email, address, opening times
 Requires at least: 3.0.0
 Tested up to: 3.8.1
-Stable tag: 2.6.1
+Stable tag: 2.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,7 +42,7 @@ The plugin includes a plugin admin page where it is possible to customise everyt
 Please have a look at our other plugin <a href="http://wordpress.org/plugins/social-media-badge-widget/" target="_blank">Social Media Badge Widget</a> which displays all your social media channels in a clear and elegant way.
 
 <h3>Language Translations</h3> 
-Thanks to the following.<br/> 
+Thanks to the following for their assistance with language translation.<br/> 
 Ilan Shalev from Shalevsoft (http://www.shalevsoft.co.il) for the Arabic translation file.<br/>
 Andrew Kurtis from WebHostingHub (http://www.webhostinghub.com) for the Spanish translation file
 
@@ -78,6 +78,10 @@ Yes, just do not enter any information in that section and that tab will not sho
 8. Settings backend - customise the styling options.
 
 == Changelog ==
+
+= 2.6.2 =
+* New lines allowed for addresses and opening times
+* Other minor bugs
 
 = 2.6.1 =
 * Translation files added
@@ -117,5 +121,5 @@ Yes, just do not enter any information in that section and that tab will not sho
 
 == Upgrade Notice ==
 
-= 2.6.1 =
-Added translation files and minify versions of scripts and styles.
+= 2.6.2 =
+Minor bug fixes.

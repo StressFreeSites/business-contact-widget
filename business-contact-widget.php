@@ -3,14 +3,14 @@
 Plugin Name: Business Contact Widget
 Plugin URI: http://stressfreesites.co.uk/plugins/business-contact-widget
 Description: This plugin creates a widget which easily displays, without becoming cluttered, all the business contact details of a company/organisation.
-Version: 2.6.1
+Version: 2.6.2
 Author: StressFree Sites
 Author URI: http://stressfreesites.co.uk
 Text Domain: bcw
 License: GPL2
 */
 
-/*  Copyright 2012 StressFree Sites  (info@stressfreesites.co.uk : alex@stressfreesites.co.uk)
+/*  Copyright 2014 StressFree Sites  (info@stressfreesites.co.uk : alex@stressfreesites.co.uk)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 3, as 
@@ -26,6 +26,7 @@ License: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+/* Load admin settings page */
 if ( is_admin() ) {
     require_once('business-contact-widget-admin.php');
 }
@@ -118,46 +119,56 @@ add_action('wp_print_styles', 'bcw_enqueue_styles');
 
 // Activation code to update plugins
 function bcw_activate() {
-  // Get old widget information, and save in new formate in database
-  
-  // Retrieve old widget informaiton  
-  $widget = get_option('widget_business-contact-widget','');
-  
-  // Retrieve new settings information(if any)
-  $settings = get_option('bcw_settings');
-  
-  $settings['telephone'] = $widget[2]['telephone'];
-  $settings['fax'] = $widget[2]['fax'];
-  $settings['mobileName'] = $widget[2]['mobileName'];
-  $settings['mobileNo'] = $widget[2]['mobileNo'];
-  $settings['mobileName2'] = $widget[2]['mobileName2'];
-  $settings['mobileNo2'] = $widget[2]['mobileNo2'];
-  $settings['mobileName3'] = $widget[2]['mobileName3'];
-  $settings['mobileNo3'] = $widget[2]['mobileNo3'];
-  $settings['otherTelephoneName'] = $widget[2]['otherTelephoneName'];
-  $settings['otherTelephoneNo'] = $widget[2]['otherTelephoneNo'];
-  $settings['email'] = $widget[2]['email'];
-  $settings['personalEmailName'] = $widget[2]['personalEmailName'];
-  $settings['personalEmail'] = $widget[2]['personalEmail'];
-  $settings['personalEmailName2'] = $widget[2]['personalEmailName2'];
-  $settings['personalEmail2'] = $widget[2]['personalEmail2'];
-  $settings['personalEmailName3'] = $widget[2]['personalEmailName3'];
-  $settings['personalEmail3'] = $widget[2]['personalEmail3'];
-  $settings['otherEmailName'] = $widget[2]['otherEmailName'];
-  $settings['otherEmail'] = $widget[2]['otherEmail'];
-  $settings['mainAddressName'] = $widget[2]['mainAddressName'];
-  $settings['mainAddress'] = $widget[2]['mainAddress'];
-  $settings['secondaryAddressName'] = $widget[2]['secondaryAddressName'];
-  $settings['secondaryAddress'] = $widget[2]['secondaryAddress'];
-  $settings['message'] = $widget[2]['message'];
-  $settings['map'] = $widget[2]['map'];
-  $settings['openingTimes'] = $widget[2]['openingTimes'];
+    // Get old widget information, and save in new formate in database
 
-  $settings['icons'] = $widget[2]['icons'];
-  $settings['createdBy'] = $widget[2]['createdBy'];
-  
-  // Save settings in new format
-  update_option('bcw_settings',$settings);
+    // Retrieve old widget informaiton  
+    $widget = get_option('widget_business-contact-widget','');
+
+    // Retrieve new settings information(if any)
+    bcw_settings_init();
+    $settings = get_option('bcw_settings');
+
+    if($widget != '' && isset($widget[2])){
+        $settings['telephone'] = $widget[2]['telephone'];
+        $settings['fax'] = $widget[2]['fax'];
+        $settings['mobileName'] = $widget[2]['mobileName'];
+        $settings['mobileNo'] = $widget[2]['mobileNo'];
+        $settings['mobileName2'] = $widget[2]['mobileName2'];
+        $settings['mobileNo2'] = $widget[2]['mobileNo2'];
+        $settings['mobileName3'] = $widget[2]['mobileName3'];
+        $settings['mobileNo3'] = $widget[2]['mobileNo3'];
+        $settings['otherTelephoneName'] = $widget[2]['otherTelephoneName'];
+        $settings['otherTelephoneNo'] = $widget[2]['otherTelephoneNo'];
+        $settings['email'] = $widget[2]['email'];
+        $settings['personalEmailName'] = $widget[2]['personalEmailName'];
+        $settings['personalEmail'] = $widget[2]['personalEmail'];
+        $settings['personalEmailName2'] = $widget[2]['personalEmailName2'];
+        $settings['personalEmail2'] = $widget[2]['personalEmail2'];
+        $settings['personalEmailName3'] = $widget[2]['personalEmailName3'];
+        $settings['personalEmail3'] = $widget[2]['personalEmail3'];
+        $settings['otherEmailName'] = $widget[2]['otherEmailName'];
+        $settings['otherEmail'] = $widget[2]['otherEmail'];
+        $settings['mainAddressName'] = $widget[2]['mainAddressName'];
+        $settings['mainAddress'] = $widget[2]['mainAddress'];
+        $settings['secondaryAddressName'] = $widget[2]['secondaryAddressName'];
+        $settings['secondaryAddress'] = $widget[2]['secondaryAddress'];
+        $settings['message'] = $widget[2]['message'];
+        $settings['map'] = $widget[2]['map'];
+        $settings['openingTimes'] = $widget[2]['openingTimes'];
+
+        $settings['icons'] = $widget[2]['icons'];
+        $settings['createdBy'] = $widget[2]['createdBy'];
+    }
+    // Save settings in new format
+    update_option('bcw_settings', $settings);
+    
+    // Delete old settings
+    delete_option('widget_business-contact-widget');
+    delete_option('bcw_load_jquery_ui');
+    delete_option('bcw_load_scripts');
+    delete_option('bcw_style');
+    delete_option('bcw_theme_settings');
+    
 }
 register_activation_hook( __FILE__, 'bcw_activate' );
 
@@ -414,13 +425,14 @@ class Business_Contact_Widget extends WP_Widget {
                               'showTelephone' => 'true', 'showEmail' => 'true', 'showAddress' => 'true', 'showMessage' => 'true', 'showMap' => 'true', 'showOpening' => 'true', 
                               'openTab' => '1');
             $instance = wp_parse_args((array) $instance, $defaults); ?>
-                <h3>General Options</h3>
+                <h3><?php _e('General Options', 'bcw'); ?></h3>
                 <p>
-                    Please add all the contact details through the "<a href="options-general.php?page=businesscontactwidget">Business Contact Widget</a>" settings page.
+                    <?php _e('Please add all the contact details through the "', 'bcw'); ?><a href="options-general.php?page=business-contact-widget"><?php _e('Business Contact Widget', 'bcw'); ?></a><?php _e('" settings page.', 'bcw'); ?>
                 </p>               
                 <p>
 			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', 'bcw'); ?></label>
 			<input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $instance['title']; ?>" style="width:100%;" />
+                        <span class="description"><?php _e('The title of the widget, leave blank for no title.', 'smbw'); ?></span>
 		</p>
                 <p>
                         <label for="<?php echo $this->get_field_id('openTab'); ?>"><?php _e('Load page open on tab','bcw'); ?></label>
@@ -436,9 +448,9 @@ class Business_Contact_Widget extends WP_Widget {
                 <p class="description">
                     <?php _e('Opens on tab number - 1 for first tab, 2 for second tab etc.', 'bcw'); ?>
                 </p>
-                <h3>Section Display Options</h3>
+                <h3><?php _e('Section Display Options', 'bcw'); ?></h3>
                 <p>
-                    Select which contact details tabs you would like to be displayed on this widget. 
+                    <?php _e('Select which contact details tabs you would like to be displayed on this widget.', 'bcw'); ?>
                 </p>
                 <p>
 			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id('showTelephone'); ?>" name="<?php echo $this->get_field_name('showTelephone'); ?>" value="true" <?php checked($instance['showTelephone'], 'true'); ?>/>
@@ -465,7 +477,7 @@ class Business_Contact_Widget extends WP_Widget {
 			<label for="<?php echo $this->get_field_id('showOpening'); ?>"><?php _e('Display opening times', 'bcw'); ?></label>
 		</p>
                 <p class="description">
-                   NOTE: tabs will not be displayed if there is no information saved in them!
+                   <?php _e('NOTE: tabs will not be displayed if there is no information saved in them!', 'bcw'); ?>
                 </p>
                 <?php
     }

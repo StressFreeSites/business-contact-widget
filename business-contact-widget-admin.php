@@ -1,5 +1,5 @@
 <?php
-/*  Copyright 2012 StressFree Sites  (info@stressfreesites.co.uk : alex@stressfreesites.co.uk)
+/*  Copyright 2014 StressFree Sites  (info@stressfreesites.co.uk : alex@stressfreesites.co.uk)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 3, as 
@@ -15,7 +15,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define('DEFAULT_TAB', 'contact-settings');
+define('BCW_DEFAULT_TAB', 'contact-settings');
 
 function bcw_settings_styles() {
    wp_enqueue_style('business-contact-widget-admin', plugins_url('business-contact-widget/css/business-contact-widget-admin.min.css'));
@@ -89,7 +89,7 @@ function bcw_save_settings() {
             $tab = $_GET['tab']; 
         }
         else {
-            $tab = DEFAULT_TAB; 
+            $tab = BCW_DEFAULT_TAB; 
         }
         switch($tab) { 
             case 'contact-settings':
@@ -113,12 +113,12 @@ function bcw_save_settings() {
                 $settings['otherEmailName'] = sanitize_text_field($_POST['bcw_otherEmailName']);
                 $settings['otherEmail'] = sanitize_text_field($_POST['bcw_otherEmail']);  
                 $settings['mainAddressName'] = sanitize_text_field($_POST['bcw_mainAddressName']);
-                $settings['mainAddress'] = sanitize_text_field($_POST['bcw_mainAddress']);
+                $settings['mainAddress'] = $_POST['bcw_mainAddress'];
                 $settings['secondaryAddressName'] = sanitize_text_field($_POST['bcw_secondaryAddressName']);
-                $settings['secondaryAddress'] = sanitize_text_field($_POST['bcw_secondaryAddress']);
+                $settings['secondaryAddress'] = $_POST['bcw_secondaryAddress'];
                 $settings['message'] = $_POST['bcw_message'];
                 $settings['map'] = $_POST['bcw_map'];
-                $settings['openingTimes'] = sanitize_text_field($_POST['bcw_openingTimes']);
+                $settings['openingTimes'] = $_POST['bcw_openingTimes'];
                 break; 
             case 'style-settings': 
                 $settings['style'] = $_POST['bcw_style'];
@@ -233,7 +233,10 @@ function bcw_save_settings() {
         } 
         if($settings['message']) {
             $settings['message'] = stripslashes(esc_textarea(wp_filter_post_kses($settings['message'])));
-        }     
+        } 
+        if($settings['openingTimes']) {
+            $settings['openingTimes'] = stripslashes(esc_textarea(wp_filter_post_kses($settings['openingTimes'])));
+        } 
     }
 
     update_option('bcw_settings', $settings);
@@ -275,7 +278,7 @@ function bcw_display_settings_page() {
         <?php
 
         if (!isset($_GET['tab'])){
-             $_GET['tab'] = DEFAULT_TAB;
+             $_GET['tab'] = BCW_DEFAULT_TAB;
         }
         bcw_display_settings_tabs($_GET['tab']);
         
@@ -435,7 +438,7 @@ function bcw_display_settings_page() {
                                                 </th>
                                                 <td>
                                                     <input class="checkbox" type="checkbox" id="bcw_createdBy" name="bcw_createdBy" value="true" <?php checked($settings['createdBy'], 'true'); ?> />
-                                                    <label for="bcw_createdBy"><?php _e('Please only remove this after making a ', 'bcw'); ?><a href="http://stressfreesites.co.uk/plugins/business-contact-widget" target="_blank"><?php _e('donation', 'bcw'); ?></a>, <?php _e('so we can continue making plugins like these.', 'bcw'); ?></label>
+                                                    <label for="bcw_createdBy"><?php _e('Please only remove this after making a ', 'bcw'); ?><a href="http://stressfreesites.co.uk/plugins/business-contact-widget/?utm_source=backend&utm_medium=plugin&utm_campaign=wordpress" target="_blank"><?php _e('donation', 'bcw'); ?></a>, <?php _e('so we can continue making plugins like these.', 'bcw'); ?></label>
                                                 </td>
                                             </tr>
                                         </tbody>    
