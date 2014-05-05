@@ -116,7 +116,6 @@
     margin: 0px;
     padding: 0px;
     border-bottom-width: 1px;
-    z-index: 10;
     /* Combability with 2013 theme */
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
@@ -145,28 +144,19 @@
     outline:0;
 }
 
-.business-contact .bcw-tabs .ui-tabs-nav li.large a {
-    height: 38px !important;
-    width: 38px !important;  
-}
-
-.business-contact .bcw-tabs .ui-tabs-nav li.medium a {
-    height: 32px !important;
-    width: 32px !important;
-}
-
-.business-contact .bcw-tabs .ui-tabs-nav li.small a {
-    height: 26px !important;
-    width: 26px !important;
-}
-
 .business-contact .bcw-tabs .ui-tabs-nav li a img {
-    position: absolute;
+    display: block;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
     padding: 3px !important;
     margin: 0px;
+}
+
+.business-contact .bcw-tabs .ui-tabs-nav li a img.colour {
+    position: absolute;
     left: 0px !important;
-    top: 0px !important; 
-    z-index: 10;  
+    top: 0px !important;   
     box-shadow: none;
     /* Combability with 2013 theme */
     -webkit-box-sizing: content-box;
@@ -189,12 +179,20 @@
     width: 20px !important;    
 }
 
-.business-contact .bcw-tabs .ui-tabs-nav li a img.grey {
-    z-index: 30;
+.business-contact .bcw-tabs .ui-tabs-nav li img.colour {
+    opacity: 0;
 }
 
-.business-contact .bcw-tabs .ui-tabs-nav li a img.colour {
-    z-index: 20;
+.business-contact .bcw-tabs .ui-tabs-nav li img.grey {
+    opacity: 1;
+}
+
+.business-contact .bcw-tabs .ui-tabs-nav li.ui-state-active img.colour {
+    opacity: 1;
+}
+
+.business-contact .bcw-tabs .ui-tabs-nav li.ui-state-active img.grey {
+    opacity: 0;
 }
 
 .business-contact .ui-corner-all,

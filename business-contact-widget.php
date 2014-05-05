@@ -3,7 +3,7 @@
 Plugin Name: Business Contact Widget
 Plugin URI: http://stressfreesites.co.uk/plugins/business-contact-widget
 Description: This plugin creates a widget which easily displays, without becoming cluttered, all the business contact details of a company/organisation.
-Version: 2.6.4
+Version: 2.6.5
 Author: StressFree Sites
 Author URI: http://stressfreesites.co.uk
 Text Domain: bcw
@@ -125,50 +125,50 @@ function bcw_activate() {
     $widget = get_option('widget_business-contact-widget','');
 
     // Retrieve new settings information(if any)
-    bcw_settings_init();
     $settings = get_option('bcw_settings');
+    
+    if($widget != '' && isset($widget[1])){
+        bcw_settings_init();
+        
+        $settings['telephone'] = $widget[1]['telephone'];
+        $settings['fax'] = $widget[1]['fax'];
+        $settings['mobileName'] = $widget[1]['mobileName'];
+        $settings['mobileNo'] = $widget[1]['mobileNo'];
+        $settings['mobileName2'] = $widget[1]['mobileName2'];
+        $settings['mobileNo2'] = $widget[1]['mobileNo2'];
+        $settings['mobileName3'] = $widget[1]['mobileName3'];
+        $settings['mobileNo3'] = $widget[1]['mobileNo3'];
+        $settings['otherTelephoneName'] = $widget[1]['otherTelephoneName'];
+        $settings['otherTelephoneNo'] = $widget[1]['otherTelephoneNo'];
+        $settings['email'] = $widget[1]['email'];
+        $settings['personalEmailName'] = $widget[1]['personalEmailName'];
+        $settings['personalEmail'] = $widget[1]['personalEmail'];
+        $settings['personalEmailName2'] = $widget[1]['personalEmailName2'];
+        $settings['personalEmail2'] = $widget[1]['personalEmail2'];
+        $settings['personalEmailName3'] = $widget[1]['personalEmailName3'];
+        $settings['personalEmail3'] = $widget[1]['personalEmail3'];
+        $settings['otherEmailName'] = $widget[1]['otherEmailName'];
+        $settings['otherEmail'] = $widget[1]['otherEmail'];
+        $settings['mainAddressName'] = $widget[1]['mainAddressName'];
+        $settings['mainAddress'] = $widget[1]['mainAddress'];
+        $settings['secondaryAddressName'] = $widget[1]['secondaryAddressName'];
+        $settings['secondaryAddress'] = $widget[1]['secondaryAddress'];
+        $settings['message'] = $widget[1]['message'];
+        $settings['map'] = $widget[1]['map'];
+        $settings['openingTimes'] = $widget[1]['openingTimes'];
 
-    if($widget != '' && isset($widget[2])){
-        $settings['telephone'] = $widget[2]['telephone'];
-        $settings['fax'] = $widget[2]['fax'];
-        $settings['mobileName'] = $widget[2]['mobileName'];
-        $settings['mobileNo'] = $widget[2]['mobileNo'];
-        $settings['mobileName2'] = $widget[2]['mobileName2'];
-        $settings['mobileNo2'] = $widget[2]['mobileNo2'];
-        $settings['mobileName3'] = $widget[2]['mobileName3'];
-        $settings['mobileNo3'] = $widget[2]['mobileNo3'];
-        $settings['otherTelephoneName'] = $widget[2]['otherTelephoneName'];
-        $settings['otherTelephoneNo'] = $widget[2]['otherTelephoneNo'];
-        $settings['email'] = $widget[2]['email'];
-        $settings['personalEmailName'] = $widget[2]['personalEmailName'];
-        $settings['personalEmail'] = $widget[2]['personalEmail'];
-        $settings['personalEmailName2'] = $widget[2]['personalEmailName2'];
-        $settings['personalEmail2'] = $widget[2]['personalEmail2'];
-        $settings['personalEmailName3'] = $widget[2]['personalEmailName3'];
-        $settings['personalEmail3'] = $widget[2]['personalEmail3'];
-        $settings['otherEmailName'] = $widget[2]['otherEmailName'];
-        $settings['otherEmail'] = $widget[2]['otherEmail'];
-        $settings['mainAddressName'] = $widget[2]['mainAddressName'];
-        $settings['mainAddress'] = $widget[2]['mainAddress'];
-        $settings['secondaryAddressName'] = $widget[2]['secondaryAddressName'];
-        $settings['secondaryAddress'] = $widget[2]['secondaryAddress'];
-        $settings['message'] = $widget[2]['message'];
-        $settings['map'] = $widget[2]['map'];
-        $settings['openingTimes'] = $widget[2]['openingTimes'];
-
-        $settings['icons'] = $widget[2]['icons'];
-        $settings['createdBy'] = $widget[2]['createdBy'];
+        $settings['icons'] = $widget[1]['icons'];
+        $settings['createdBy'] = $widget[1]['createdBy'];
+        
+        // Delete old settings
+        delete_option('widget_business-contact-widget');
+        delete_option('bcw_load_jquery_ui');
+        delete_option('bcw_load_scripts');
+        delete_option('bcw_style');
+        delete_option('bcw_theme_settings');
     }
     // Save settings in new format
-    update_option('bcw_settings', $settings);
-    
-    // Delete old settings
-    delete_option('widget_business-contact-widget');
-    delete_option('bcw_load_jquery_ui');
-    delete_option('bcw_load_scripts');
-    delete_option('bcw_style');
-    delete_option('bcw_theme_settings');
-    
+    update_option('bcw_settings', $settings);   
 }
 register_activation_hook( __FILE__, 'bcw_activate' );
 
@@ -269,55 +269,55 @@ class Business_Contact_Widget extends WP_Widget {
             
             if ($showTelephone && ($telephone || $fax || $mobileNo || $mobileNo2 || $mobileNo3 || $otherTelephoneNo)){
                 if($icons == 'Modern'){
-                    echo ('<li class="' . $iconSize . '"><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/modern_telephone.png') . '" class="colour"/><img src="' . plugins_url('business-contact-widget/images/modern_telephone_grey.png') . '" class="grey"/></a></li>');                    
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/modern_telephone_grey.png') . '" class="grey"/><img src="' . plugins_url('business-contact-widget/images/modern_telephone.png') . '" class="colour"/></a></li>');                    
                 }
                 else{
-                    echo ('<li class="' . $iconSize . '"><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/telephone.png') . '" class="colour"/><img src="' . plugins_url('business-contact-widget/images/telephone_grey.png') . '" class="grey"/></a></li>');                    
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-telephone"><img src="' . plugins_url('business-contact-widget/images/telephone_grey.png') . '" class="grey"/><img src="' . plugins_url('business-contact-widget/images/telephone.png') . '" class="colour"/></a></li>');                    
                 }
             }
 
             if ($showEmail && ($email || $personalEmail || $personalEmail2 || $personalEmail3 || $otherEmail)){
                 if($icons == 'Modern'){
-                     echo ('<li class="' . $iconSize . '"><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/modern_email.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_email_grey.png') . '" class="grey"/></a></li>');                   
+                     echo ('<li class="' . $iconSize . '"><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/modern_email_grey.png') . '" class="grey"/><img src="' . plugins_url('business-contact-widget/images/modern_email.png') . '" class="colour" /></a></li>');                   
                 }
                 else{
-                    echo ('<li class="' . $iconSize . '"><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/email.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/email_grey.png') . '" class="grey"/></a></li>');                    
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-email"><img src="' . plugins_url('business-contact-widget/images/email_grey.png') . '" class="grey"/><img src="' . plugins_url('business-contact-widget/images/email.png') . '" class="colour" /></a></li>');                    
                 }
             }
             
             if ($showAddress && ($mainAddress || $secondaryAddress)){
                 if($icons == 'Modern'){
-                    echo ('<li class="' . $iconSize . '"><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/modern_address.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_address_grey.png') . '" class="grey"/></a></li>');                    
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/modern_address_grey.png') . '" class="grey"/><img src="' . plugins_url('business-contact-widget/images/modern_address.png') . '" class="colour" /></a></li>');                    
                 }
                 else{
-                    echo ('<li class="' . $iconSize . '"><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/address.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/address_grey.png') . '" class="grey"/></a></li>');                    
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/address_grey.png') . '" class="grey"/><img src="' . plugins_url('business-contact-widget/images/address.png') . '" class="colour" /></a></li>');                    
                 }
             }
 
             if ($showMessage && $message){
                 if($icons == 'Modern'){
-                    echo ('<li class="' . $iconSize . '"><a href="#bcw-message"><img src="' . plugins_url('business-contact-widget/images/modern_write.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_write_grey.png') . '" class="grey"/></a></li>');                                
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-message"><img src="' . plugins_url('business-contact-widget/images/modern_write_grey.png') . '" class="grey"/><img src="' . plugins_url('business-contact-widget/images/modern_write.png') . '" class="colour" /></a></li>');                                
                 }
                 else{
-                    echo ('<li class="' . $iconSize . '"><a href="#bcw-message"><img src="' . plugins_url('business-contact-widget/images/write.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/write_grey.png') . '" class="grey"/></a></li>');                                
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-message"><img src="' . plugins_url('business-contact-widget/images/write_grey.png') . '" class="grey"/><img src="' . plugins_url('business-contact-widget/images/write.png') . '" class="colour" /></a></li>');                                
                 }
             }
             
             if ($showMap && $map){
                 if($icons == 'Modern'){
-                    echo ('<li class="' . $iconSize . ' tab-map"><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/modern_map.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_map_grey.png') . '" class="grey" /></a></li>');                    
+                    echo ('<li class="' . $iconSize . ' tab-map"><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/modern_map_grey.png') . '" class="grey" /><img src="' . plugins_url('business-contact-widget/images/modern_map.png') . '" class="colour" /></a></li>');                    
                 }
                 else{
-                    echo ('<li class="' . $iconSize . ' tab-map"><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/map.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/map_grey.png') . '" class="grey" /></a></li>');                    
+                    echo ('<li class="' . $iconSize . ' tab-map"><a href="#bcw-map"><img src="' . plugins_url('business-contact-widget/images/map_grey.png') . '" class="grey" /><img src="' . plugins_url('business-contact-widget/images/map.png') . '" class="colour" /></a></li>');                    
                 }
             }
             
             if ($showOpening && $openingTimes){
                 if($icons == 'Modern'){
-                    echo ('<li class="' . $iconSize . '"><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/modern_clock.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/modern_clock_grey.png') . '" class="grey" /></a></li>');                    
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/modern_clock_grey.png') . '" class="grey" /><img src="' . plugins_url('business-contact-widget/images/modern_clock.png') . '" class="colour" /></a></li>');                    
                 }
                 else{
-                    echo ('<li class="' . $iconSize . '"><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/clock.png') . '" class="colour" /><img src="' . plugins_url('business-contact-widget/images/clock_grey.png') . '" class="grey" /></a></li>');                     
+                    echo ('<li class="' . $iconSize . '"><a href="#bcw-clock"><img src="' . plugins_url('business-contact-widget/images/clock_grey.png') . '" class="grey" /><img src="' . plugins_url('business-contact-widget/images/clock.png') . '" class="colour" /></a></li>');                     
                 }
             }
            

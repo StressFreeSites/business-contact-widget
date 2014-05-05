@@ -24,7 +24,7 @@ jQuery('document').ready(function($) {
             .find( "ul a" ).each( function() {
                 var href = $( this ).attr( "href" ),
                     newHref = window.location.protocol + '//' + window.location.hostname +
-                        window.location.pathname + href;
+                        window.location.pathname + window.location.search + href;
 
                 if ( href.indexOf( "#" ) == 0 ) {
                     $( this ).attr( "href", newHref );
@@ -37,25 +37,30 @@ jQuery('document').ready(function($) {
 
     makeTabs('.business-contact .bcw-tabs', active);
 
-    // Make active state coloured icon
-    $('.business-contact .bcw-tabs .ui-tabs-nav li.ui-tabs-active img.grey').hide('fast');
+//    $('.business-contact .bcw-tabs').tabs({
+//            active: active
+//    });
+
+    // Fade out all icons apart from the active one 
+    $('.business-contact .bcw-tabs .ui-tabs-nav li').not('.ui-state-active').find('img.colour').animate({
+       opacity: 0
+    }, 'slow' );
 
     // Make the icon display the coloured icon on hover
     $('.business-contact .bcw-tabs .ui-tabs-nav li').hover(
         function () {
-            $('img.grey', this).hide('fast');
-          },
-          function () {
-            $(this).not('.ui-tabs-active').find('img.grey').show('slow');         
-          }
-    );
+            showColour($(this), 'slow');
+        },
+        function () {
+            hideColour($(this), 'slow');
+        });
     
-    // After click show grey image on last active tab
-    $('.business-contact .bcw-tabs .ui-tabs-nav').mouseup(
-          function () {
-            $('li', this).not('.ui-state-focus').find('img.grey').show(50);
-          }
-    );
+    // Make the previous icon grey
+    $('.business-contact .bcw-tabs .ui-tabs-nav').mouseup(function () {
+            setTimeout(function(){
+                hideColour($('.business-contact .bcw-tabs .ui-tabs-nav li'), 'fast');
+            }, 100);
+        });  
     
     // Reload Google map on map tab mouse press down
     $('.business-contact .bcw-tabs .ui-tabs-nav .tab-map').mousedown(function() { 
@@ -87,3 +92,20 @@ jQuery(window).load(function() {
         jQuery('.business-contact .bcw-tabs .ui-tabs-panel').width(width);
     }
 });
+
+function showColour(selector, animation) {
+    selector.find('img.colour').animate({
+        opacity: 1
+    }, 'slow', function() {
+        selector.parent('a.ui-tabs-anchor').find('img.grey').animate({opacity: 0}, animation);
+    });    
+}
+
+function hideColour(selector, animation) {
+    selector.not('.ui-state-active').find('img.colour').stop();
+    selector.not('.ui-state-active').find('img.grey').stop();
+    selector.not('.ui-state-active').find('img.grey').css('opacity','1');
+    selector.not('.ui-state-active').find('img.colour').animate({
+        opacity: 0
+    }, animation);    
+}

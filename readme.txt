@@ -4,7 +4,7 @@ Donate link: http://stressfreesites.co.uk/plugins
 Tags: contact, details, widget, telephone, email, address, opening times
 Requires at least: 3.0.0
 Tested up to: 3.9
-Stable tag: 2.6.4
+Stable tag: 2.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,9 @@ Yes, just do not enter any information in that section and that tab will not sho
 
 == Changelog ==
 
+= 2.6.5 =
+* Fix for loss of data when updating
+
 = 2.6.4 =
 * Compatability with Wordpress 3.9
 
@@ -129,5 +132,5 @@ Yes, just do not enter any information in that section and that tab will not sho
 
 == Upgrade Notice ==
 
-= 2.6.3 =
-Minor fixes.
+= 2.6.5 =
+* Fix for loss of data when updating
