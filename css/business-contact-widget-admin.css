@@ -20,20 +20,24 @@
     margin-left: 10px;
 }
 
-.created-by {
-    float: right;
+.box {
     padding: 10px;
     text-align: center;
     background-color: #f0f0f0;
-    border: 1px solid #CCCCCC;
+    border: 1px solid #CCCCCC;    
 }
 
-.donate {
+.box img {
+    float: left;
+}
+
+#bcw-header .box {
     float: right;
-    padding: 10px;
-    text-align: center;
-    background-color: #f0f0f0;
-    border: 1px solid #CCCCCC;
+}
+
+#bcw-footer .box {
+    float: left;
+    height: 132px;
 }
 
 #accordion label {

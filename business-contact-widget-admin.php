@@ -262,258 +262,272 @@ function bcw_display_settings_page() {
 
     ?>
     <div class="wrap">
-        <div class="created-by">
-            <?php _e('Plugin created by', 'bcw'); ?><br/><a href="http://stressfreesites.co.uk/?utm_source=backend&utm_medium=plugin&utm_campaign=wordpress" target="_blank"><img src="<?php echo(plugins_url('business-contact-widget/images/stressfreesites.png')); ?>" /></a>
-        </div>
-        <div id="icon-options-general" class="icon32"><br /></div>
-        <h2>
-            <?php _e('Business Contact Widget', 'bcw') ?>
-        </h2>
-        <div class="links">
-            <a href="http://stressfreesites.co.uk/development/?utm_source=backend&utm_medium=plugin&utm_campaign=wordpress" target="_blank"><img src="<?php echo(plugins_url('business-contact-widget/images/home_small.jpg')); ?>" /></a>
-            <a href="http://facebook.com/stressfreesites" target="_blank"><img src="<?php echo(plugins_url('business-contact-widget/images/facebook_small.jpg')); ?>" /></a>
-            <a href="http://twitter.com/stressfreesites" target="_blank"><img src="<?php echo(plugins_url('business-contact-widget/images/twitter_small.jpg')); ?>" /></a>
-            <a href="http://stressfreesites.co.uk/forums" target="_blank"><img src="<?php echo(plugins_url('business-contact-widget/images/support_small.jpg')); ?>" /></a>
-        </div>       	
-        <?php
+        <div id="bcw-header">
+            <div class="box">
+                <?php _e('Plugin created by', 'bcw'); ?><br/><a href="http://stressfreesites.co.uk/?utm_source=backend&utm_medium=plugin&utm_campaign=wordpress" target="_blank"><img src="<?php echo(plugins_url('business-contact-widget/images/stressfreesites.png')); ?>" /></a>
+            </div><!-- box -->
+            <div id="icon-options-general" class="icon32"><br /></div>
+            <h2>
+                <?php _e('Business Contact Widget', 'bcw') ?>
+            </h2>
+            <div class="links">
+                <a href="http://stressfreesites.co.uk/development/?utm_source=backend&utm_medium=plugin&utm_campaign=wordpress" target="_blank"><img src="<?php echo(plugins_url('business-contact-widget/images/home_small.jpg')); ?>" /></a>
+                <a href="http://facebook.com/stressfreesites" target="_blank"><img src="<?php echo(plugins_url('business-contact-widget/images/facebook_small.jpg')); ?>" /></a>
+                <a href="http://twitter.com/stressfreesites" target="_blank"><img src="<?php echo(plugins_url('business-contact-widget/images/twitter_small.jpg')); ?>" /></a>
+                <a href="http://stressfreesites.co.uk/forums" target="_blank"><img src="<?php echo(plugins_url('business-contact-widget/images/support_small.jpg')); ?>" /></a>
+            </div><!-- links -->  
+        </div><!-- bcw-header -->
+        <div id="bcw-content">
+            <?php
 
-        if (!isset($_GET['tab'])){
-             $_GET['tab'] = BCW_DEFAULT_TAB;
-        }
-        bcw_display_settings_tabs($_GET['tab']);
-        
-        ?>
-        <div id="poststuff">
-            <form method="post" action="<?php admin_url('options-general.php?page=business-contact-widget'); ?>">
-                    <?php
-                    wp_nonce_field('bcw-settings-page'); 
+            if (!isset($_GET['tab'])){
+                 $_GET['tab'] = BCW_DEFAULT_TAB;
+            }
+            bcw_display_settings_tabs($_GET['tab']);
 
-                    if ($pagenow == 'options-general.php' && $_GET['page'] == 'business-contact-widget'){ 
-                            
-                            $tab = $_GET['tab']; 
-
-                            echo '<table class="form-table">';
-                            switch($tab) {
-                                    case 'contact-settings':
-                                        echo '<h2 class="bcw-admin-title">' . __('Contact Settings', 'bcw') . '</h2>';
-                                        ?>
-                                        <div id="accordion">
-                                            <h3 class="bcw-admin-title"><img src="<?php echo(plugins_url('/business-contact-widget/images/telephone.png')); ?>" class="icon" alt="Telephone"/><?php _e('Telephone Settings', 'bcw'); ?></h3>
-                                            <div>
-                                                <label for="bcw_telephone"><?php _e('Telephone','bcw'); ?></label><input id="bcw_telephone" name="bcw_telephone" value="<?php echo $settings['telephone']; ?>" />
-                                                <div class="clear"></div>
-                                                <label for="bcw_fax"><?php _e('Fax','bcw'); ?></label><input id="bcw_fax" name="bcw_fax" value="<?php echo $settings['fax']; ?>" /><br />
-                                                <div class="clear"></div>
-                                                <h3>Mobile Number</h3>
-                                                <label for="bcw_mobileName"><?php _e('Name','bcw'); ?></label><input id="bcw_mobileName" name="bcw_mobileName" value="<?php echo $settings['mobileName']; ?>" /><br />		
-                                                <div class="clear"></div>
-                                                <label for="bcw_mobileNo"><?php _e('Number','bcw'); ?></label><input id="bcw_mobileNo" name="bcw_mobileNo" value="<?php echo $settings['mobileNo']; ?>" /><br />		
-                                                <div class="clear"></div>
-                                                <h3>2nd Mobile Number</h3>
-                                                <label for="bcw_mobileName2"><?php _e('Name','bcw'); ?></label><input id="bcw_mobileName2" name="bcw_mobileName2" value="<?php echo $settings['mobileName2']; ?>" /><br />		
-                                                <div class="clear"></div>
-                                                <label for="bcw_mobileNo2"><?php _e('Number','bcw'); ?></label><input id="bcw_mobileNo2" name="bcw_mobileNo2" value="<?php echo $settings['mobileNo2']; ?>" /><br />		
-                                                <div class="clear"></div>
-                                                <h3>3rd Mobile Number</h3>
-                                                <label for="bcw_mobileName3"><?php _e('Name','bcw'); ?></label><input id="bcw_mobileName3" name="bcw_mobileName3" value="<?php echo $settings['mobileName3']; ?>" /><br />		
-                                                <div class="clear"></div>
-                                                <label for="bcw_mobileNo3"><?php _e('Number','bcw'); ?></label><input id="bcw_mobileNo3" name="bcw_mobileNo3" value="<?php echo $settings['mobileNo3']; ?>" /><br />		
-                                                <div class="clear"></div>
-                                                <h3>Other Number</h3>
-                                                <label for="bcw_otherTelephoneName"><?php _e('Name','bcw'); ?></label><input id="bcw_otherTelephoneName" name="bcw_otherTelephoneName" value="<?php echo $settings['otherTelephoneName']; ?>" /><br />		
-                                                <div class="clear"></div>
-                                                <label for="bcw_otherTelephoneNo"><?php _e('Number','bcw'); ?></label><input id="bcw_otherTelephoneNo" name="bcw_otherTelephoneNo" value="<?php echo $settings['otherTelephoneNo']; ?>" /><br /> 
-                                            </div>
-                                            <h3 class="bcw-admin-title"><img src="<?php echo(plugins_url('/business-contact-widget/images/email.png')); ?>" class="icon" alt="Email"/><?php _e('Email Settings', 'bcw'); ?></h3>
-                                            <div>
-                                                <label for="bcw_email"><?php _e('Email','bcw'); ?></label><input id="bcw_email" name="bcw_email" value="<?php echo $settings['email']; ?>" />		
-                                                <div class="clear"></div>
-                                                <h3>Personal Email</h3>
-                                                <label for="bcw_personalEmailName"><?php _e('Name','bcw'); ?></label><input id="bcw_personalEmailName" name="bcw_personalEmailName" value="<?php echo $settings['personalEmailName']; ?>" />		
-                                                <div class="clear"></div>                                       
-                                                <label for="bcw_personalEmail"><?php _e('Email Address','bcw'); ?></label><input id="bcw_personalEmail" name="bcw_personalEmail" value="<?php echo $settings['personalEmail']; ?>" />		
-                                                <div class="clear"></div>
-                                                <h3>2nd Personal Email</h3>
-                                                <label for="bcw_personalEmailName2"><?php _e('Name','bcw'); ?></label><input id="bcw_personalEmailName2" name="bcw_personalEmailName2" value="<?php echo $settings['personalEmailName2']; ?>" />		
-                                                <div class="clear"></div>
-                                                <label for="bcw_personalEmail2"><?php _e('Email Address','bcw'); ?></label><input id="bcw_personalEmail2" name="bcw_personalEmail2" value="<?php echo $settings['personalEmail2']; ?>" />		
-                                                <div class="clear"></div>
-                                                <h3>3rd Personal Email</h3>
-                                                <label for="bcw_personalEmailName3"><?php _e('Name','bcw'); ?></label><input id="bcw_personalEmailName3" name="bcw_personalEmailName3" value="<?php echo $settings['personalEmailName3']; ?>" />		
-                                                <div class="clear"></div>
-                                                <label for="bcw_personalEmail3"><?php _e('Email Address','bcw'); ?></label><input id="bcw_personalEmail3" name="bcw_personalEmail3" value="<?php echo $settings['personalEmail3']; ?>" />		
-                                                <div class="clear"></div>
-                                                <h3>Other Email</h3>
-                                                <label for="bcw_otherEmailName"><?php _e('Name','bcw'); ?></label><input id="bcw_otherEmailName" name="bcw_otherEmailName" value="<?php echo $settings['otherEmailName']; ?>" />		
-                                                <div class="clear"></div>
-                                                <label for="bcw_otherEmail"><?php _e('Email Address','bcw'); ?></label><input id="bcw_otherEmail" name="bcw_otherEmail" value="<?php echo $settings['otherEmail']; ?>" />
-                                            </div>
-                                            <h3 class="bcw-admin-title"><img src="<?php echo(plugins_url('/business-contact-widget/images/address.png')); ?>" class="icon" alt="Address" /><?php _e('Address Settings', 'bcw'); ?></h3>
-                                            <div>
-                                                <h3>Primary Address</h3>
-                                                <label for="bcw_mainAddressName"><?php _e('Name','bcw'); ?></label><input id="bcw_mainAddressName" name="bcw_mainAddressName" value="<?php echo $settings['mainAddressName']; ?>" />		
-                                                <div class="clear"></div>
-                                                <label for="bcw_mainAddress"><?php _e('Address','bcw'); ?></label><textarea id="bcw_mainAddress" name="bcw_mainAddress"><?php echo $settings['mainAddress']; ?></textarea>	
-                                                <div class="clear"></div>
-                                                <h3>Secondary Address</h3>
-                                                <label for="bcw_secondaryAddressName"><?php _e('Address Name','bcw'); ?></label><input id="bcw_secondaryAddressName" name="bcw_secondaryAddressName" value="<?php echo $settings['secondaryAddressName']; ?>" />		
-                                                <div class="clear"></div>
-                                                <label for="bcw_secondaryAddress"><?php _e('Address','bcw'); ?></label><textarea id="bcw_secondaryAddress" name="bcw_secondaryAddress"><?php echo $settings['secondaryAddress']; ?></textarea>
-                                            </div>
-                                            <h3 class="bcw-admin-title"><img src="<?php echo(plugins_url('/business-contact-widget/images/write.png')); ?>" class="icon" alt="Write" /><?php _e('Message Settings', 'bcw'); ?></h3>
-                                            <div>
-                                                <label for="bcw_message"><?php _e('Message Now','bcw'); ?></label><input id="bcw_message" name="bcw_message" value="<?php echo esc_html(stripslashes($settings['message'])); ?>" />
-                                                <div class="clear"></div>
-                                                <p class="description"><?php _e('Enter the shortcode for a contact form to allow instant messages.', 'bcw'); ?></p>
-                                            </div>
-                                            <h3 class="bcw-admin-title"><img src="<?php echo(plugins_url('/business-contact-widget/images/map.png')); ?>" class="icon" alt="Map"/><?php _e('Location Settings', 'bcw'); ?></h3>
-                                            <div>
-                                                <label for="bcw_map"><?php _e('Map','bcw'); ?></label><textarea id="bcw_map" name="bcw_map"><?php echo esc_html(stripslashes($settings['map'])); ?></textarea>
-                                                <div class="clear"></div>
-                                                <p class="description"><?php _e('Insert the iframe code generated from online tools like Google maps', 'bcw'); ?></p>
-                                            </div>
-                                            <h3 class="bcw-admin-title"><img src="<?php echo(plugins_url('/business-contact-widget/images/clock.png')); ?>" class="icon" alt="Openings" /><?php _e('Opening Times Settings', 'bcw'); ?></h3>
-                                            <div>
-                                                <label for="bcw_openingTimes"><?php _e('Opening Times','bcw'); ?></label><textarea id="bcw_openingTimes" name="bcw_openingTimes"><?php echo $settings['openingTimes']; ?></textarea>
-                                            </div>
-                                        </div><!-- accordion -->
-                                        <?php
-                                        break; 
-                                    case 'style-settings': 
-                                        echo '<h2 class="bcw-admin-title">' . __('Style Settings', 'bcw') . '</h2>'; 
-                                        ?>
-                                        <tbody>
-                                            <tr valign="top">
-                                              <th scope="row">
-                                                <label for="bcw_style"><?php _e('Widget Style','bcw'); ?></label>
-                                              </th>
-                                              <td>
-                                                <select name="bcw_style"> 
-                                                    <option <?php if($settings['style'] == 'Grey') echo ('SELECTED');?>>Grey</option>
-                                                    <option <?php if($settings['style'] == 'Black') echo ('SELECTED');?>>Black</option>
-                                                    <option <?php if($settings['style'] == 'Blue') echo ('SELECTED');?>>Blue</option>
-                                                    <option <?php if($settings['style'] == 'Red') echo ('SELECTED');?>>Red</option>
-                                                    <option <?php if($settings['style'] == 'Green') echo ('SELECTED');?>>Green</option>
-                                                    <option <?php if($settings['style'] == 'Skeleton') echo ('SELECTED');?>>Skeleton</option>
-                                                 </select><p class="description"><?php _e('Change the widget style to match your website - Skeleton will display minimal styling.', 'bcw'); ?></p>
-                                               </td>               
-                                            </tr>
-                                            <tr valign="top">
-                                                <th scope="row">
-                                                    <label for="bcw_icons"><?php _e('Icon Set','bcw'); ?></label>
-                                                </th>
-                                                <td>
-                                                    <select name="bcw_icons"> 
-                                                        <option <?php if($settings['icons'] == 'Standard') echo ('SELECTED');?>>Standard</option>
-                                                        <option <?php if($settings['icons'] == 'Modern') echo ('SELECTED');?>>Modern</option>
-                                                    </select><p class="description"><?php _e('Change which icon set to use.', 'bcw'); ?></p> 
-                                                </td>
-                                            </tr>
-                                            <tr valign="top">
-                                                <th scope="row">
-                                                    <label for="bcw_iconSize"><?php _e('Icon Size','bcw'); ?></label>
-                                                </th>
-                                                <td>
-                                                    <select name="bcw_iconSize"> 
-                                                        <option <?php if($settings['iconSize'] == 'Large') echo ('SELECTED');?>>Large</option>
-                                                        <option <?php if($settings['iconSize'] == 'Medium') echo ('SELECTED');?>>Medium</option>
-                                                        <option <?php if($settings['iconSize'] == 'Small') echo ('SELECTED');?>>Small</option>
-                                                    </select><p class="description"><?php _e('Change the size of the icons on your website.', 'bcw'); ?></p> 
-                                                </td>
-                                            </tr>
-                                            <tr valign="top">
-                                                <th scope="row">
-                                                    <label for="bcw_tabDirection"><?php _e('Tab Direction','bcw'); ?></label>
-                                                </th>
-                                                <td>
-                                                    <select name="bcw_tabDirection"> 
-                                                        <option <?php if($settings['tabDirection'] == 'Horizontal') echo ('SELECTED');?>>Horizontal</option>
-                                                        <option <?php if($settings['tabDirection'] == 'Vertical') echo ('SELECTED');?>>Vertical</option>
-                                                    </select><p class="description"><?php _e('Change the size of the icons on your website.', 'bcw'); ?></p> 
-                                                </td>
-                                            </tr>
-                                            <tr valign="top">
-                                                <th scope="row">
-                                                    <?php _e('Display Created By','bcw'); ?>
-                                                </th>
-                                                <td>
-                                                    <input class="checkbox" type="checkbox" id="bcw_createdBy" name="bcw_createdBy" value="true" <?php checked($settings['createdBy'], 'true'); ?> />
-                                                    <label for="bcw_createdBy"><?php _e('Please only remove this after making a ', 'bcw'); ?><a href="http://stressfreesites.co.uk/plugins/business-contact-widget/?utm_source=backend&utm_medium=plugin&utm_campaign=wordpress" target="_blank"><?php _e('donation', 'bcw'); ?></a>, <?php _e('so we can continue making plugins like these.', 'bcw'); ?></label>
-                                                </td>
-                                            </tr>
-                                        </tbody>    
-                                        <?php
-                                        break;
-                                    case 'system-settings': 
-                                        echo '<h2 class="bcw-admin-title">' . __('System Settings', 'bcw') . '</h2>'; 
-                                        ?>
-                                        <tbody>
-                                           <tr valign="top">
-                                              <th scope="row">
-                                                  <?php _e('Load jQuery UI styling', 'bcw'); ?>
-                                              </th>
-                                              <td>
-                                                  <input class="checkbox" type="checkbox" id="bcw_loadJqueryUi" name="bcw_loadJqueryUI" <?php checked($settings['loadJqueryUI'], 'true'); ?> value="true" />
-                                                  <label for="bcw_loadJqueryUI"><?php _e('If another plugin or your theme already has jQuery UI loaded (incorrectly) then untick this to stop the plugin\'s styling overriding and interferaring. NOTE: this will make many of the styling option redundant.', 'bcw'); ?></label><br />           
-                                              </td>               
-                                           </tr>
-                                           <tr valign="top">
-                                              <th scope="row">
-                                                  <?php _e('Load jQuery and jQuery UI scripts', 'bcw'); ?>
-                                              </th>
-                                              <td>                  
-                                                  <input type="checkbox" name="bcw_loadScripts[jQuery]" value="true" <?php checked($settings['loadScripts']['jQuery'], 'true'); ?> />
-                                                  <label for="bcw_loadScripts[jQuery]">jQuery</label><br/>
-                                                  <input type="checkbox" name="bcw_loadScripts[jQuery-ui-core]" value="true" <?php checked($settings['loadScripts']['jQuery-ui-core'], 'true'); ?> />
-                                                  <label for="bcw_loadScripts[jQuery-ui-core]">jQuery-UI-Core</label><br/>
-                                                  <input type="checkbox" name="bcw_loadScripts[jQuery-ui-tabs]" value="true" <?php checked($settings['loadScripts']['jQuery-ui-tabs'], 'true'); ?> />
-                                                  <label for="bcw_loadScripts[jQuery-ui-tabs]">jQuery-UI-Tabs</label><br/>
-                                                  <p class="description"><?php _e('If another plugin or your theme already has jQuery, jQuery UI or jQuery UI Tabs loaded (incorrectly) then untick the corresponding script to stop the plugin\'s loading it twice causing it not to work.', 'bcw'); ?></p>           
-                                              </td>               
-                                           </tr>
-                                        </tbody>
-                                        <?php
-                                        break;
-                                    case 'troubleshooting': 
-                                        echo '<h2 class="bcw-admin-title">' . __('Troubleshooting', 'bcw') . '</h2>';
-                                        echo '<p><span>' . __('If the widget does not display correctly', 'bcw-languaage') . '</span><p>';
-                                        echo '<p class="description">' . __('If this happen it means that you have a theme or plugin which loads jQuery or jQuery UI incorrectly. To resolve this untick the options jQuery, jQuery UI and jQuery UI Tabs. See if that makes the widget display correctly. If it doesn\'t try ticking jQuery UI Tabs, then checking, then ticking jQuery UI and so on.' , 'bcw') . '</p>';           
-                                        echo '<hr />';
-                                        echo '<p><span>' . __('If the widget interferes with the styling of other areas of your website', 'bcw') . '</span><p>';
-                                        echo '<p class="description">' . __('If this happens you do not need the default styling of the widet. To resolve this untick the styling option load jQuery UI styling.' , 'bcw') .'</p>';   
-                                        break;
-                            }
-                            echo '</table>';
-                    }
-                    if($tab != 'troubleshooting'){
-                        ?>
-                        <input type="submit" name="Submit"  class="button-primary" value="Update Settings" />
+            ?>
+            <div id="poststuff">
+                <form method="post" action="<?php admin_url('options-general.php?page=business-contact-widget'); ?>">
                         <?php
-                    }
-                    ?>
-            </form>
-            <hr />
-            <div class="donate">
-                <h3>Help us develop the plugin further</h3>
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                    <input type="hidden" name="cmd" value="_s-xclick">
-                    <input type="hidden" name="hosted_button_id" value="6HK26SVJPG2BG">
-                    <input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
-                    <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+                        wp_nonce_field('bcw-settings-page'); 
+
+                        if ($pagenow == 'options-general.php' && $_GET['page'] == 'business-contact-widget'){ 
+
+                                $tab = $_GET['tab']; 
+
+                                echo '<table class="form-table">';
+                                switch($tab) {
+                                        case 'contact-settings':
+                                            echo '<h2 class="bcw-admin-title">' . __('Contact Settings', 'bcw') . '</h2>';
+                                            ?>
+                                            <div id="accordion">
+                                                <h3 class="bcw-admin-title"><img src="<?php echo(plugins_url('/business-contact-widget/images/telephone.png')); ?>" class="icon" alt="Telephone"/><?php _e('Telephone Settings', 'bcw'); ?></h3>
+                                                <div>
+                                                    <label for="bcw_telephone"><?php _e('Telephone','bcw'); ?></label><input id="bcw_telephone" name="bcw_telephone" value="<?php echo $settings['telephone']; ?>" />
+                                                    <div class="clear"></div>
+                                                    <label for="bcw_fax"><?php _e('Fax','bcw'); ?></label><input id="bcw_fax" name="bcw_fax" value="<?php echo $settings['fax']; ?>" /><br />
+                                                    <div class="clear"></div>
+                                                    <h3>Mobile Number</h3>
+                                                    <label for="bcw_mobileName"><?php _e('Name','bcw'); ?></label><input id="bcw_mobileName" name="bcw_mobileName" value="<?php echo $settings['mobileName']; ?>" /><br />		
+                                                    <div class="clear"></div>
+                                                    <label for="bcw_mobileNo"><?php _e('Number','bcw'); ?></label><input id="bcw_mobileNo" name="bcw_mobileNo" value="<?php echo $settings['mobileNo']; ?>" /><br />		
+                                                    <div class="clear"></div>
+                                                    <h3>2nd Mobile Number</h3>
+                                                    <label for="bcw_mobileName2"><?php _e('Name','bcw'); ?></label><input id="bcw_mobileName2" name="bcw_mobileName2" value="<?php echo $settings['mobileName2']; ?>" /><br />		
+                                                    <div class="clear"></div>
+                                                    <label for="bcw_mobileNo2"><?php _e('Number','bcw'); ?></label><input id="bcw_mobileNo2" name="bcw_mobileNo2" value="<?php echo $settings['mobileNo2']; ?>" /><br />		
+                                                    <div class="clear"></div>
+                                                    <h3>3rd Mobile Number</h3>
+                                                    <label for="bcw_mobileName3"><?php _e('Name','bcw'); ?></label><input id="bcw_mobileName3" name="bcw_mobileName3" value="<?php echo $settings['mobileName3']; ?>" /><br />		
+                                                    <div class="clear"></div>
+                                                    <label for="bcw_mobileNo3"><?php _e('Number','bcw'); ?></label><input id="bcw_mobileNo3" name="bcw_mobileNo3" value="<?php echo $settings['mobileNo3']; ?>" /><br />		
+                                                    <div class="clear"></div>
+                                                    <h3>Other Number</h3>
+                                                    <label for="bcw_otherTelephoneName"><?php _e('Name','bcw'); ?></label><input id="bcw_otherTelephoneName" name="bcw_otherTelephoneName" value="<?php echo $settings['otherTelephoneName']; ?>" /><br />		
+                                                    <div class="clear"></div>
+                                                    <label for="bcw_otherTelephoneNo"><?php _e('Number','bcw'); ?></label><input id="bcw_otherTelephoneNo" name="bcw_otherTelephoneNo" value="<?php echo $settings['otherTelephoneNo']; ?>" /><br /> 
+                                                </div>
+                                                <h3 class="bcw-admin-title"><img src="<?php echo(plugins_url('/business-contact-widget/images/email.png')); ?>" class="icon" alt="Email"/><?php _e('Email Settings', 'bcw'); ?></h3>
+                                                <div>
+                                                    <label for="bcw_email"><?php _e('Email','bcw'); ?></label><input id="bcw_email" name="bcw_email" value="<?php echo $settings['email']; ?>" />		
+                                                    <div class="clear"></div>
+                                                    <h3>Personal Email</h3>
+                                                    <label for="bcw_personalEmailName"><?php _e('Name','bcw'); ?></label><input id="bcw_personalEmailName" name="bcw_personalEmailName" value="<?php echo $settings['personalEmailName']; ?>" />		
+                                                    <div class="clear"></div>                                       
+                                                    <label for="bcw_personalEmail"><?php _e('Email Address','bcw'); ?></label><input id="bcw_personalEmail" name="bcw_personalEmail" value="<?php echo $settings['personalEmail']; ?>" />		
+                                                    <div class="clear"></div>
+                                                    <h3>2nd Personal Email</h3>
+                                                    <label for="bcw_personalEmailName2"><?php _e('Name','bcw'); ?></label><input id="bcw_personalEmailName2" name="bcw_personalEmailName2" value="<?php echo $settings['personalEmailName2']; ?>" />		
+                                                    <div class="clear"></div>
+                                                    <label for="bcw_personalEmail2"><?php _e('Email Address','bcw'); ?></label><input id="bcw_personalEmail2" name="bcw_personalEmail2" value="<?php echo $settings['personalEmail2']; ?>" />		
+                                                    <div class="clear"></div>
+                                                    <h3>3rd Personal Email</h3>
+                                                    <label for="bcw_personalEmailName3"><?php _e('Name','bcw'); ?></label><input id="bcw_personalEmailName3" name="bcw_personalEmailName3" value="<?php echo $settings['personalEmailName3']; ?>" />		
+                                                    <div class="clear"></div>
+                                                    <label for="bcw_personalEmail3"><?php _e('Email Address','bcw'); ?></label><input id="bcw_personalEmail3" name="bcw_personalEmail3" value="<?php echo $settings['personalEmail3']; ?>" />		
+                                                    <div class="clear"></div>
+                                                    <h3>Other Email</h3>
+                                                    <label for="bcw_otherEmailName"><?php _e('Name','bcw'); ?></label><input id="bcw_otherEmailName" name="bcw_otherEmailName" value="<?php echo $settings['otherEmailName']; ?>" />		
+                                                    <div class="clear"></div>
+                                                    <label for="bcw_otherEmail"><?php _e('Email Address','bcw'); ?></label><input id="bcw_otherEmail" name="bcw_otherEmail" value="<?php echo $settings['otherEmail']; ?>" />
+                                                </div>
+                                                <h3 class="bcw-admin-title"><img src="<?php echo(plugins_url('/business-contact-widget/images/address.png')); ?>" class="icon" alt="Address" /><?php _e('Address Settings', 'bcw'); ?></h3>
+                                                <div>
+                                                    <h3>Primary Address</h3>
+                                                    <label for="bcw_mainAddressName"><?php _e('Name','bcw'); ?></label><input id="bcw_mainAddressName" name="bcw_mainAddressName" value="<?php echo $settings['mainAddressName']; ?>" />		
+                                                    <div class="clear"></div>
+                                                    <label for="bcw_mainAddress"><?php _e('Address','bcw'); ?></label><textarea id="bcw_mainAddress" name="bcw_mainAddress"><?php echo $settings['mainAddress']; ?></textarea>	
+                                                    <div class="clear"></div>
+                                                    <h3>Secondary Address</h3>
+                                                    <label for="bcw_secondaryAddressName"><?php _e('Address Name','bcw'); ?></label><input id="bcw_secondaryAddressName" name="bcw_secondaryAddressName" value="<?php echo $settings['secondaryAddressName']; ?>" />		
+                                                    <div class="clear"></div>
+                                                    <label for="bcw_secondaryAddress"><?php _e('Address','bcw'); ?></label><textarea id="bcw_secondaryAddress" name="bcw_secondaryAddress"><?php echo $settings['secondaryAddress']; ?></textarea>
+                                                </div>
+                                                <h3 class="bcw-admin-title"><img src="<?php echo(plugins_url('/business-contact-widget/images/write.png')); ?>" class="icon" alt="Write" /><?php _e('Message Settings', 'bcw'); ?></h3>
+                                                <div>
+                                                    <label for="bcw_message"><?php _e('Message Now','bcw'); ?></label><input id="bcw_message" name="bcw_message" value="<?php echo esc_html(stripslashes($settings['message'])); ?>" />
+                                                    <div class="clear"></div>
+                                                    <p class="description"><?php _e('Enter the shortcode for a contact form to allow instant messages.', 'bcw'); ?></p>
+                                                </div>
+                                                <h3 class="bcw-admin-title"><img src="<?php echo(plugins_url('/business-contact-widget/images/map.png')); ?>" class="icon" alt="Map"/><?php _e('Location Settings', 'bcw'); ?></h3>
+                                                <div>
+                                                    <label for="bcw_map"><?php _e('Map','bcw'); ?></label><textarea id="bcw_map" name="bcw_map"><?php echo esc_html(stripslashes($settings['map'])); ?></textarea>
+                                                    <div class="clear"></div>
+                                                    <p class="description"><?php _e('Insert the iframe code generated from online tools like Google maps', 'bcw'); ?></p>
+                                                </div>
+                                                <h3 class="bcw-admin-title"><img src="<?php echo(plugins_url('/business-contact-widget/images/clock.png')); ?>" class="icon" alt="Openings" /><?php _e('Opening Times Settings', 'bcw'); ?></h3>
+                                                <div>
+                                                    <label for="bcw_openingTimes"><?php _e('Opening Times','bcw'); ?></label><textarea id="bcw_openingTimes" name="bcw_openingTimes"><?php echo $settings['openingTimes']; ?></textarea>
+                                                </div>
+                                            </div><!-- accordion -->
+                                            <?php
+                                            break; 
+                                        case 'style-settings': 
+                                            echo '<h2 class="bcw-admin-title">' . __('Style Settings', 'bcw') . '</h2>'; 
+                                            ?>
+                                            <tbody>
+                                                <tr valign="top">
+                                                  <th scope="row">
+                                                    <label for="bcw_style"><?php _e('Widget Style','bcw'); ?></label>
+                                                  </th>
+                                                  <td>
+                                                    <select name="bcw_style"> 
+                                                        <option <?php if($settings['style'] == 'Grey') echo ('SELECTED');?>>Grey</option>
+                                                        <option <?php if($settings['style'] == 'Black') echo ('SELECTED');?>>Black</option>
+                                                        <option <?php if($settings['style'] == 'Blue') echo ('SELECTED');?>>Blue</option>
+                                                        <option <?php if($settings['style'] == 'Red') echo ('SELECTED');?>>Red</option>
+                                                        <option <?php if($settings['style'] == 'Green') echo ('SELECTED');?>>Green</option>
+                                                        <option <?php if($settings['style'] == 'Skeleton') echo ('SELECTED');?>>Skeleton</option>
+                                                     </select><p class="description"><?php _e('Change the widget style to match your website - Skeleton will display minimal styling.', 'bcw'); ?></p>
+                                                   </td>               
+                                                </tr>
+                                                <tr valign="top">
+                                                    <th scope="row">
+                                                        <label for="bcw_icons"><?php _e('Icon Set','bcw'); ?></label>
+                                                    </th>
+                                                    <td>
+                                                        <select name="bcw_icons"> 
+                                                            <option <?php if($settings['icons'] == 'Standard') echo ('SELECTED');?>>Standard</option>
+                                                            <option <?php if($settings['icons'] == 'Modern') echo ('SELECTED');?>>Modern</option>
+                                                        </select><p class="description"><?php _e('Change which icon set to use.', 'bcw'); ?></p> 
+                                                    </td>
+                                                </tr>
+                                                <tr valign="top">
+                                                    <th scope="row">
+                                                        <label for="bcw_iconSize"><?php _e('Icon Size','bcw'); ?></label>
+                                                    </th>
+                                                    <td>
+                                                        <select name="bcw_iconSize"> 
+                                                            <option <?php if($settings['iconSize'] == 'Large') echo ('SELECTED');?>>Large</option>
+                                                            <option <?php if($settings['iconSize'] == 'Medium') echo ('SELECTED');?>>Medium</option>
+                                                            <option <?php if($settings['iconSize'] == 'Small') echo ('SELECTED');?>>Small</option>
+                                                        </select><p class="description"><?php _e('Change the size of the icons on your website.', 'bcw'); ?></p> 
+                                                    </td>
+                                                </tr>
+                                                <tr valign="top">
+                                                    <th scope="row">
+                                                        <label for="bcw_tabDirection"><?php _e('Tab Direction','bcw'); ?></label>
+                                                    </th>
+                                                    <td>
+                                                        <select name="bcw_tabDirection"> 
+                                                            <option <?php if($settings['tabDirection'] == 'Horizontal') echo ('SELECTED');?>>Horizontal</option>
+                                                            <option <?php if($settings['tabDirection'] == 'Vertical') echo ('SELECTED');?>>Vertical</option>
+                                                        </select><p class="description"><?php _e('Change the size of the icons on your website.', 'bcw'); ?></p> 
+                                                    </td>
+                                                </tr>
+                                                <tr valign="top">
+                                                    <th scope="row">
+                                                        <?php _e('Display Created By','bcw'); ?>
+                                                    </th>
+                                                    <td>
+                                                        <input class="checkbox" type="checkbox" id="bcw_createdBy" name="bcw_createdBy" value="true" <?php checked($settings['createdBy'], 'true'); ?> />
+                                                        <label for="bcw_createdBy"><?php _e('Please only remove this after making a ', 'bcw'); ?><a href="http://stressfreesites.co.uk/plugins/business-contact-widget/?utm_source=backend&utm_medium=plugin&utm_campaign=wordpress" target="_blank"><?php _e('donation', 'bcw'); ?></a>, <?php _e('so we can continue making plugins like these.', 'bcw'); ?></label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>    
+                                            <?php
+                                            break;
+                                        case 'system-settings': 
+                                            echo '<h2 class="bcw-admin-title">' . __('System Settings', 'bcw') . '</h2>'; 
+                                            ?>
+                                            <tbody>
+                                               <tr valign="top">
+                                                  <th scope="row">
+                                                      <?php _e('Load jQuery UI styling', 'bcw'); ?>
+                                                  </th>
+                                                  <td>
+                                                      <input class="checkbox" type="checkbox" id="bcw_loadJqueryUi" name="bcw_loadJqueryUI" <?php checked($settings['loadJqueryUI'], 'true'); ?> value="true" />
+                                                      <label for="bcw_loadJqueryUI"><?php _e('If another plugin or your theme already has jQuery UI loaded (incorrectly) then untick this to stop the plugin\'s styling overriding and interferaring. NOTE: this will make many of the styling option redundant.', 'bcw'); ?></label><br />           
+                                                  </td>               
+                                               </tr>
+                                               <tr valign="top">
+                                                  <th scope="row">
+                                                      <?php _e('Load jQuery and jQuery UI scripts', 'bcw'); ?>
+                                                  </th>
+                                                  <td>                  
+                                                      <input type="checkbox" name="bcw_loadScripts[jQuery]" value="true" <?php checked($settings['loadScripts']['jQuery'], 'true'); ?> />
+                                                      <label for="bcw_loadScripts[jQuery]">jQuery</label><br/>
+                                                      <input type="checkbox" name="bcw_loadScripts[jQuery-ui-core]" value="true" <?php checked($settings['loadScripts']['jQuery-ui-core'], 'true'); ?> />
+                                                      <label for="bcw_loadScripts[jQuery-ui-core]">jQuery-UI-Core</label><br/>
+                                                      <input type="checkbox" name="bcw_loadScripts[jQuery-ui-tabs]" value="true" <?php checked($settings['loadScripts']['jQuery-ui-tabs'], 'true'); ?> />
+                                                      <label for="bcw_loadScripts[jQuery-ui-tabs]">jQuery-UI-Tabs</label><br/>
+                                                      <p class="description"><?php _e('If another plugin or your theme already has jQuery, jQuery UI or jQuery UI Tabs loaded (incorrectly) then untick the corresponding script to stop the plugin\'s loading it twice causing it not to work.', 'bcw'); ?></p>           
+                                                  </td>               
+                                               </tr>
+                                            </tbody>
+                                            <?php
+                                            break;
+                                        case 'troubleshooting': 
+                                            echo '<h2 class="bcw-admin-title">' . __('Troubleshooting', 'bcw') . '</h2>';
+                                            echo '<p><span>' . __('If the widget does not display correctly', 'bcw-languaage') . '</span><p>';
+                                            echo '<p class="description">' . __('If this happen it means that you have a theme or plugin which loads jQuery or jQuery UI incorrectly. To resolve this untick the options jQuery, jQuery UI and jQuery UI Tabs. See if that makes the widget display correctly. If it doesn\'t try ticking jQuery UI Tabs, then checking, then ticking jQuery UI and so on.' , 'bcw') . '</p>';           
+                                            echo '<hr />';
+                                            echo '<p><span>' . __('If the widget interferes with the styling of other areas of your website', 'bcw') . '</span><p>';
+                                            echo '<p class="description">' . __('If this happens you do not need the default styling of the widet. To resolve this untick the styling option load jQuery UI styling.' , 'bcw') .'</p>';   
+                                            break;
+                                }
+                                echo '</table>';
+                        }
+                        if($tab != 'troubleshooting'){
+                            ?>
+                            <input type="submit" name="Submit"  class="button-primary" value="Update Settings" />
+                            <?php
+                        }
+                        ?>
                 </form>
-            </div>
-            <h3>Let others know about this plugin</h3>
-            <a href="https://twitter.com/share" class="twitter-share-button" data-via="StressFreeSites" data-size="large" data-count="none" data-hashtags="wordpress">Tweet</a><br/>
-            <div class="fb-share-button" data-href="http://stressfreesites.co.uk/business-contact-widget/" data-width="75" data-type="button"></div>            
-            <div id="fb-root"></div>
-            <script>(function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0];
-              if (d.getElementById(id)) return;
-              js = d.createElement(s); js.id = id;
-              js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
-              fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));</script>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                <hr />
+            </div><!-- bcw-content -->
+            <div id="bcw-footer">
+                <div class="box">
+                    <h3>Let others know about this plugin</h3>
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="StressFreeSites" data-size="large" data-count="none" data-hashtags="wordpress">Tweet</a><br/>
+                    <div class="fb-share-button" data-href="http://stressfreesites.co.uk/business-contact-widget/" data-width="75" data-type="button"></div>            
+                    <div id="fb-root"></div>
+                    <script>(function(d, s, id) {
+                      var js, fjs = d.getElementsByTagName(s)[0];
+                      if (d.getElementById(id)) return;
+                      js = d.createElement(s); js.id = id;
+                      js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+                      fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </div><!-- box -->                
+                <div class="box">
+                    <img src="<?php echo(plugins_url('business-contact-widget/images/github.png')); ?>" width="50" />
+                    <h3>Contribute to this plugin using GitHub</h3>
+                    <p><strong>Create new features</strong>, fork this project on <a href="https://github.com/StressFreeSites/business-contact-widget" target="_blank">GitHub</a>.</p>
+                    <p><strong>Report a bug</strong>, create an issue on <a href="https://github.com/StressFreeSites/business-contact-widget/issues" target="_blank">GitHub</a>.</p>
+                </div><!-- box -->
+                <div class="box">
+                    <h3>Help us develop the plugin further</h3>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="hosted_button_id" value="6HK26SVJPG2BG">
+                        <input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+                    </form>
+                </div><!-- box -->
+            </div><!-- bcw-footer -->
         </div>
     </div>
 <?php
