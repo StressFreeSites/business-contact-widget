@@ -284,7 +284,6 @@ function bcw_display_settings_page() {
                  $_GET['tab'] = BCW_DEFAULT_TAB;
             }
             bcw_display_settings_tabs($_GET['tab']);
-
             ?>
             <div id="poststuff">
                 <form method="post" action="<?php admin_url('options-general.php?page=business-contact-widget'); ?>">
@@ -292,7 +291,6 @@ function bcw_display_settings_page() {
                         wp_nonce_field('bcw-settings-page'); 
 
                         if ($pagenow == 'options-general.php' && $_GET['page'] == 'business-contact-widget'){ 
-
                                 $tab = $_GET['tab']; 
 
                                 echo '<table class="form-table">';
@@ -530,6 +528,6 @@ function bcw_display_settings_page() {
             </div><!-- box -->
         </div><!-- bcw-footer -->
     </div><!-- wrap -->
-<?php
+	<?php
 }
 ?>
