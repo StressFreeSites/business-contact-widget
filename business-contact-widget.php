@@ -3,7 +3,7 @@
 Plugin Name: Business Contact Widget
 Plugin URI: http://stressfreesites.co.uk/plugins/business-contact-widget
 Description: This plugin creates a widget which easily displays, without becoming cluttered, all the business contact details of a company/organisation.
-Version: 2.6.7
+Version: 2.6.8
 Author: StressFree Sites
 Author URI: http://stressfreesites.co.uk
 Text Domain: bcw
@@ -33,7 +33,7 @@ if ( is_admin() ) {
 
 /* Localisation of text */
 function bcw_init() {
-  load_plugin_textdomain( 'bcw', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+    load_plugin_textdomain( 'bcw', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 add_action('plugins_loaded', 'bcw_init');
 
@@ -153,6 +153,10 @@ function bcw_activate() {
         $settings['mainAddress'] = $widget[1]['mainAddress'];
         $settings['secondaryAddressName'] = $widget[1]['secondaryAddressName'];
         $settings['secondaryAddress'] = $widget[1]['secondaryAddress'];
+        $settings['tertiaryAddressName'] = $widget[1]['tertiaryAddressName'];
+        $settings['tertiaryAddress'] = $widget[1]['tertiaryAddress'];
+        $settings['quaternaryAddressName'] = $widget[1]['quaternaryAddressName'];
+        $settings['quaternaryAddress'] = $widget[1]['quaternaryAddress'];
         $settings['message'] = $widget[1]['message'];
         $settings['map'] = $widget[1]['map'];
         $settings['openingTimes'] = $widget[1]['openingTimes'];
@@ -204,7 +208,7 @@ class Business_Contact_Widget extends WP_Widget {
             $control_ops = array('width' => 300, 'height' => 350, 'id_base' => 'business-contact-widget');
 
             /* Create the widget. */
-            $this->WP_Widget('business-contact-widget', 'Business Contact Widget', $widget_ops, $control_ops);
+            $this->__construct('business-contact-widget', 'Business Contact Widget', $widget_ops, $control_ops);
     }
     
     /* Displays widget on website */
@@ -239,6 +243,10 @@ class Business_Contact_Widget extends WP_Widget {
             $mainAddress = $settings['mainAddress'];
             $secondaryAddressName = $settings['secondaryAddressName'];
             $secondaryAddress = $settings['secondaryAddress'];
+            $tertiaryAddressName = $settings['tertiaryAddressName'];
+            $tertiaryAddress = $settings['tertiaryAddress'];
+            $quaternaryAddressName = $settings['quaternaryAddressName'];
+            $quaternaryAddress = $settings['quaternaryAddress'];
             $message = $settings['message'];
             $map = $settings['map'];
             $openingTimes = $settings['openingTimes'];
@@ -285,7 +293,7 @@ class Business_Contact_Widget extends WP_Widget {
                 }
             }
             
-            if ($showAddress && ($mainAddress || $secondaryAddress)){
+            if ($showAddress && ($mainAddress || $secondaryAddress || $tertiaryAddress || $quaternaryAddress)){
                 if($icons == 'Modern'){
                     echo ('<li class="' . $iconSize . '"><a href="#bcw-address"><img src="' . plugins_url('business-contact-widget/images/modern_address_grey.png') . '" class="grey"/><img src="' . plugins_url('business-contact-widget/images/modern_address.png') . '" class="colour" /></a></li>');                    
                 }
@@ -371,8 +379,13 @@ class Business_Contact_Widget extends WP_Widget {
                 echo ('</div>');
             }
             
-            if ($showAddress && ($mainAddress || $secondaryAddress)){
-                    echo ('<div id="bcw-address"><h4>' . $mainAddressName . '</h4><p>' . nl2br($mainAddress) . '</p><h4>' . $secondaryAddressName . '</h4><p>' . nl2br($secondaryAddress) . '</p></div>');
+            if ($showAddress && ($mainAddress || $secondaryAddress || $tertiaryAddress || $quaternaryAddress)){
+                echo ('<div id="bcw-address">');
+                echo ('<h4>' . $mainAddressName . '</h4><p>' . nl2br($mainAddress) . '</p>');
+                echo ('<h4>' . $secondaryAddressName . '</h4><p>' . nl2br($secondaryAddress) . '</p>');
+                echo ('<h4>' . $tertiaryAddressName . '</h4><p>' . nl2br($tertiaryAddress) . '</p>');
+                echo ('<h4>' . $quaternaryAddressName . '</h4><p>' . nl2br($quaternaryAddress) . '</p>');
+                echo ('</div>');
             }
             
             /* Show message */

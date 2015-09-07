@@ -36,8 +36,9 @@
 }
 
 #bcw-footer .box {
+    box-sizing: border-box;
     float: left;
-    height: 132px;
+    width: 33.33333%;
 }
 
 #accordion label {
