@@ -49,8 +49,7 @@ function bcw_settings_init() {
     if ( empty( $settings ) ) {
             $settings = array('telephone' => '', 'fax' => '', 'mobileName' => '', 'mobileNo' => '', 'mobileName2' => '', 'mobileNo2' => '', 'mobileName3' => '', 'mobileNo3' => '', 'otherTelephoneName' => '', 'otherTelephoneNo' => '', 
                           'email' => '', 'personalEmailName' => '', 'personalEmail' => '', 'personalEmailName2' => '', 'personalEmail2' => '', 'personalEmailName3' => '', 'personalEmail3' => '', 'otherEmailName' => '', 'otherEmail' => '',
-                          'mainAddressName' => '', 'mainAddress' => '', 
-                          'secondaryAddressName' => '', 'secondaryAddress' => '', 
+                          'mainAddressName' => '', 'mainAddress' => '', 'secondaryAddressName' => '', 'secondaryAddress' => '', 'tertiaryAddressName' => '', 'tertiaryAddress' => '', 'quaternaryAddressName' => '', 'quaternaryAddress' => '', 
                           'message' => '',
                           'map' => '<iframe width="220" height="220" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?client=safari&amp;oe=UTF-8&amp;q=London&amp;ie=UTF8&amp;hq=&amp;hnear=London,+United+Kingdom&amp;gl=uk&amp;t=m&amp;z=11&amp;ll=51.507335,-0.127683&amp;output=embed"></iframe>', 
                           'openingTimes' => '',
@@ -116,6 +115,10 @@ function bcw_save_settings() {
                 $settings['mainAddress'] = $_POST['bcw_mainAddress'];
                 $settings['secondaryAddressName'] = sanitize_text_field($_POST['bcw_secondaryAddressName']);
                 $settings['secondaryAddress'] = $_POST['bcw_secondaryAddress'];
+                $settings['tertiaryAddressName'] = sanitize_text_field($_POST['bcw_tertiaryAddressName']);
+                $settings['tertiaryAddress'] = $_POST['bcw_tertiaryAddress'];
+                $settings['quaternaryAddressName'] = sanitize_text_field($_POST['bcw_quaternaryAddressName']);
+                $settings['quaternaryAddress'] = $_POST['bcw_quaternaryAddress'];
                 $settings['message'] = $_POST['bcw_message'];
                 $settings['map'] = $_POST['bcw_map'];
                 $settings['openingTimes'] = $_POST['bcw_openingTimes'];
@@ -230,6 +233,18 @@ function bcw_save_settings() {
         }
         if($settings['secondaryAddress']) {
             $settings['secondaryAddress'] = stripslashes(esc_textarea(wp_filter_post_kses($settings['secondaryAddress'])));
+        } 
+        if($settings['tertiaryAddressName']) {
+            $settings['tertiaryAddressName'] = stripslashes(esc_textarea(wp_filter_post_kses($settings['tertiaryAddressName'])));
+        }
+        if($settings['tertiaryAddress']) {
+            $settings['tertiaryAddress'] = stripslashes(esc_textarea(wp_filter_post_kses($settings['tertiaryAddress'])));
+        } 
+        if($settings['quaternaryAddressName']) {
+            $settings['quaternaryAddressName'] = stripslashes(esc_textarea(wp_filter_post_kses($settings['quaternaryAddressName'])));
+        }
+        if($settings['quaternaryAddress']) {
+            $settings['quaternaryAddress'] = stripslashes(esc_textarea(wp_filter_post_kses($settings['quaternaryAddress'])));
         } 
         if($settings['message']) {
             $settings['message'] = stripslashes(esc_textarea(wp_filter_post_kses($settings['message'])));
@@ -362,6 +377,16 @@ function bcw_display_settings_page() {
                                                     <label for="bcw_secondaryAddressName"><?php _e('Address Name','bcw'); ?></label><input id="bcw_secondaryAddressName" name="bcw_secondaryAddressName" value="<?php echo $settings['secondaryAddressName']; ?>" />		
                                                     <div class="clear"></div>
                                                     <label for="bcw_secondaryAddress"><?php _e('Address','bcw'); ?></label><textarea id="bcw_secondaryAddress" name="bcw_secondaryAddress"><?php echo $settings['secondaryAddress']; ?></textarea>
+                                                    <div class="clear"></div>
+                                                    <h3>Tertiary Address</h3>
+                                                    <label for="bcw_tertiaryAddressName"><?php _e('Address Name','bcw'); ?></label><input id="bcw_tertiaryAddressName" name="bcw_tertiaryAddressName" value="<?php echo $settings['tertiaryAddressName']; ?>" />		
+                                                    <div class="clear"></div>
+                                                    <label for="bcw_tertiaryAddress"><?php _e('Address','bcw'); ?></label><textarea id="bcw_tertiaryAddress" name="bcw_tertiaryAddress"><?php echo $settings['tertiaryAddress']; ?></textarea>
+                                                    <div class="clear"></div>
+                                                    <h3>Quaternary Address</h3>
+                                                    <label for="bcw_quaternaryAddressName"><?php _e('Address Name','bcw'); ?></label><input id="bcw_quaternaryAddressName" name="bcw_quaternaryAddressName" value="<?php echo $settings['quaternaryAddressName']; ?>" />		
+                                                    <div class="clear"></div>
+                                                    <label for="bcw_quaternaryAddress"><?php _e('Address','bcw'); ?></label><textarea id="bcw_quaternaryAddress" name="bcw_quaternaryAddress"><?php echo $settings['quaternaryAddress']; ?></textarea>
                                                 </div>
                                                 <h3 class="bcw-admin-title"><img src="<?php echo(plugins_url('/business-contact-widget/images/write.png')); ?>" class="icon" alt="Write" /><?php _e('Message Settings', 'bcw'); ?></h3>
                                                 <div>

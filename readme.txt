@@ -3,8 +3,8 @@ Contributors: StressFree Sites
 Donate link: http://stressfreesites.co.uk/plugins
 Tags: contact, details, widget, telephone, email, address, opening times
 Requires at least: 3.0.0
-Tested up to: 4.0.1
-Stable tag: 2.6.7
+Tested up to: 4.3
+Stable tag: 2.6.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,9 @@ Yes, just do not enter any information in that section and that tab will not sho
 
 == Changelog ==
 
+= 2.6.8 =
+* More office addresses and bug fixes
+
 = 2.6.7 =
 * Links to develop and report bugs using GitHub
 
@@ -138,5 +141,5 @@ Yes, just do not enter any information in that section and that tab will not sho
 
 == Upgrade Notice ==
 
-= 2.6.7 =
-* Join in the development of the plugin using GitHub
+= 2.6.8 =
+* More office addresses and bug fixes
