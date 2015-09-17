@@ -27,8 +27,23 @@
     border: 1px solid #CCCCCC;    
 }
 
-.box img {
+.box p {
+    margin-top: 0px;
+}
+
+.box .left-side {
     float: left;
+    width:  25%;
+}
+
+.box .left-side img {
+    width: 85%;
+    padding-right: 15%;
+}
+
+.box .right-side {
+    float: left;
+    width: 75%;
 }
 
 #bcw-header .box {
@@ -38,7 +53,7 @@
 #bcw-footer .box {
     box-sizing: border-box;
     float: left;
-    width: 33.33333%;
+    width: 25%;
 }
 
 #accordion label {

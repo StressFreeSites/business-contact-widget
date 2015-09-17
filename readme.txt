@@ -4,7 +4,7 @@ Donate link: http://stressfreesites.co.uk/plugins
 Tags: contact, details, widget, telephone, email, address, opening times
 Requires at least: 3.0.0
 Tested up to: 4.3
-Stable tag: 2.6.8
+Stable tag: 2.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,7 +39,9 @@ The plugin includes a plugin admin page where it is possible to customise everyt
 </ul>
 
 <h3>Like this plugin?</h3> 
-Please have a look at our other plugin <a href="http://wordpress.org/plugins/social-media-badge-widget/" target="_blank">Social Media Badge Widget</a> which displays all your social media channels in a clear and elegant way.
+You maybe interested in our <a href="http://socialprofilesandcontactdetailswordpressplugin.com/" target="_blank">premium plugin</a> to enable more features.
+
+Otherwise, please have a look at our other free plugin <a href="http://wordpress.org/plugins/social-media-badge-widget/" target="_blank">Social Media Badge Widget</a> which displays all your social media channels in a clear and elegant way.
 
 <h3>Language Translations</h3> 
 Thanks to the following for their assistance with language translation. 
@@ -80,6 +82,9 @@ Yes, just do not enter any information in that section and that tab will not sho
 8. Settings backend - customise the styling options.
 
 == Changelog ==
+
+= 2.7.0 =
+* Click for telephone numbers on mobile and premium promotion
 
 = 2.6.8 =
 * More office addresses and bug fixes
@@ -141,5 +146,5 @@ Yes, just do not enter any information in that section and that tab will not sho
 
 == Upgrade Notice ==
 
-= 2.6.8 =
-* More office addresses and bug fixes
+= 2.7.0 =
+* Click for telephone numbers on mobile and premium promotion
