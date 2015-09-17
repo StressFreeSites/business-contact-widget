@@ -523,6 +523,34 @@ function bcw_display_settings_page() {
         </div><!-- bcw-content -->
         <div id="bcw-footer">
             <div class="box">
+                <h3>Help us develop the plugin further</h3>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="6HK26SVJPG2BG">
+                    <input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+                </form>
+            </div><!-- box -->
+            <div class="box">
+                <h3>Like this plugin and want more features?</h3> 
+                <div class="left-side">
+                    <a href="http://socialprofilesandcontactdetailswordpressplugin.com/" target="_blank"><img src="<?php echo(plugins_url('business-contact-widget/images/spacd.jpg')); ?>" /></a>
+                </div>
+                <div class="right-side">
+                    <p>You maybe interested in our premium plugin <br /><a href="http://socialprofilesandcontactdetailswordpressplugin.com/" target="_blank">Social Profiles and Contact Details</a>.</p>
+                </div>
+            </div><!-- box -->                
+            <div class="box">
+                <h3>Contribute to this plugin using GitHub</h3>
+                <div class="left-side">
+                    <a href="https://github.com/StressFreeSites/business-contact-widget" target="_blank"><img src="<?php echo(plugins_url('business-contact-widget/images/github.png')); ?>" /></a>
+                </div>
+                <div class="right-side">
+                    <p><strong>Create new features</strong>, fork this project on <a href="https://github.com/StressFreeSites/business-contact-widget" target="_blank">GitHub</a>.</p>
+                    <p><strong>Report a bug</strong>, create an issue on <a href="https://github.com/StressFreeSites/business-contact-widget/issues" target="_blank">GitHub</a>.</p>
+                </div>
+            </div><!-- box -->
+            <div class="box">
                 <h3>Let others know about this plugin</h3>
                 <a href="https://twitter.com/share" class="twitter-share-button" data-via="StressFreeSites" data-size="large" data-count="none" data-hashtags="wordpress">Tweet</a><br/>
                 <div class="fb-share-button" data-href="http://stressfreesites.co.uk/business-contact-widget/" data-width="75" data-type="button"></div>            
@@ -535,22 +563,7 @@ function bcw_display_settings_page() {
                   fjs.parentNode.insertBefore(js, fjs);
                 }(document, 'script', 'facebook-jssdk'));</script>
                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-            </div><!-- box -->                
-            <div class="box">
-                <img src="<?php echo(plugins_url('business-contact-widget/images/github.png')); ?>" width="50" />
-                <h3>Contribute to this plugin using GitHub</h3>
-                <p><strong>Create new features</strong>, fork this project on <a href="https://github.com/StressFreeSites/business-contact-widget" target="_blank">GitHub</a>.</p>
-                <p><strong>Report a bug</strong>, create an issue on <a href="https://github.com/StressFreeSites/business-contact-widget/issues" target="_blank">GitHub</a>.</p>
-            </div><!-- box -->
-            <div class="box">
-                <h3>Help us develop the plugin further</h3>
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                    <input type="hidden" name="cmd" value="_s-xclick">
-                    <input type="hidden" name="hosted_button_id" value="6HK26SVJPG2BG">
-                    <input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
-                    <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
-                </form>
-            </div><!-- box -->
+            </div><!-- box -->  
         </div><!-- bcw-footer -->
     </div><!-- wrap -->
 	<?php
